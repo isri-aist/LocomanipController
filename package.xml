@@ -1,0 +1,23 @@
+<package format="2">
+  <name>locomanip_controller</name>
+  <version>0.1.0</version>
+  <description>
+    Humanoid loco-manipulation controller
+  </description>
+  <maintainer email="m-murooka@aist.go.jp">Masaki Murooka</maintainer>
+  <license>BSD</license>
+
+  <url>http://ros.org/wiki/locomanip_controller</url>
+  <author>Masaki Murooka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>baseline_walking_controller</depend>
+
+  <build_depend>eigen</build_depend>
+
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>rospy</exec_depend>
+
+  <doc_depend>doxygen</doc_depend>
+</package>
