@@ -35,7 +35,7 @@ configure_file(etc/mc_rtc.in.yaml ${PROJECT_SOURCE_DIR}/etc/mc_rtc.yaml @ONLY)
 
 add_subdirectory(src)
 
-# OPTION(INSTALL_DOCUMENTATION "Generate and install the documentation" OFF)
-# if(INSTALL_DOCUMENTATION)
-#   add_subdirectory(doc)
-# endif()
+OPTION(INSTALL_DOCUMENTATION "Generate and install the documentation" OFF)
+if(INSTALL_DOCUMENTATION)
+  add_subdirectory(doc)
+endif()
