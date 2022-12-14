@@ -643,21 +643,47 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Alpha: 1
+    - Alpha: 0.5
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: false
+      Enabled: true
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-      Name: EnvironmentModel
-      Robot Description: control/env_1/robot_description
-      TF Prefix: /control/env_1
+        box:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: ControlObjectModel
+      Robot Description: control/env_2/robot_description
+      TF Prefix: /control/env_2
       Update Interval: 0
-      Value: false
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        box:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RealObjectModel
+      Robot Description: real/env_2/robot_description
+      TF Prefix: /real/env_2
+      Update Interval: 0
+      Value: true
       Visual Enabled: true
     - Class: rviz/InteractiveMarkers
       Enable Transparency: true
@@ -673,7 +699,7 @@ Visualization Manager:
       Marker Topic: /mc_rtc_rviz
       Name: mc_rtc GUI markers
       Namespaces:
-        BWC/FootManager/FootstepMarker/Footstep: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/TF
@@ -726,25 +752,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.1860166788101196
+      Distance: 3.376565456390381
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.2754117548465729
-        Y: 0.1879705786705017
-        Z: -0.030322298407554626
+        X: 0.39888760447502136
+        Y: 0.29532647132873535
+        Z: 0.7235596179962158
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7698003053665161
+      Pitch: 0.4048004150390625
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.36389684677124
+      Yaw: 4.873887538909912
     Saved: ~
 Window Geometry:
   Displays:
