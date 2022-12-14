@@ -25,7 +25,7 @@ robots:
   obj:
     module: object/box
     init_pos:
-      translation: [0.6, 0.0, 0.0]
+      translation: [0.35, 0.0, 0.0]
 # General constraints, always on
 constraints:
   - type: contact
@@ -187,16 +187,18 @@ ManipManager:
   reachDuration: 1.0 # [sec]
   objToHandTranss:
     Left:
-      translation: [0.0, 0.5, 1.0] # [m]
-      rotation: [0, -1.57, 0]
+      translation: [0.0, 0.3, 0.9] # [m]
+      # e.Quaterniond(e.AngleAxisd(np.pi, e.Vector3d.UnitX()).toRotationMatrix() * e.AngleAxisd(np.pi/2, e.Vector3d.UnitZ()).toRotationMatrix() * e.AngleAxisd(np.pi/4, e.Vector3d.UnitX()).toRotationMatrix()).inverse()
+      rotation: [-0.270598, -0.653281, 0.653281, -0.270598]
     Right:
-      translation: [0.0, -0.5, 1.0] # [m]
-      rotation: [0, -1.57, 0]
+      translation: [0.0, -0.3, 0.9] # [m]
+      # e.Quaterniond(e.AngleAxisd(np.pi, e.Vector3d.UnitX()).toRotationMatrix() * e.AngleAxisd(-np.pi/2, e.Vector3d.UnitZ()).toRotationMatrix() * e.AngleAxisd(-np.pi/4, e.Vector3d.UnitX()).toRotationMatrix()).inverse()
+      rotation: [0.270598, -0.653281, -0.653281, -0.270598]
   preReachTranss:
     Left:
-      translation: [0, 0, 0.1] # [m]
+      translation: [0, 0, -0.1] # [m]
     Right:
-      translation: [0, 0, 0.1] # [m]
+      translation: [0, 0, -0.1] # [m]
   impedanceGain:
     mass:
       angular: [2.0, 2.0, 2.0]
@@ -221,7 +223,7 @@ ManipManager:
     - name: r_gripper
       opening: 1.0
   objToFootMidTrans:
-    translation: [-0.5, 0, 0] # [m]
+    translation: [-0.25, 0, 0] # [m]
   footstepDuration: 1.2 # [sec]
   doubleSupportRatio: 0.2 # [sec]
 
@@ -230,7 +232,7 @@ CentroidalManager:
   useActualStateForMpc: false
   enableZmpFeedback: true
   enableComZFeedback: true
-  dcmGainP: 1.2 # It must be greater than 1 to be stable
+  dcmGainP: 2.0 # It must be greater than 1 to be stable
   zmpVelGain: 0.02
   comZGainP: 2000.0
   comZGainD: 500.0
