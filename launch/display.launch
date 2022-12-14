@@ -1,4 +1,0 @@
-<launch>
-  <node pkg="rviz" type="rviz" name="$(anon rviz)"
-        args="-d $(find locomanip_controller)/rviz/display.rviz" output="screen"/>
-</launch>
