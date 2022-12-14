@@ -1,0 +1,4 @@
+name: LocomanipController documentation
+gems:
+  - jekyll-redirect-from
+  - jekyll-sitemap
