@@ -6,9 +6,7 @@
 
 using namespace LMC;
 
-LocomanipController::LocomanipController(mc_rbdyn::RobotModulePtr rm,
-                                             double dt,
-                                             const mc_rtc::Configuration & _config)
+LocomanipController::LocomanipController(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc::Configuration & _config)
 : BWC::BaselineWalkingController(rm, dt, _config)
 {
   // Setup tasks
