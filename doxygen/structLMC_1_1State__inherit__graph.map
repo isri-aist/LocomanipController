@@ -1,0 +1,6 @@
+<map id="LMC::State" name="LMC::State">
+<area shape="rect" id="node1" title="FSM State with utility functions." alt="" coords="119,80,211,107"/>
+<area shape="rect" id="node3" href="$structLMC_1_1GuiManipState.html" title="FSM state to send manipulation command from GUI." alt="" coords="5,155,160,181"/>
+<area shape="rect" id="node4" href="$structLMC_1_1InitialState.html" title="FSM state to initialize." alt="" coords="185,155,314,181"/>
+<area shape="rect" id="node2" title=" " alt="" coords="81,5,250,32"/>
+</map>
