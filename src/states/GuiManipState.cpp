@@ -37,8 +37,10 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             }
             double startTime = ctl().t() + static_cast<double>(config(moveObjConfigKeys_.at("startTime")));
             double endTime = ctl().t() + static_cast<double>(config(moveObjConfigKeys_.at("endTime")));
-            sva::PTransformd pose = sva::PTransformd(Eigen::Vector3d(config(moveObjConfigKeys_.at("x")), 0.0, 0.0))
-                                    * ctl().manipManager_->calcRefObjPose(ctl().t());
+            sva::PTransformd pose =
+                sva::PTransformd(sva::RotZ(mc_rtc::constants::toRad(config(moveObjConfigKeys_.at("yaw")))),
+                                 Eigen::Vector3d(config(moveObjConfigKeys_.at("x")), 0.0, 0.0))
+                * ctl().manipManager_->calcRefObjPose(ctl().t());
             ctl().manipManager_->appendWaypoint(Waypoint(startTime, endTime, pose));
             if(config(moveObjConfigKeys_.at("footstep")))
             {
@@ -46,8 +48,9 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             }
           },
           mc_rtc::gui::FormNumberInput(moveObjConfigKeys_.at("x"), true, 0.0),
+          mc_rtc::gui::FormNumberInput(moveObjConfigKeys_.at("yaw"), true, 0.0),
           mc_rtc::gui::FormNumberInput(moveObjConfigKeys_.at("startTime"), true, 2.0),
-          mc_rtc::gui::FormNumberInput(moveObjConfigKeys_.at("endTime"), true, 4.0),
+          mc_rtc::gui::FormNumberInput(moveObjConfigKeys_.at("endTime"), true, 12.0),
           mc_rtc::gui::FormCheckbox(moveObjConfigKeys_.at("footstep"), true, true)));
 
   output("OK");

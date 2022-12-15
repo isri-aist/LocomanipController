@@ -20,6 +20,7 @@ public:
 protected:
   //! Entry keys of GUI form
   const std::unordered_map<std::string, std::string> moveObjConfigKeys_ = {{"x", "relative goal x [m]"},
+                                                                           {"yaw", "relative goal yaw [deg]"},
                                                                            {"startTime", "start time from now [sec]"},
                                                                            {"endTime", "end time from now [sec]"},
                                                                            {"footstep", "whether to enable footstep"}};
