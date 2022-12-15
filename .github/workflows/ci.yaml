@@ -59,7 +59,7 @@ jobs:
           set -e
           set -x
           curl -1sLf 'https://dl.cloudsmith.io/public/mc-rtc/${{ matrix.mc-rtc-version }}/setup.deb.sh' | sudo -E bash
-          sudo apt install -y -qq libmc-rtc-dev mc-rtc-utils jvrc-choreonoid libcnoid-dev ros-${ROS_DISTRO}-mc-rtc-plugin libeigen-qld-dev
+          sudo apt install -y -qq libmc-rtc-dev mc-rtc-utils mc-state-observation jvrc-choreonoid libcnoid-dev ros-${ROS_DISTRO}-mc-rtc-plugin libeigen-qld-dev
       - name: Setup catkin workspace
         run: |
           mkdir -p ${GITHUB_WORKSPACE}/catkin_ws/src/
