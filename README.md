@@ -73,11 +73,6 @@ $ mkdir -p ~/.config/mc_rtc/controllers
 $ cp ~/ros/ws_lmc/src/isri-aist/LocomanipController/etc/mc_rtc.yaml ~/.config/mc_rtc/mc_rtc.yaml
 ```
 
-### Simulator installation
-```bash
-$ sudo apt-get install jvrc-choreonoid
-```
-
 ### Simulation execution
 ```bash
 # Terminal 1
