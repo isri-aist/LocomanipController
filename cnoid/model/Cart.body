@@ -9,9 +9,10 @@ links:
     name: Body
     parent: Root
     jointType: fixed
+    material: Cart
     translation: [ 0, 0, 0 ]
     centerOfMass: [ 0.4, 0, 0.3 ]
-    mass: 5.0
+    mass: 10.0
     inertia: [
       1.0, 0,   0,
       0,   1.0, 0,
@@ -26,7 +27,7 @@ links:
         type: Shape
         translation: [ -0.35, 0, 1.0 ]
         rotation: [0, 0, 1, 0]
-        geometry: { type: Cylinder, radius: 0.02, height: 0.8 }
+        geometry: { type: Cylinder, radius: 0.015, height: 0.8 }
         appearance: { material: { diffuseColor: [ 0.3, 0.5, 0.2 ] }}
       -
         type: Shape
