@@ -51,26 +51,33 @@ ManipManager::ManipManager(LocomanipController * ctlPtr, const mc_rtc::Configura
 : ctlPtr_(ctlPtr), objPoseFunc_(std::make_shared<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>())
 {
   config_.load(mcRtcConfig);
-
-  // Setup ROS
-  nh_ = std::make_shared<ros::NodeHandle>();
-  // Use a dedicated queue so as not to call callbacks of other modules
-  nh_->setCallbackQueue(&callbackQueue_);
-
-  if(!config_.objPoseTopic.empty())
-  {
-    objPoseSub_ =
-        nh_->subscribe<geometry_msgs::PoseStamped>(config_.objPoseTopic, 1, &ManipManager::objPoseCallback, this);
-  }
-  if(!config_.objVelTopic.empty())
-  {
-    objVelSub_ =
-        nh_->subscribe<geometry_msgs::TwistStamped>(config_.objVelTopic, 1, &ManipManager::objVelCallback, this);
-  }
 }
 
 void ManipManager::reset()
 {
+  // Setup ROS
+  if(nh_)
+  {
+    mc_rtc::log::error("[ManipManager] ROS node handle is already instantiated.");
+  }
+  else
+  {
+    nh_ = std::make_shared<ros::NodeHandle>();
+    // Use a dedicated queue so as not to call callbacks of other modules
+    nh_->setCallbackQueue(&callbackQueue_);
+
+    if(!config_.objPoseTopic.empty())
+    {
+      objPoseSub_ =
+          nh_->subscribe<geometry_msgs::PoseStamped>(config_.objPoseTopic, 1, &ManipManager::objPoseCallback, this);
+    }
+    if(!config_.objVelTopic.empty())
+    {
+      objVelSub_ =
+          nh_->subscribe<geometry_msgs::TwistStamped>(config_.objVelTopic, 1, &ManipManager::objVelCallback, this);
+    }
+  }
+
   objPoseFunc_->clearPoints();
   objPoseFunc_->appendPoint(std::make_pair(ctl().t(), ctl().obj().posW()));
   objPoseFunc_->appendPoint(std::make_pair(ctl().t() + config_.objHorizon, ctl().obj().posW()));
@@ -85,6 +92,16 @@ void ManipManager::reset()
   requireImpGainUpdate_ = true;
 
   requireFootstepFollowingObj_ = false;
+}
+
+void ManipManager::stop()
+{
+  objPoseSub_.shutdown();
+  objVelSub_.shutdown();
+  nh_.reset();
+
+  removeFromGUI(*ctl().gui());
+  removeFromLogger(ctl().logger());
 }
 
 void ManipManager::update()
