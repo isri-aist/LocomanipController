@@ -59,7 +59,7 @@ jobs:
           set -e
           set -x
           curl -1sLf 'https://dl.cloudsmith.io/public/mc-rtc/${{ matrix.mc-rtc-version }}/setup.deb.sh' | sudo -E bash
-          sudo apt install -y -qq libmc-rtc-dev mc-rtc-utils ros-${ROS_DISTRO}-mc-rtc-plugin libeigen-qld-dev
+          sudo apt install -y -qq libmc-rtc-dev mc-rtc-utils jvrc-choreonoid ros-${ROS_DISTRO}-mc-rtc-plugin libeigen-qld-dev
       - name: Setup catkin workspace
         run: |
           mkdir -p ${GITHUB_WORKSPACE}/catkin_ws/src/
@@ -135,7 +135,7 @@ jobs:
       #   run: |
       #     set -e
       #     set -x
-      #     sudo apt-get install -y -qq jvrc-choreonoid xvfb ffmpeg mesa-utils fluxbox xserver-xorg xserver-xorg-core xserver-xorg-video-all libwayland-egl1-mesa
+      #     sudo apt-get install -y -qq xvfb ffmpeg mesa-utils fluxbox xserver-xorg xserver-xorg-core xserver-xorg-video-all libwayland-egl1-mesa
       #     set +x
       #     . ${GITHUB_WORKSPACE}/catkin_ws/devel/setup.bash
       #     set -x

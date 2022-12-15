@@ -41,7 +41,7 @@ $ sudo apt-get install ros-${ROS_DISTRO}-ros-base python-catkin-tools python-ros
 2. (Skip if mc_rtc is already installed.) Install mc_rtc. See [here](https://jrl-umi3218.github.io/mc_rtc/tutorials/introduction/installation-guide.html) for details.
 ```bash
 $ curl -1sLf 'https://dl.cloudsmith.io/public/mc-rtc/stable/setup.deb.sh' | sudo -E bash
-$ sudo apt-get install libmc-rtc-dev mc-rtc-utils ros-${ROS_DISTRO}-mc-rtc-plugin ros-${ROS_DISTRO}-mc-rtc-rviz-panel libeigen-qld-dev
+$ sudo apt-get install libmc-rtc-dev mc-rtc-utils jvrc-choreonoid ros-${ROS_DISTRO}-mc-rtc-plugin ros-${ROS_DISTRO}-mc-rtc-rviz-panel libeigen-qld-dev
 ```
 
 ### Controller installation
