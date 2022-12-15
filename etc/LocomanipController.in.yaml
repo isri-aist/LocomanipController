@@ -83,6 +83,13 @@ controllerName: LMC
 
 PostureTask:
   stiffness: 10
+  target:
+    R_SHOULDER_P: [0.3490658503988659] # 20
+    R_SHOULDER_R: [-0.4363323129985824] # -25
+    R_ELBOW_P: [-1.5707963267948966] # -90
+    L_SHOULDER_P: [0.3490658503988659] # 20
+    L_SHOULDER_R: [0.4363323129985824] # 25
+    L_ELBOW_P: [-1.5707963267948966] # -90
   jointWeights:
     WAIST_R: 100
     WAIST_P: 100
@@ -191,18 +198,18 @@ ManipManager:
   reachDuration: 3.0 # [sec]
   objToHandTranss:
     Left:
-      translation: [-0.35, 0.25, 1.0] # [m]
+      translation: [-0.35, 0.3, 1.0] # [m]
       # e.Quaterniond(e.AngleAxisd(np.pi, e.Vector3d.UnitX()).toRotationMatrix() * e.AngleAxisd(np.pi/2, e.Vector3d.UnitZ()).toRotationMatrix() * e.AngleAxisd(np.deg2rad(75), e.Vector3d.UnitX()).toRotationMatrix()).inverse()
       rotation: [-0.430459, -0.560986, 0.560986, -0.430459]
     Right:
-      translation: [-0.35, -0.25, 1.0] # [m]
+      translation: [-0.35, -0.3, 1.0] # [m]
       # e.Quaterniond(e.AngleAxisd(np.pi, e.Vector3d.UnitX()).toRotationMatrix() * e.AngleAxisd(-np.pi/2, e.Vector3d.UnitZ()).toRotationMatrix() * e.AngleAxisd(np.deg2rad(-75), e.Vector3d.UnitX()).toRotationMatrix()).inverse()
       rotation: [0.430459, -0.560986, -0.560986, -0.430459]
   preReachTranss:
     Left:
-      translation: [0, 0, -0.15] # [m]
+      translation: [0, 0, -0.1] # [m]
     Right:
-      translation: [0, 0, -0.15] # [m]
+      translation: [0, 0, -0.1] # [m]
   impedanceGain:
     mass:
       angular: [2.0, 2.0, 2.0]
