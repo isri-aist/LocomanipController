@@ -187,22 +187,22 @@ ManipManager:
   objVelTopic: /obj/vel
   handTaskStiffness: 1000.0
   handTaskStiffnessInterpDuration: 4.0 # [sec]
-  preReachDuration: 2.0 # [ec]
-  reachDuration: 1.0 # [sec]
+  preReachDuration: 3.0 # [ec]
+  reachDuration: 3.0 # [sec]
   objToHandTranss:
     Left:
-      translation: [0.0, 0.3, 1.0] # [m]
-      # e.Quaterniond(e.AngleAxisd(np.pi, e.Vector3d.UnitX()).toRotationMatrix() * e.AngleAxisd(np.pi/2, e.Vector3d.UnitZ()).toRotationMatrix() * e.AngleAxisd(np.pi/4, e.Vector3d.UnitX()).toRotationMatrix()).inverse()
-      rotation: [-0.270598, -0.653281, 0.653281, -0.270598]
+      translation: [-0.35, 0.25, 1.0] # [m]
+      # e.Quaterniond(e.AngleAxisd(np.pi, e.Vector3d.UnitX()).toRotationMatrix() * e.AngleAxisd(np.pi/2, e.Vector3d.UnitZ()).toRotationMatrix() * e.AngleAxisd(np.deg2rad(75), e.Vector3d.UnitX()).toRotationMatrix()).inverse()
+      rotation: [-0.430459, -0.560986, 0.560986, -0.430459]
     Right:
-      translation: [0.0, -0.3, 1.0] # [m]
-      # e.Quaterniond(e.AngleAxisd(np.pi, e.Vector3d.UnitX()).toRotationMatrix() * e.AngleAxisd(-np.pi/2, e.Vector3d.UnitZ()).toRotationMatrix() * e.AngleAxisd(-np.pi/4, e.Vector3d.UnitX()).toRotationMatrix()).inverse()
-      rotation: [0.270598, -0.653281, -0.653281, -0.270598]
+      translation: [-0.35, -0.25, 1.0] # [m]
+      # e.Quaterniond(e.AngleAxisd(np.pi, e.Vector3d.UnitX()).toRotationMatrix() * e.AngleAxisd(-np.pi/2, e.Vector3d.UnitZ()).toRotationMatrix() * e.AngleAxisd(np.deg2rad(-75), e.Vector3d.UnitX()).toRotationMatrix()).inverse()
+      rotation: [0.430459, -0.560986, -0.560986, -0.430459]
   preReachTranss:
     Left:
-      translation: [0, 0, -0.1] # [m]
+      translation: [0, 0, -0.15] # [m]
     Right:
-      translation: [0, 0, -0.1] # [m]
+      translation: [0, 0, -0.15] # [m]
   impedanceGain:
     mass:
       angular: [2.0, 2.0, 2.0]
@@ -227,7 +227,7 @@ ManipManager:
     - name: r_gripper
       opening: 1.0
   objToFootMidTrans:
-    translation: [-0.30, 0, 0] # [m]
+    translation: [-0.65, 0, 0] # [m]
   footstepDuration: 1.2 # [sec]
   doubleSupportRatio: 0.2 # [sec]
 
