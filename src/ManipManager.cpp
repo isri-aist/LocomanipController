@@ -394,7 +394,7 @@ void ManipManager::updateFootstep()
   double startTime = ctl().t() + 1.0;
   while(startTime < waypointQueue_.back().endTime)
   {
-    double objPoseTime = startTime + 0.5 * config_.footstepDuration;
+    double objPoseTime = startTime + config_.footstepDuration;
     if(objPoseFunc_->endTime() < objPoseTime)
     {
       objPoseTime = objPoseFunc_->endTime();
