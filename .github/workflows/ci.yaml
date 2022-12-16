@@ -149,10 +149,14 @@ jobs:
           ffmpeg -y -f x11grab -s 1920x1080 -r 30 -i ${DISPLAY} -qscale 0 -vcodec huffyuv /tmp/video.avi > /dev/null 2>&1 < /dev/null &
           FFMPEG_PID=$!
           /usr/share/hrpsys/samples/JVRC1/clear-omninames.sh
+          roscore > /dev/null 2>&1 < /dev/null &
+          ROSCORE_PID=$!
+          sleep 1s
           roscd locomanip_controller/cnoid/project
           choreonoid LMC_JVRC1_Cart.cnoid --start-simulation &
           CNOID_PID=$!
           sleep 60s
+          kill -2 ${ROSCORE_PID}
           kill -2 ${CNOID_PID}
           kill -2 ${FFMPEG_PID}
           sleep 10s
