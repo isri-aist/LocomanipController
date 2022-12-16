@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['waypoint_114',['Waypoint',['../structLMC_1_1Waypoint.html',1,'LMC::Waypoint'],['../structLMC_1_1Waypoint.html#ae713013e421ee8fd00b5291f5f670565',1,'LMC::Waypoint::Waypoint()']]],
-  ['waypointqueue_115',['waypointQueue',['../classLMC_1_1ManipManager.html#a311fd4002a73da2845da45b0c6844711',1,'LMC::ManipManager']]],
-  ['waypointqueue_5f_116',['waypointQueue_',['../classLMC_1_1ManipManager.html#a3aa6cd1594289c833c92546404e53334',1,'LMC::ManipManager']]]
+  ['waypoint_116',['Waypoint',['../structLMC_1_1Waypoint.html',1,'LMC::Waypoint'],['../structLMC_1_1Waypoint.html#ae713013e421ee8fd00b5291f5f670565',1,'LMC::Waypoint::Waypoint()']]],
+  ['waypointqueue_117',['waypointQueue',['../classLMC_1_1ManipManager.html#a311fd4002a73da2845da45b0c6844711',1,'LMC::ManipManager']]],
+  ['waypointqueue_5f_118',['waypointQueue_',['../classLMC_1_1ManipManager.html#a3aa6cd1594289c833c92546404e53334',1,'LMC::ManipManager']]]
 ];

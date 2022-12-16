@@ -1,5 +1,6 @@
 <map id="/home/runner/work/LocomanipController/LocomanipController/catkin_ws/src/isri&#45;aist/LocomanipController/include/LocomanipController/State.h" name="/home/runner/work/LocomanipController/LocomanipController/catkin_ws/src/isri&#45;aist/LocomanipController/include/LocomanipController/State.h">
-<area shape="rect" id="node1" title=" " alt="" coords="225,5,532,76"/>
-<area shape="rect" id="node2" href="$GuiManipState_8h.html" title=" " alt="" coords="5,124,373,195"/>
-<area shape="rect" id="node3" href="$InitialState_8h.html" title=" " alt="" coords="398,124,741,195"/>
+<area shape="rect" id="node1" title=" " alt="" coords="449,5,755,76"/>
+<area shape="rect" id="node2" href="$ConfigManipState_8h.html" title=" " alt="" coords="5,124,393,195"/>
+<area shape="rect" id="node3" href="$GuiManipState_8h.html" title=" " alt="" coords="418,124,786,195"/>
+<area shape="rect" id="node4" href="$InitialState_8h.html" title=" " alt="" coords="811,124,1153,195"/>
 </map>

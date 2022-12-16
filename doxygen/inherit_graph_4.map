@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structLMC_1_1InitialState.html" title="FSM state to initialize." alt="" coords="5,5,135,32"/>
-<area shape="rect" id="node2" href="$structLMC_1_1State.html" title="FSM State with utility functions." alt="" coords="183,5,275,32"/>
-<area shape="rect" id="node3" href="$structLMC_1_1GuiManipState.html" title="FSM state to send manipulation command from GUI." alt="" coords="323,5,477,32"/>
+<area shape="rect" id="node1" href="$structLMC_1_1GuiManipState.html" title="FSM state to send manipulation command from GUI." alt="" coords="5,31,160,57"/>
+<area shape="rect" id="node2" href="$structLMC_1_1State.html" title="FSM State with utility functions." alt="" coords="208,31,300,57"/>
+<area shape="rect" id="node3" href="$structLMC_1_1ConfigManipState.html" title="FSM state to send manipulation commands from configuration." alt="" coords="348,5,523,32"/>
+<area shape="rect" id="node4" href="$structLMC_1_1InitialState.html" title="FSM state to initialize." alt="" coords="371,56,500,83"/>
 </map>
