@@ -163,8 +163,22 @@ items:
             collisionDetection: true
             selfCollisionDetection: false
             isEditable: true
+          children: 
+            - 
+              id: 8
+              name: "CnoidRosUtils::PosePublisher"
+              plugin: CnoidRosUtils::Plugin
+              class: CnoidRosUtils::PosePublisherItem
+              data: 
+                Link name: ""
+                Frame id: ""
+                Pose topic name (only for topic output): ""
+                Velocity topic name (only for topic output): ""
+                TF frame id (only for TF output): ""
+                Publish rate: 30
+                Output TF: false
         - 
-          id: 8
+          id: 9
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
@@ -193,7 +207,7 @@ items:
             2Dmode: false
             oldAccelSensorMode: false
         - 
-          id: 9
+          id: 10
           name: "sim_mc.py"
           plugin: PythonSimScript
           class: PythonSimScriptItem
@@ -216,8 +230,8 @@ views:
     mounted: true
     state: 
       selected: [ 3 ]
-      checked: [ 3, [ 5, "ForceSensor" ], 6, 7, 9 ]
-      expanded: [ 2, 3, 4, 8 ]
+      checked: [ 3, [ 5, "ForceSensor" ], 6, 7, 10 ]
+      expanded: [ 2, 3, 4, 7, 9 ]
   - 
     id: 2
     plugin: Base
@@ -410,6 +424,9 @@ views:
         - 
           id: 3
           selectedLinks: [ 0 ]
+        - 
+          id: 7
+          selectedLinks: [ 1 ]
   - 
     id: 14
     name: "Nameserver"
