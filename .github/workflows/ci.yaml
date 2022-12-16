@@ -155,7 +155,7 @@ jobs:
           roscd locomanip_controller/cnoid/project
           choreonoid LMC_JVRC1_Cart.cnoid --start-simulation &
           CNOID_PID=$!
-          sleep 60s
+          sleep 80s
           kill -2 ${ROSCORE_PID}
           kill -2 ${CNOID_PID}
           kill -2 ${FFMPEG_PID}
