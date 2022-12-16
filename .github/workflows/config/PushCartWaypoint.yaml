@@ -21,3 +21,7 @@ states:
         - duration: 10.0
           relPose:
             translation: [-1.0, 0.0, 0.0]
+
+ManipManager:
+  objPoseTopic: /cnoid/Cart/pose
+  objVelTopic: /cnoid/Cart/vel
