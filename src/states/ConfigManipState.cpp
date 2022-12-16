@@ -19,7 +19,9 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
 {
   if(phase_ == 0)
   {
-    if(config_.has("configs") && config_("configs")("reach", true))
+    bool isReached = (ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Hold
+                      || ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Hold);
+    if(config_.has("configs") && config_("configs")("reach", !isReached))
     {
       ctl().manipManager_->reachHandToObj();
       phase_ = 1;
@@ -51,7 +53,15 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
         {
           startTime = ctl().t() + static_cast<double>(waypointConfig("startTime"));
         }
-        double endTime = startTime + static_cast<double>(waypointConfig("duration"));
+        double endTime;
+        if(waypointConfig.has("endTime"))
+        {
+          endTime = ctl().t() + static_cast<double>(waypointConfig("endTime"));
+        }
+        else if(waypointConfig.has("duration"))
+        {
+          endTime = startTime + static_cast<double>(waypointConfig("duration"));
+        }
         if(waypointConfig.has("pose"))
         {
           pose = waypointConfig("pose");
