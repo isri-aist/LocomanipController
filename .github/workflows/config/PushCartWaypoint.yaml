@@ -1,0 +1,23 @@
+transitions:
+  - [LMC::Initial_, OK, LMC::ConfigManip_, Auto]
+
+states:
+  LMC::Initial_:
+    base: LMC::Initial
+    configs:
+      autoStartTime: 8.0
+
+  LMC::ConfigManip_:
+    base: LMC::ConfigManip
+    configs:
+      waypointList:
+        - startTime: 2.0
+          duration: 10.0
+          relPose:
+            translation: [1.0, 0.0, 0.0]
+        - duration: 10.0
+          relPose:
+            rotation: [0.0, 0.0, -0.5235987755982988]
+        - duration: 10.0
+          relPose:
+            translation: [-1.0, 0.0, 0.0]

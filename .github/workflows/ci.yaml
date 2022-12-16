@@ -145,14 +145,14 @@ jobs:
           fluxbox 2> /dev/null &
           mkdir -p ${HOME}/.config/mc_rtc/controllers
           cp ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/etc/mc_rtc.yaml ${HOME}/.config/mc_rtc
-          # cp ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/config/WalkingOnPlane.yaml ${HOME}/.config/mc_rtc/controllers/LocomanipController.yaml
+          cp ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/config/PushCartWaypoint.yaml ${HOME}/.config/mc_rtc/controllers/LocomanipController.yaml
           ffmpeg -y -f x11grab -s 1920x1080 -r 30 -i ${DISPLAY} -qscale 0 -vcodec huffyuv /tmp/video.avi > /dev/null 2>&1 < /dev/null &
           FFMPEG_PID=$!
-          roscd locomanip_controller/cnoid/project
           /usr/share/hrpsys/samples/JVRC1/clear-omninames.sh
+          roscd locomanip_controller/cnoid/project
           choreonoid LMC_JVRC1_Cart.cnoid --start-simulation &
           CNOID_PID=$!
-          sleep 40s
+          sleep 60s
           kill -2 ${CNOID_PID}
           kill -2 ${FFMPEG_PID}
           sleep 10s
