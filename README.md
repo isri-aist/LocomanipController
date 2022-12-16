@@ -27,6 +27,7 @@ This package depends on
 - [NMPC](https://github.com/isri-aist/NMPC)
 - [CentroidalControlCollection](https://github.com/isri-aist/CentroidalControlCollection)
 - [BaselineWalkingController](https://github.com/isri-aist/BaselineWalkingController)
+- [CnoidRosUtils](https://github.com/isri-aist/CnoidRosUtils) (Only for Choreonoid simulation)
 
 ### Preparation
 1. (Skip if ROS is already installed.) Install ROS. See [here](http://wiki.ros.org/ROS/Installation) for details.

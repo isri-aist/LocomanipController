@@ -98,6 +98,12 @@ jobs:
           repository: isri-aist/BaselineWalkingController
           submodules: recursive
           path: catkin_ws/src/isri-aist/BaselineWalkingController
+      - name: Checkout CnoidRosUtils
+        uses: actions/checkout@v3
+        with:
+          repository: isri-aist/CnoidRosUtils
+          submodules: recursive
+          path: catkin_ws/src/isri-aist/CnoidRosUtils
       - name: Rosdep install
         run: |
           set -e

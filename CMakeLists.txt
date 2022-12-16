@@ -6,8 +6,17 @@ project(locomanip_controller)
 set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-std=c++17)
 
+OPTION(ENABLE_CNOID "Install Choreonoid files" ON)
+OPTION(INSTALL_DOCUMENTATION "Generate and install the documentation" OFF)
+
+if(ENABLE_CNOID)
+  set(CNOID_ROS_UTILS cnoid_ros_utils)
+else()
+  set(CNOID_ROS_UTILS "")
+endif()
 find_package(catkin REQUIRED COMPONENTS
   baseline_walking_controller
+  ${CNOID_ROS_UTILS}
   )
 
 # Eigen
@@ -20,6 +29,7 @@ find_package(mc_rtc REQUIRED)
 catkin_package(
   CATKIN_DEPENDS
   baseline_walking_controller
+  ${CNOID_ROS_UTILS}
   DEPENDS EIGEN3
   INCLUDE_DIRS include
   LIBRARIES LocomanipController
@@ -35,12 +45,10 @@ configure_file(etc/mc_rtc.in.yaml ${PROJECT_SOURCE_DIR}/etc/mc_rtc.yaml @ONLY)
 
 add_subdirectory(src)
 
-OPTION(ENABLE_CNOID "Install Choreonoid files" ON)
 if(ENABLE_CNOID)
   add_subdirectory(cnoid)
 endif()
 
-OPTION(INSTALL_DOCUMENTATION "Generate and install the documentation" OFF)
 if(INSTALL_DOCUMENTATION)
   add_subdirectory(doc)
 endif()

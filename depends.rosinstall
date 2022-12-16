@@ -5,6 +5,9 @@
     local-name: isri-aist/CentroidalControlCollection
     uri: https://github.com/isri-aist/CentroidalControlCollection
 - git:
+    local-name: isri-aist/CnoidRosUtils
+    uri: https://github.com/isri-aist/CnoidRosUtils
+- git:
     local-name: isri-aist/NMPC
     uri: https://github.com/isri-aist/NMPC
 - git:
