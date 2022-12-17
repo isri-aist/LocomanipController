@@ -81,9 +81,9 @@ $ source ~/ros/ws_lmc/devel/setup.bash
 $ roscore
 # Terminal 2
 $ source ~/ros/ws_lmc/devel/setup.bash
-$ cd /usr/share/hrpsys/samples/JVRC1
-$ ./clear-omninames.sh
-$ choreonoid sim_mc.cnoid --start-simulation
+$ roscd locomanip_controller/cnoid/project/
+$ /usr/share/hrpsys/samples/JVRC1/clear-omninames.sh
+$ choreonoid LMC_JVRC1_Cart.cnoid --start-simulation
 # Terminal 3
 $ source ~/ros/ws_lmc/devel/setup.bash
 $ roslaunch locomanip_controller display.launch
