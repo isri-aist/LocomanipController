@@ -47,7 +47,7 @@ struct Waypoint
   sva::PTransformd pose;
 };
 
-/** Manipulation manager.
+/** \brief Manipulation manager.
 
     Manipulation manager sets object pose and hand poses.
 */

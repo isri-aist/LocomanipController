@@ -35,7 +35,7 @@ enum class ManipPhaseLabel
 
 namespace ManipPhase
 {
-/** Base of manipulation phase. */
+/** \brief Base of manipulation phase. */
 class Base
 {
 public:
@@ -88,7 +88,7 @@ protected:
   ManipManager * manipManager_;
 };
 
-/** Manipulation free phase. */
+/** \brief Manipulation free phase. */
 class Free : public Base
 {
 public:
@@ -99,7 +99,7 @@ public:
   Free(const Hand & hand, ManipManager * manipManager);
 };
 
-/** Manipulation pre-reach phase. */
+/** \brief Manipulation pre-reach phase. */
 class PreReach : public Base
 {
 public:
@@ -123,7 +123,7 @@ protected:
   double endTime_ = 0;
 };
 
-/** Manipulation reach phase. */
+/** \brief Manipulation reach phase. */
 class Reach : public Base
 {
 public:
@@ -147,7 +147,7 @@ protected:
   std::shared_ptr<BWC::CubicInterpolator<double>> reachingRatioFunc_;
 };
 
-/** Manipulation grasp phase. */
+/** \brief Manipulation grasp phase. */
 class Grasp : public Base
 {
 public:
@@ -167,7 +167,7 @@ public:
   virtual std::shared_ptr<Base> makeNextManipPhase() const override;
 };
 
-/** Manipulation hold phase. */
+/** \brief Manipulation hold phase. */
 class Hold : public Base
 {
 public:
@@ -181,7 +181,7 @@ public:
   virtual void run() override;
 };
 
-/** Manipulation ungrasp phase. */
+/** \brief Manipulation ungrasp phase. */
 class Ungrasp : public Base
 {
 public:
@@ -201,7 +201,7 @@ public:
   virtual std::shared_ptr<Base> makeNextManipPhase() const override;
 };
 
-/** Manipulation release phase. */
+/** \brief Manipulation release phase. */
 class Release : public Base
 {
 public:
