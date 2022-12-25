@@ -25,7 +25,7 @@ robots:
   obj:
     module: object/box
     init_pos:
-      translation: [1.0, 0.0, 0.0]
+      translation: [0.0, 0.0, 0.0]
 # General constraints, always on
 constraints:
   - type: contact

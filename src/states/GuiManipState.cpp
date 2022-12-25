@@ -55,7 +55,7 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             if(!(ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Hold
                  || ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Hold))
             {
-              mc_rtc::log::error("[GuiManipState] The object waypoint command can be sent only when the manipulation "
+              mc_rtc::log::error("[GuiManipState] \"MoveObj\" command is available only when the manipulation "
                                  "phase is Hold. Left: {}, Right: {}",
                                  std::to_string(ctl().manipManager_->manipPhase(Hand::Left)->label()),
                                  std::to_string(ctl().manipManager_->manipPhase(Hand::Right)->label()));
@@ -64,7 +64,7 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             if(ctl().manipManager_->waypointQueue().size() > 0)
             {
               mc_rtc::log::error(
-                  "[GuiManipState] The object waypoint command can be sent only when the waypoint queue is empty: {}",
+                  "[GuiManipState] \"MoveObj\" command is available only when the waypoint queue is empty: {}",
                   ctl().manipManager_->waypointQueue().size());
               return;
             }
@@ -85,6 +85,23 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
           mc_rtc::gui::FormNumberInput(moveObjConfigKeys_.at("startTime"), true, 2.0),
           mc_rtc::gui::FormNumberInput(moveObjConfigKeys_.at("endTime"), true, 12.0),
           mc_rtc::gui::FormCheckbox(moveObjConfigKeys_.at("footstep"), true, true)));
+  ctl().gui()->addElement(
+      {ctl().name(), "GuiManip", "UpdateObjFromReal"},
+      mc_rtc::gui::Form(
+          "UpdateObjFromReal",
+          [this](const mc_rtc::Configuration & config) {
+            if(ctl().manipManager_->waypointQueue().size() > 0)
+            {
+              mc_rtc::log::error("[GuiManipState] \"UpdateObjFromReal\" command is available only when the waypoint "
+                                 "queue is empty: {}",
+                                 ctl().manipManager_->waypointQueue().size());
+              return;
+            }
+            double startTime = ctl().t();
+            double endTime = ctl().t() + static_cast<double>(config(updateObjFromRealConfigKeys_.at("interpDuration")));
+            ctl().manipManager_->appendWaypoint(Waypoint(startTime, endTime, ctl().realObj().posW()));
+          },
+          mc_rtc::gui::FormNumberInput(updateObjFromRealConfigKeys_.at("interpDuration"), true, 1.0)));
 
   output("OK");
 }

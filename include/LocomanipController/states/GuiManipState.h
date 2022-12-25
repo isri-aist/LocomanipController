@@ -29,6 +29,8 @@ protected:
                                                                            {"startTime", "start time from now [sec]"},
                                                                            {"endTime", "end time from now [sec]"},
                                                                            {"footstep", "whether to enable footstep"}};
+  const std::unordered_map<std::string, std::string> updateObjFromRealConfigKeys_ = {
+      {"interpDuration", "interpolation duration [sec]"}};
   //! @}
 };
 } // namespace LMC
