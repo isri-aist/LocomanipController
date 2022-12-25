@@ -86,22 +86,41 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
           mc_rtc::gui::FormNumberInput(moveObjConfigKeys_.at("endTime"), true, 12.0),
           mc_rtc::gui::FormCheckbox(moveObjConfigKeys_.at("footstep"), true, true)));
   ctl().gui()->addElement(
-      {ctl().name(), "GuiManip", "UpdateObjFromReal"},
+      {ctl().name(), "GuiManip", "UpdateObj"},
       mc_rtc::gui::Form(
-          "UpdateObjFromReal",
+          "UpdateObj",
           [this](const mc_rtc::Configuration & config) {
             if(ctl().manipManager_->waypointQueue().size() > 0)
             {
-              mc_rtc::log::error("[GuiManipState] \"UpdateObjFromReal\" command is available only when the waypoint "
+              mc_rtc::log::error("[GuiManipState] \"UpdateObj\" command is available only when the waypoint "
                                  "queue is empty: {}",
                                  ctl().manipManager_->waypointQueue().size());
               return;
             }
             double startTime = ctl().t();
-            double endTime = ctl().t() + static_cast<double>(config(updateObjFromRealConfigKeys_.at("interpDuration")));
-            ctl().manipManager_->appendWaypoint(Waypoint(startTime, endTime, ctl().realObj().posW()));
+            double endTime = ctl().t() + static_cast<double>(config(updateObjConfigKeys_.at("interpDuration")));
+            sva::PTransformd pose;
+            if(config(updateObjConfigKeys_.at("target")) == "real")
+            {
+              pose = ctl().realObj().posW();
+            }
+            else if(config(updateObjConfigKeys_.at("target")) == "nominal")
+            {
+              const sva::PTransformd & footMidpose =
+                  BWC::projGround(sva::interpolate(ctl().footManager_->targetFootPose(BWC::Foot::Left),
+                                                   ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
+              pose = ctl().manipManager_->config().objToFootMidTrans.inv() * footMidpose;
+            }
+            else
+            {
+              mc_rtc::log::error("[GuiManipState] Invalid target in \"UpdateObj\": {}",
+                                 config(updateObjConfigKeys_.at("target")));
+              return;
+            }
+            ctl().manipManager_->appendWaypoint(Waypoint(startTime, endTime, pose));
           },
-          mc_rtc::gui::FormNumberInput(updateObjFromRealConfigKeys_.at("interpDuration"), true, 1.0)));
+          mc_rtc::gui::FormComboInput(updateObjConfigKeys_.at("target"), true, {"real", "nominal"}, false, 0),
+          mc_rtc::gui::FormNumberInput(updateObjConfigKeys_.at("interpDuration"), true, 1.0)));
 
   output("OK");
 }
