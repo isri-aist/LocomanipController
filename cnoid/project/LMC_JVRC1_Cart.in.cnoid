@@ -148,13 +148,13 @@ items:
           data: 
             modelFile: "@PROJECT_SOURCE_DIR@/cnoid/model/Cart.body"
             currentBaseLink: "Root"
-            rootPosition: [ 0.65, 0, 0 ]
+            rootPosition: [ 1.0, 0, 0 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
             jointPositions: [  ]
-            initialRootPosition: [ 0.65, 0, 0 ]
+            initialRootPosition: [ 1.0, 0, 0 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 

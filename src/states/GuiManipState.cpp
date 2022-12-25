@@ -33,11 +33,11 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             const sva::PTransformd & initialFootMidpose =
                 BWC::projGround(sva::interpolate(ctl().footManager_->targetFootPose(BWC::Foot::Left),
                                                  ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
-            sva::PTransformd objRelFootMidpose =
+            sva::PTransformd objToFootMidTrans =
                 convertTo3d(Eigen::Vector3d(config(walkToObjConfigKeys_.at("x")), config(walkToObjConfigKeys_.at("y")),
                                             mc_rtc::constants::toRad(config(walkToObjConfigKeys_.at("yaw")))));
             ctl().footManager_->walkToRelativePose(
-                convertTo2d(objRelFootMidpose * ctl().obj().posW() * initialFootMidpose.inv()));
+                convertTo2d(objToFootMidTrans * ctl().obj().posW() * initialFootMidpose.inv()));
           },
           mc_rtc::gui::FormNumberInput(walkToObjConfigKeys_.at("x"), true,
                                        ctl().manipManager_->config().objToFootMidTrans.translation().x()),

@@ -10,6 +10,7 @@ states:
   LMC::ConfigManip_:
     base: LMC::ConfigManip
     configs:
+      preWalk: true
       waypointList:
         - startTime: 2.0
           duration: 10.0

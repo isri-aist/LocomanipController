@@ -1,4 +1,5 @@
 #include <BaselineWalkingController/FootManager.h>
+#include <BaselineWalkingController/MathUtils.h>
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
 #include <LocomanipController/ManipPhase.h>
@@ -19,11 +20,19 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
 {
   if(phase_ == 0)
   {
-    bool isReached = (ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Hold
-                      || ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Hold);
-    if(config_.has("configs") && config_("configs")("reach", !isReached))
+    if(config_.has("configs") && config_("configs")("preWalk", false))
     {
-      ctl().manipManager_->reachHandToObj();
+      auto convertTo2d = [](const sva::PTransformd & pose) -> Eigen::Vector3d {
+        return Eigen::Vector3d(pose.translation().x(), pose.translation().y(),
+                               mc_rbdyn::rpyFromMat(pose.rotation()).z());
+      };
+      const sva::PTransformd & initialFootMidpose =
+          BWC::projGround(sva::interpolate(ctl().footManager_->targetFootPose(BWC::Foot::Left),
+                                           ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
+      sva::PTransformd objToFootMidTrans =
+          config_("configs")("objToFootMidTrans", ctl().manipManager_->config().objToFootMidTrans);
+      ctl().footManager_->walkToRelativePose(
+          convertTo2d(objToFootMidTrans * ctl().obj().posW() * initialFootMidpose.inv()));
       phase_ = 1;
     }
     else
@@ -33,13 +42,34 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   }
   else if(phase_ == 1)
   {
-    if(ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Hold
-       && ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Hold)
+    if(ctl().footManager_->footstepQueue().empty())
     {
       phase_ = 2;
     }
   }
   else if(phase_ == 2)
+  {
+    bool isReached = (ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Hold
+                      || ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Hold);
+    if(config_.has("configs") && config_("configs")("reach", !isReached))
+    {
+      ctl().manipManager_->reachHandToObj();
+      phase_ = 3;
+    }
+    else
+    {
+      phase_ = 4;
+    }
+  }
+  else if(phase_ == 3)
+  {
+    if(ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Hold
+       && ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Hold)
+    {
+      phase_ = 4;
+    }
+  }
+  else if(phase_ == 4)
   {
     // Set waypoint
     if(config_.has("configs") && config_("configs").has("waypointList"))
@@ -80,25 +110,6 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
         ctl().manipManager_->requireFootstepFollowingObj();
       }
 
-      phase_ = 3;
-    }
-    else
-    {
-      phase_ = 4;
-    }
-  }
-  else if(phase_ == 3)
-  {
-    if(ctl().manipManager_->waypointQueue().empty() && ctl().footManager_->footstepQueue().empty())
-    {
-      phase_ = 4;
-    }
-  }
-  else if(phase_ == 4)
-  {
-    if(config_.has("configs") && config_("configs")("release", true))
-    {
-      ctl().manipManager_->releaseHandFromObj();
       phase_ = 5;
     }
     else
@@ -108,14 +119,33 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   }
   else if(phase_ == 5)
   {
-    if(ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Free
-       && ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Free)
+    if(ctl().manipManager_->waypointQueue().empty() && ctl().footManager_->footstepQueue().empty())
     {
       phase_ = 6;
     }
   }
+  else if(phase_ == 6)
+  {
+    if(config_.has("configs") && config_("configs")("release", true))
+    {
+      ctl().manipManager_->releaseHandFromObj();
+      phase_ = 7;
+    }
+    else
+    {
+      phase_ = 8;
+    }
+  }
+  else if(phase_ == 7)
+  {
+    if(ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Free
+       && ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Free)
+    {
+      phase_ = 8;
+    }
+  }
 
-  return phase_ == 6;
+  return phase_ == 8;
 }
 
 void ConfigManipState::teardown(mc_control::fsm::Controller &) {}
