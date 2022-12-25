@@ -1,6 +1,8 @@
 #include <mc_rtc/gui/Button.h>
 #include <mc_rtc/gui/Form.h>
 
+#include <BaselineWalkingController/FootManager.h>
+#include <BaselineWalkingController/MathUtils.h>
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
 #include <LocomanipController/ManipPhase.h>
@@ -16,6 +18,35 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
   ctl().gui()->addElement({ctl().name(), "GuiManip"},
                           mc_rtc::gui::Button("Reach", [this]() { ctl().manipManager_->reachHandToObj(); }),
                           mc_rtc::gui::Button("Release", [this]() { ctl().manipManager_->releaseHandFromObj(); }));
+  ctl().gui()->addElement(
+      {ctl().name(), "GuiManip", "WalkToObj"},
+      mc_rtc::gui::Form(
+          "WalkToObj",
+          [this](const mc_rtc::Configuration & config) {
+            auto convertTo2d = [](const sva::PTransformd & pose) -> Eigen::Vector3d {
+              return Eigen::Vector3d(pose.translation().x(), pose.translation().y(),
+                                     mc_rbdyn::rpyFromMat(pose.rotation()).z());
+            };
+            auto convertTo3d = [](const Eigen::Vector3d & trans) -> sva::PTransformd {
+              return sva::PTransformd(sva::RotZ(trans.z()), Eigen::Vector3d(trans.x(), trans.y(), 0));
+            };
+            const sva::PTransformd & initialFootMidpose =
+                BWC::projGround(sva::interpolate(ctl().footManager_->targetFootPose(BWC::Foot::Left),
+                                                 ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
+            sva::PTransformd objRelFootMidpose =
+                convertTo3d(Eigen::Vector3d(config(walkToObjConfigKeys_.at("x")), config(walkToObjConfigKeys_.at("y")),
+                                            mc_rtc::constants::toRad(config(walkToObjConfigKeys_.at("yaw")))));
+            ctl().footManager_->walkToRelativePose(
+                convertTo2d(objRelFootMidpose * ctl().obj().posW() * initialFootMidpose.inv()));
+          },
+          mc_rtc::gui::FormNumberInput(walkToObjConfigKeys_.at("x"), true,
+                                       ctl().manipManager_->config().objToFootMidTrans.translation().x()),
+          mc_rtc::gui::FormNumberInput(walkToObjConfigKeys_.at("y"), true,
+                                       ctl().manipManager_->config().objToFootMidTrans.translation().y()),
+          mc_rtc::gui::FormNumberInput(
+              walkToObjConfigKeys_.at("yaw"), true,
+              mc_rtc::constants::toDeg(
+                  mc_rbdyn::rpyFromMat(ctl().manipManager_->config().objToFootMidTrans.rotation()).z()))));
   ctl().gui()->addElement(
       {ctl().name(), "GuiManip", "MoveObj"},
       mc_rtc::gui::Form(
