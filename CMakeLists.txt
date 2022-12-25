@@ -29,7 +29,6 @@ find_package(mc_rtc REQUIRED)
 catkin_package(
   CATKIN_DEPENDS
   baseline_walking_controller
-  ${CNOID_ROS_UTILS}
   DEPENDS EIGEN3
   INCLUDE_DIRS include
   LIBRARIES LocomanipController

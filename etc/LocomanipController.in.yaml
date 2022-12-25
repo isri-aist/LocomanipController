@@ -50,17 +50,15 @@ states:
         - name: r_gripper
           opening: 1.0
 
-  BWC::GuiFootstep_:
-    base: BWC::GuiFootstep
-    configs:
-      deltaTransLimit: [0.125, 0.1, 12.5] # (x [m], y [m], theta [deg])
+  BWC::GuiWalk_:
+    base: BWC::GuiWalk
 
   LMC::GuiManip_:
     base: LMC::GuiManip
 
   LMC::Main_:
     base: Parallel
-    states: [BWC::GuiFootstep_, LMC::GuiManip_]
+    states: [BWC::GuiWalk_, LMC::GuiManip_]
 
 # Transitions map
 transitions:
