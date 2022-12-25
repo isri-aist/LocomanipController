@@ -13,9 +13,11 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
   State::start(_ctl);
 
   // Setup GUI
+  ctl().gui()->addElement({ctl().name(), "GuiManip"},
+                          mc_rtc::gui::Button("Reach", [this]() { ctl().manipManager_->reachHandToObj(); }),
+                          mc_rtc::gui::Button("Release", [this]() { ctl().manipManager_->releaseHandFromObj(); }));
   ctl().gui()->addElement(
-      {ctl().name(), "GuiManip"}, mc_rtc::gui::Button("Reach", [this]() { ctl().manipManager_->reachHandToObj(); }),
-      mc_rtc::gui::Button("Release", [this]() { ctl().manipManager_->releaseHandFromObj(); }),
+      {ctl().name(), "GuiManip", "MoveObj"},
       mc_rtc::gui::Form(
           "MoveObj",
           [this](const mc_rtc::Configuration & config) {
