@@ -16,8 +16,6 @@ StatesFiles:
   - "@MC_STATES_DEFAULT_INSTALL_PREFIX@/data"
   - "@baseline_walking_controller_DEVEL_PREFIX@/lib/baseline_walking_controller/states/data"
   - "@CATKIN_DEVEL_PREFIX@/lib/@PROJECT_NAME@/states/data"
-RobotModulePaths:
-  - "@PROJECT_SOURCE_DIR@/description"
 # If true, state factory will be more verbose
 VerboseStateFactory: false
 # Additional robots to load
@@ -25,7 +23,7 @@ robots:
   ground:
     module: env/ground
   obj:
-    module: object/box
+    module: LMC/Cart
     init_pos:
       translation: [0.0, 0.0, 0.0]
 # General constraints, always on
