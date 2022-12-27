@@ -32,6 +32,7 @@ jobs:
         os: [ubuntu-20.04, ubuntu-18.04]
         build-type: [RelWithDebInfo, Debug]
         mc-rtc-version: [head, stable]
+        motion-type: [PushCartWaypoint, PushCartVelMode]
         exclude:
           - build-type: Debug
             mc-rtc-version: stable
@@ -151,7 +152,7 @@ jobs:
           fluxbox 2> /dev/null &
           mkdir -p ${HOME}/.config/mc_rtc/controllers
           cp ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/etc/mc_rtc.yaml ${HOME}/.config/mc_rtc
-          cp ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/config/PushCartWaypoint.yaml ${HOME}/.config/mc_rtc/controllers/LocomanipController.yaml
+          cp ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/config/${{ matrix.motion-type }}.yaml ${HOME}/.config/mc_rtc/controllers/LocomanipController.yaml
           ffmpeg -y -f x11grab -s 1920x1080 -r 30 -i ${DISPLAY} -qscale 0 -vcodec huffyuv /tmp/video.avi > /dev/null 2>&1 < /dev/null &
           FFMPEG_PID=$!
           /usr/share/hrpsys/samples/JVRC1/clear-omninames.sh
@@ -187,7 +188,7 @@ jobs:
       #     python3 ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/scripts/checkSimulationResults.py `readlink -f /tmp/mc-control-LocomanipController-latest.bin` --expected-base-pos ${EXPECTED_BASE_POS}
       - name: Upload documentation
         # Only run for one configuration and on master branch
-        if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head' && github.repository_owner == 'isri-aist' && github.ref == 'refs/heads/master'
+        if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head' && matrix.motion-type == 'PushCartWaypoint' && github.repository_owner == 'isri-aist' && github.ref == 'refs/heads/master'
         run: |
           set -e
           set -x
