@@ -5,6 +5,8 @@ Humanoid loco-manipulation controller
 [![Documentation](https://img.shields.io/badge/doxygen-online-brightgreen?logo=read-the-docs&style=flat)](https://isri-aist.github.io/LocomanipController/)
 [![LICENSE](https://img.shields.io/github/license/isri-aist/LocomanipController)](https://github.com/isri-aist/LocomanipController/blob/master/LICENSE)
 
+https://user-images.githubusercontent.com/6636600/209670856-4ebf4456-9cf0-483e-8f41-db9ce55c9795.mp4
+
 ## Features
 - Completely open source! (controller framework: mc_rtc, simulator: Choreonoid, sample robot model: JVRC1)
 - Accepts commands for trajectory and velocity of a loco-manipulation object.
