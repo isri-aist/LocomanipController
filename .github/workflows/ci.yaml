@@ -178,14 +178,18 @@ jobs:
         with:
           name: LMC-ci-results
           path: /tmp/results
-      # - name: Check simulation results
-      #   # Only run for one configuration
-      #   if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head'
-      #   run: |
-      #     set -e
-      #     set -x
-      #     EXPECTED_BASE_POS="1.34 -0.41 0.8"
-      #     python3 ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/scripts/checkSimulationResults.py `readlink -f /tmp/mc-control-LocomanipController-latest.bin` --expected-base-pos ${EXPECTED_BASE_POS}
+      - name: Check simulation results
+        # Only run for one configuration
+        if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head'
+        run: |
+          set -e
+          set -x
+          if [ "${{ matrix.motion-type }}" == "PushCartWaypoint" ]; then
+            EXPECTED_OBJ_POS="1.18 0.494 0.0"
+          else # if [ "${{ matrix.motion-type }}" == "PushCartVelMode" ]; then
+            EXPECTED_OBJ_POS="1.48 -0.375 0.0"
+          fi
+          python3 ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/scripts/checkSimulationResults.py `readlink -f /tmp/mc-control-LocomanipController-latest.bin` --expected-obj-pos ${EXPECTED_OBJ_POS}
       - name: Upload documentation
         # Only run for one configuration and on master branch
         if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head' && matrix.motion-type == 'PushCartWaypoint' && github.repository_owner == 'isri-aist' && github.ref == 'refs/heads/master'
