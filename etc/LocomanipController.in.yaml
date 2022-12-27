@@ -50,15 +50,17 @@ states:
         - name: r_gripper
           opening: 1.0
 
-  BWC::GuiWalk_:
-    base: BWC::GuiWalk
-
   LMC::GuiManip_:
     base: LMC::GuiManip
 
+  LMC::Teleop_:
+    base: LMC::Teleop
+    configs:
+      twistTopicName: /cmd_vel
+
   LMC::Main_:
     base: Parallel
-    states: [BWC::GuiWalk_, LMC::GuiManip_]
+    states: [LMC::GuiManip_, LMC::Teleop_]
 
 # Transitions map
 transitions:
