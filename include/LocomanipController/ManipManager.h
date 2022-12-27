@@ -215,6 +215,30 @@ public:
     requireFootstepFollowingObj_ = true;
   }
 
+  /** \brief Start velocity mode.
+      \return whether it is successfully started
+   */
+  bool startVelMode();
+
+  /** \brief End velocity mode.
+      \return whether it is successfully ended
+   */
+  bool endVelMode();
+
+  /** \brief Set the relative target velocity
+      \param targetVel relative target velocity of object in the velocity mode (x [m/s], y [m/s], theta [rad/s])
+   */
+  inline void setRelativeVel(const Eigen::Vector3d & targetVel)
+  {
+    targetVel_ = targetVel;
+  }
+
+  /** \brief Whether the velocity mode (i.e., moving the object at the relative target velocity) is enabled. */
+  inline bool velMode() const
+  {
+    return velMode_;
+  }
+
 protected:
   /** \brief Const accessor to the controller. */
   inline const LocomanipController & ctl() const
@@ -236,6 +260,12 @@ protected:
 
   /** \brief Update footstep. */
   virtual void updateFootstep();
+
+  /** \brief Update object pose in velocity mode. */
+  void updateObjForVelMode();
+
+  /** \brief Update footstep in velocity mode. */
+  void updateFootstepForVelMode();
 
   /** \brief Make a footstep.
       \param foot foot
@@ -285,6 +315,12 @@ protected:
 
   //! Whether to require sending footstep command following an object
   bool requireFootstepFollowingObj_ = false;
+
+  //! Whether the velocity mode (i.e., moving the object at the relative target velocity) is enabled
+  bool velMode_ = false;
+
+  //! Relative target velocity of object in the velocity mode (x [m/s], y [m/s], theta [rad/s])
+  Eigen::Vector3d targetVel_ = Eigen::Vector3d::Zero();
 
   //! ROS variables
   //! @{

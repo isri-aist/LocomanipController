@@ -5,6 +5,7 @@
 #include <mc_tasks/ImpedanceTask.h>
 
 #include <BaselineWalkingController/FootManager.h>
+#include <BaselineWalkingController/MathUtils.h>
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
 #include <LocomanipController/ManipPhase.h>
@@ -92,6 +93,9 @@ void ManipManager::reset()
   requireImpGainUpdate_ = true;
 
   requireFootstepFollowingObj_ = false;
+
+  velMode_ = false;
+  targetVel_.setZero();
 }
 
 void ManipManager::stop()
@@ -109,9 +113,20 @@ void ManipManager::update()
   // Call ROS callback
   callbackQueue_.callAvailable(ros::WallDuration());
 
+  if(velMode_)
+  {
+    updateObjForVelMode();
+  }
   updateObjTraj();
   updateHandTraj();
-  updateFootstep();
+  if(velMode_)
+  {
+    updateFootstepForVelMode();
+  }
+  else
+  {
+    updateFootstep();
+  }
 }
 
 void ManipManager::addToGUI(mc_rtc::gui::StateBuilder & gui)
@@ -200,6 +215,9 @@ void ManipManager::addToLogger(mc_rtc::Logger & logger)
     logger.addLogEntry(config_.name + "_manipPhase_" + std::to_string(hand), this,
                        [this, hand]() { return std::to_string(manipPhases_.at(hand)->label()); });
   }
+
+  logger.addLogEntry(config_.name + "_velMode", this, [this]() -> std::string { return velMode_ ? "ON" : "OFF"; });
+  logger.addLogEntry(config_.name + "_targetVel", this, [this]() { return targetVel_; });
 }
 
 void ManipManager::removeFromLogger(mc_rtc::Logger & logger)
@@ -274,6 +292,42 @@ void ManipManager::releaseHandFromObj()
   }
 }
 
+bool ManipManager::startVelMode()
+{
+  if(velMode_)
+  {
+    mc_rtc::log::warning("[ManipManager] It is already in velocity mode, but startVelMode is called.");
+    return false;
+  }
+
+  if(!ctl().footManager_->startVelMode())
+  {
+    mc_rtc::log::error("[ManipManager] Failed to start velocity mode in Footmanager.");
+    return false;
+  }
+
+  velMode_ = true;
+  targetVel_.setZero();
+
+  return true;
+}
+
+bool ManipManager::endVelMode()
+{
+  if(!velMode_)
+  {
+    mc_rtc::log::warning("[ManipManager] It is not in velocity mode, but endVelMode is called.");
+    return false;
+  }
+
+  velMode_ = false;
+  targetVel_.setZero();
+
+  ctl().footManager_->endVelMode();
+
+  return true;
+}
+
 void ManipManager::updateObjTraj()
 {
   // Update waypointQueue_
@@ -316,8 +370,11 @@ void ManipManager::updateObjTraj()
   }
 
   // Update control object pose
-  ctl().obj().posW(calcRefObjPose(ctl().t()));
-  ctl().obj().velW(calcRefObjVel(ctl().t()));
+  if(!velMode_)
+  {
+    ctl().obj().posW(calcRefObjPose(ctl().t()));
+    ctl().obj().velW(calcRefObjVel(ctl().t()));
+  }
 }
 
 void ManipManager::updateHandTraj()
@@ -335,7 +392,7 @@ void ManipManager::updateHandTraj()
       }
       else
       {
-        mc_rtc::log::error_and_throw("[ManipManager] {} next manipulation phase is null.", std::to_string(hand));
+        mc_rtc::log::error_and_throw("[ManipManager] {} next manipulation phase is nullptr.", std::to_string(hand));
       }
     }
   }
@@ -408,6 +465,36 @@ void ManipManager::updateFootstep()
   }
   const auto & footstep = makeFootstep(foot, footMidpose, startTime);
   ctl().footManager_->appendFootstep(footstep);
+}
+
+void ManipManager::updateObjForVelMode()
+{
+  sva::PTransformd footMidpose = BWC::projGround(sva::interpolate(
+      ctl().footManager_->targetFootPose(BWC::Foot::Left), ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
+  sva::MotionVecd footMidvel = BWC::projGround(
+      0.5 * (ctl().footManager_->targetFootVel(BWC::Foot::Left) + ctl().footManager_->targetFootVel(BWC::Foot::Right)));
+
+  ctl().obj().posW(config_.objToFootMidTrans.inv() * footMidpose);
+  ctl().obj().velW(config_.objToFootMidTrans.invMul(footMidvel));
+  lastWaypointPose_ = ctl().obj().posW();
+}
+
+void ManipManager::updateFootstepForVelMode()
+{
+  requireFootstepFollowingObj_ = false;
+
+  auto convertTo2d = [](const sva::PTransformd & pose) -> Eigen::Vector3d {
+    return Eigen::Vector3d(pose.translation().x(), pose.translation().y(), mc_rbdyn::rpyFromMat(pose.rotation()).z());
+  };
+  auto convertTo3d = [](const Eigen::Vector3d & trans) -> sva::PTransformd {
+    return sva::PTransformd(sva::RotZ(trans.z()), Eigen::Vector3d(trans.x(), trans.y(), 0));
+  };
+
+  sva::PTransformd currentTargetFootMidpose = config_.objToFootMidTrans * ctl().obj().posW();
+  sva::PTransformd nextTargetFootMidpose = config_.objToFootMidTrans * convertTo3d(targetVel_) * ctl().obj().posW();
+  Eigen::Vector3d targetFootMidvel = convertTo2d(nextTargetFootMidpose * currentTargetFootMidpose.inv());
+
+  ctl().footManager_->setRelativeVel(targetFootMidvel);
 }
 
 BWC::Footstep ManipManager::makeFootstep(const BWC::Foot & foot,
