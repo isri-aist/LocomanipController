@@ -1,6 +1,8 @@
 format: ChoreonoidBody
 formatVersion: 1.0
+angleUnit: degree
 name: Cart
+rootLink: Root
 links:
   -
     name: Root
