@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-std=c++17)
 
 OPTION(ENABLE_CNOID "Install Choreonoid files" ON)
+OPTION(ENABLE_DESCRIPTION "Install object description files for mc_rtc" ON)
 OPTION(INSTALL_DOCUMENTATION "Generate and install the documentation" OFF)
 
 if(ENABLE_CNOID)
@@ -46,6 +47,10 @@ add_subdirectory(src)
 
 if(ENABLE_CNOID)
   add_subdirectory(cnoid)
+endif()
+
+if(ENABLE_DESCRIPTION)
+  add_subdirectory(description)
 endif()
 
 if(INSTALL_DOCUMENTATION)
