@@ -300,6 +300,22 @@ bool ManipManager::startVelMode()
     return false;
   }
 
+  if(!(manipPhases_.at(Hand::Left)->label() == ManipPhaseLabel::Hold
+       || manipPhases_.at(Hand::Right)->label() == ManipPhaseLabel::Hold))
+  {
+    mc_rtc::log::error(
+        "[ManipManager] startVelMode is available only when the manipulation phase is Hold. Left: {}, Right: {}",
+        std::to_string(manipPhases_.at(Hand::Left)->label()), std::to_string(manipPhases_.at(Hand::Right)->label()));
+    return false;
+  }
+
+  if(!waypointQueue_.empty())
+  {
+    mc_rtc::log::error("[ManipManager] startVelMode is available only when the waypoint queue is empty: {}",
+                       waypointQueue_.size());
+    return false;
+  }
+
   if(!ctl().footManager_->startVelMode())
   {
     mc_rtc::log::error("[ManipManager] Failed to start velocity mode in Footmanager.");

@@ -61,7 +61,7 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
                                  std::to_string(ctl().manipManager_->manipPhase(Hand::Right)->label()));
               return;
             }
-            if(ctl().manipManager_->waypointQueue().size() > 0)
+            if(!ctl().manipManager_->waypointQueue().empty())
             {
               mc_rtc::log::error(
                   "[GuiManipState] \"MoveObj\" command is available only when the waypoint queue is empty: {}",
