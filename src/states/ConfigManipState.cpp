@@ -147,6 +147,10 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   {
     if(config_.has("configs") && config_("configs").has("velocityMode"))
     {
+      if(ctl().t() > velModeEndTime_ - 1.0 && ctl().manipManager_->velMode())
+      {
+        ctl().manipManager_->setRelativeVel(Eigen::Vector3d::Zero());
+      }
       if(ctl().t() > velModeEndTime_ && ctl().manipManager_->velMode())
       {
         ctl().manipManager_->endVelMode();
