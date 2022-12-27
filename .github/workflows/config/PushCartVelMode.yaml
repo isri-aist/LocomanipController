@@ -1,0 +1,21 @@
+transitions:
+  - [LMC::Initial_, OK, LMC::ConfigManip_, Auto]
+
+states:
+  LMC::Initial_:
+    base: LMC::Initial
+    configs:
+      autoStartTime: 8.0
+
+  LMC::ConfigManip_:
+    base: LMC::ConfigManip
+    configs:
+      preUpdateObj: true
+      preWalk: true
+      velocityMode:
+        velocity: [0.1, 0.0, -0.20943951023931956]
+        duration: 10.0 # [sec]
+
+ManipManager:
+  objPoseTopic: /cnoid/Cart/pose
+  objVelTopic: /cnoid/Cart/vel

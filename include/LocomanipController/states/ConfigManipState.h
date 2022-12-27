@@ -20,5 +20,8 @@ public:
 protected:
   //! Phase
   int phase_ = 0;
+
+  //! End time of velocity mode [sec]
+  double velModeEndTime_ = 0.0;
 };
 } // namespace LMC

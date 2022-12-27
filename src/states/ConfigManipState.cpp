@@ -90,7 +90,6 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   }
   else if(phase_ == 6)
   {
-    // Set waypoint
     if(config_.has("configs") && config_("configs").has("waypointList"))
     {
       double startTime = ctl().t();
@@ -131,6 +130,14 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
 
       phase_ = 7;
     }
+    else if(config_.has("configs") && config_("configs").has("velocityMode"))
+    {
+      ctl().manipManager_->startVelMode();
+      ctl().manipManager_->setRelativeVel(config_("configs")("velocityMode")("velocity"));
+      velModeEndTime_ = ctl().t() + static_cast<double>(config_("configs")("velocityMode")("duration"));
+
+      phase_ = 7;
+    }
     else
     {
       phase_ = 8;
@@ -138,7 +145,16 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   }
   else if(phase_ == 7)
   {
-    if(ctl().manipManager_->waypointQueue().empty() && ctl().footManager_->footstepQueue().empty())
+    if(config_.has("configs") && config_("configs").has("velocityMode"))
+    {
+      if(ctl().t() > velModeEndTime_ && ctl().manipManager_->velMode())
+      {
+        ctl().manipManager_->endVelMode();
+      }
+    }
+
+    if(ctl().manipManager_->waypointQueue().empty() && ctl().footManager_->footstepQueue().empty()
+       && !ctl().manipManager_->velMode())
     {
       phase_ = 8;
     }
