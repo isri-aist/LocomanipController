@@ -203,7 +203,8 @@ jobs:
           else # if [ "${{ matrix.motion-type }}" == "PushCartVelMode" ]; then
             EXPECTED_OBJ_POS="1.48 -0.375 0.0"
           fi
-          python3 ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/scripts/checkSimulationResults.py `readlink -f /tmp/mc-control-LocomanipController-latest.bin` --expected-obj-pos ${EXPECTED_OBJ_POS}
+          LOG_FILENAME=LMC-log-${{ matrix.motion-type }}
+          python3 ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/scripts/checkSimulationResults.py /tmp/${LOG_FILENAME}.bin --expected-obj-pos ${EXPECTED_OBJ_POS}
       - name: Upload documentation
         # Only run for one configuration and on master branch
         if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head' && matrix.motion-type == 'PushCartWaypoint' && github.repository_owner == 'isri-aist' && github.ref == 'refs/heads/master'
