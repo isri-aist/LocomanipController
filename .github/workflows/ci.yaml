@@ -169,9 +169,9 @@ jobs:
           choreonoid LMC_JVRC1_Cart.cnoid --start-simulation &
           CNOID_PID=$!
           if [ "${{ matrix.motion-type }}" == "PushCartWaypoint" ]; then
-            SLEEP_DURATION="120s"
+            SLEEP_DURATION="150s"
           else
-            SLEEP_DURATION="80s"
+            SLEEP_DURATION="100s"
           fi
           sleep ${SLEEP_DURATION}
           kill -2 ${ROSCORE_PID}
