@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['ungraspcommands_242',['ungraspCommands',['../structLMC_1_1ManipManager_1_1Configuration.html#ac0998749ed93925e0f303f097d8fac11',1,'LMC::ManipManager::Configuration']]]
+  ['targetvel_5f_267',['targetVel_',['../classLMC_1_1ManipManager.html#a70dc7010ab9cb7821768a6bab92a5b72',1,'LMC::ManipManager::targetVel_()'],['../structLMC_1_1TeleopState.html#adc4f81aeb2dd884bd5e193c1da864f7c',1,'LMC::TeleopState::targetVel_()']]],
+  ['twistsub_5f_268',['twistSub_',['../structLMC_1_1TeleopState.html#a3df5f22caf1879e7b734a470c4e5a0aa',1,'LMC::TeleopState']]]
 ];

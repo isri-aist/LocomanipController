@@ -102,6 +102,7 @@ $(function() {
 </li>
 <li>callbackQueue_
 : <a class="el" href="classLMC_1_1ManipManager.html#af0120d21175d5f81919176f6adcaaba3">LMC::ManipManager</a>
+, <a class="el" href="structLMC_1_1TeleopState.html#a58ae77260e2ea8607b37c6caca8ef643">LMC::TeleopState</a>
 </li>
 <li>complete()
 : <a class="el" href="structLMC_1_1InitialState.html#abc02e888cb531d4ec94c4ffadb0a58fd">LMC::InitialState</a>
@@ -123,7 +124,7 @@ $(function() {
 </li>
 <li>ctl()
 : <a class="el" href="classLMC_1_1ManipManager.html#a83415df198b5065d62c44e1728daa7b8">LMC::ManipManager</a>
-, <a class="el" href="classLMC_1_1ManipPhase_1_1Base.html#ab923d39b20fcecd4bf0c62965df72789">LMC::ManipPhase::Base</a>
+, <a class="el" href="classLMC_1_1ManipPhase_1_1Base.html#a4e7a87de732d269bc9e66fb5ee4700d5">LMC::ManipPhase::Base</a>
 , <a class="el" href="structLMC_1_1State.html#a649bc3c0da83adfce5b74ec34a6e9610">LMC::State</a>
 </li>
 <li>ctlPtr_
@@ -146,6 +147,9 @@ $(function() {
 </li>
 <li>endTime_
 : <a class="el" href="classLMC_1_1ManipPhase_1_1PreReach.html#a8ce47800b95528274b18a7ae9ff24fde">LMC::ManipPhase::PreReach</a>
+</li>
+<li>endVelMode()
+: <a class="el" href="classLMC_1_1ManipManager.html#a94e3f89fdcb6cb48c20aa112ebdad3d9">LMC::ManipManager</a>
 </li>
 </ul>
 
@@ -264,6 +268,7 @@ $(function() {
 </li>
 <li>nh_
 : <a class="el" href="classLMC_1_1ManipManager.html#aa1250aeb3ef2c1d9f02d26acf6e6b0e7">LMC::ManipManager</a>
+, <a class="el" href="structLMC_1_1TeleopState.html#a3ab99f3525501fd18fbd1bf8aa5cd2e8">LMC::TeleopState</a>
 </li>
 </ul>
 
@@ -379,19 +384,27 @@ $(function() {
 , <a class="el" href="classLMC_1_1ManipPhase_1_1Reach.html#a6d5b9577eff348f3a7636dbfe591beab">LMC::ManipPhase::Reach</a>
 , <a class="el" href="classLMC_1_1ManipPhase_1_1Release.html#ab00e0d03972dfa059fc13eec139bbd41">LMC::ManipPhase::Release</a>
 , <a class="el" href="classLMC_1_1ManipPhase_1_1Ungrasp.html#a1d147a08856469b0ba64349f9f53fc39">LMC::ManipPhase::Ungrasp</a>
+, <a class="el" href="structLMC_1_1TeleopState.html#a5a557762fbc886baed496fe9081f6147">LMC::TeleopState</a>
 </li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>setRelativeVel()
+: <a class="el" href="classLMC_1_1ManipManager.html#a9492a151ad8cb372629811ff2ad402f4">LMC::ManipManager</a>
+</li>
 <li>start()
 : <a class="el" href="structLMC_1_1ConfigManipState.html#ab83e8ac012a8d3e5431ab3a0a1192d1a">LMC::ConfigManipState</a>
 , <a class="el" href="structLMC_1_1GuiManipState.html#acc1fa34658e6b81959e50edcf1cb03c9">LMC::GuiManipState</a>
 , <a class="el" href="structLMC_1_1InitialState.html#a48b10d028d50187fd850e11ac218fdf1">LMC::InitialState</a>
 , <a class="el" href="structLMC_1_1State.html#a33587c21fa1186d890255279da2ce514">LMC::State</a>
+, <a class="el" href="structLMC_1_1TeleopState.html#a4fc3b0e72c014542eb4bb29d41e090e3">LMC::TeleopState</a>
 </li>
 <li>startTime
 : <a class="el" href="structLMC_1_1Waypoint.html#a8db43fccaded869b6d8276ce5471f9be">LMC::Waypoint</a>
+</li>
+<li>startVelMode()
+: <a class="el" href="classLMC_1_1ManipManager.html#a7e53f878cf8659bd6b01be2ae84b04fc">LMC::ManipManager</a>
 </li>
 <li>stiffnessRatioFunc_
 : <a class="el" href="structLMC_1_1InitialState.html#ada725e77edddc4d91672daaf7f290375">LMC::InitialState</a>
@@ -407,10 +420,21 @@ $(function() {
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>targetVel_
+: <a class="el" href="classLMC_1_1ManipManager.html#a70dc7010ab9cb7821768a6bab92a5b72">LMC::ManipManager</a>
+, <a class="el" href="structLMC_1_1TeleopState.html#adc4f81aeb2dd884bd5e193c1da864f7c">LMC::TeleopState</a>
+</li>
 <li>teardown()
 : <a class="el" href="structLMC_1_1ConfigManipState.html#a99b9786b0db567c61f9c028610e26ec6">LMC::ConfigManipState</a>
 , <a class="el" href="structLMC_1_1GuiManipState.html#a042993f6c02d727b767d5683602baa1d">LMC::GuiManipState</a>
 , <a class="el" href="structLMC_1_1InitialState.html#a297066a5b0da0aa212f44552347c6c82">LMC::InitialState</a>
+, <a class="el" href="structLMC_1_1TeleopState.html#aa269bd6b206463e857f14b174decd227">LMC::TeleopState</a>
+</li>
+<li>twistCallback()
+: <a class="el" href="structLMC_1_1TeleopState.html#a58d32fb029293b2d34fe25ac825f1e6c">LMC::TeleopState</a>
+</li>
+<li>twistSub_
+: <a class="el" href="structLMC_1_1TeleopState.html#a3df5f22caf1879e7b734a470c4e5a0aa">LMC::TeleopState</a>
 </li>
 </ul>
 
@@ -428,8 +452,17 @@ $(function() {
 <li>updateFootstep()
 : <a class="el" href="classLMC_1_1ManipManager.html#a1bcfeb23c350745aa48b57d5b6282a9e">LMC::ManipManager</a>
 </li>
+<li>updateFootstepForVelMode()
+: <a class="el" href="classLMC_1_1ManipManager.html#acc5d8c7d28e4ae1f1b8f50a10b0adb30">LMC::ManipManager</a>
+</li>
 <li>updateHandTraj()
 : <a class="el" href="classLMC_1_1ManipManager.html#aab2212586d145b4f766c50340e8e9805">LMC::ManipManager</a>
+</li>
+<li>updateObjConfigKeys_
+: <a class="el" href="structLMC_1_1GuiManipState.html#a6eb8c14e548ee9912a8e3d9cda79c5b4">LMC::GuiManipState</a>
+</li>
+<li>updateObjForVelMode()
+: <a class="el" href="classLMC_1_1ManipManager.html#a2e969f4d64684187fdb7132f908f59c1">LMC::ManipManager</a>
 </li>
 <li>updateObjTraj()
 : <a class="el" href="classLMC_1_1ManipManager.html#a6144b030a871107b49a427dd3e4866de">LMC::ManipManager</a>
@@ -437,7 +470,26 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_v"></a>- v -</h3><ul>
+<li>velMode()
+: <a class="el" href="classLMC_1_1ManipManager.html#a895c603d6e6756e717baa060709a1887">LMC::ManipManager</a>
+</li>
+<li>velMode_
+: <a class="el" href="classLMC_1_1ManipManager.html#a6413ce258123cf22ff486ee765d1468a">LMC::ManipManager</a>
+</li>
+<li>velModeEndTime_
+: <a class="el" href="structLMC_1_1ConfigManipState.html#a8ff16892246cabeeae441518226b342f">LMC::ConfigManipState</a>
+</li>
+<li>velScale_
+: <a class="el" href="structLMC_1_1TeleopState.html#a14e724a63af3923adcbc883554a9b1bd">LMC::TeleopState</a>
+</li>
+</ul>
+
+
 <h3><a id="index_w"></a>- w -</h3><ul>
+<li>walkToObjConfigKeys_
+: <a class="el" href="structLMC_1_1GuiManipState.html#a365edeb119c9b1c393e96fcef5a3c8f1">LMC::GuiManipState</a>
+</li>
 <li>Waypoint()
 : <a class="el" href="structLMC_1_1Waypoint.html#ae713013e421ee8fd00b5291f5f670565">LMC::Waypoint</a>
 </li>

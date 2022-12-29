@@ -74,6 +74,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>Humanoid loco-manipulation controller</p>
 <p><a href="https://github.com/isri-aist/LocomanipController/actions/workflows/ci.yaml"><object type="image/svg+xml" data="https://github.com/isri-aist/LocomanipController/actions/workflows/ci.yaml/badge.svg" style="pointer-events: none;">CI</object></a> <a href="https://isri-aist.github.io/LocomanipController/"><img src="https://img.shields.io/badge/doxygen-online-brightgreen?logo=read-the-docs&amp;style=flat" alt="Documentation" class="inline"/></a> <a href="https://github.com/isri-aist/LocomanipController/blob/master/LICENSE"><img src="https://img.shields.io/github/license/isri-aist/LocomanipController" alt="LICENSE" class="inline"/></a></p>
+<p><a href="https://user-images.githubusercontent.com/6636600/209670856-4ebf4456-9cf0-483e-8f41-db9ce55c9795.mp4">https://user-images.githubusercontent.com/6636600/209670856-4ebf4456-9cf0-483e-8f41-db9ce55c9795.mp4</a></p>
 <h1>Features</h1>
 <ul>
 <li>Completely open source! (controller framework: mc_rtc, simulator: Choreonoid, sample robot model: JVRC1)</li>
@@ -95,6 +96,7 @@ $(function() {
 <li><a href="https://github.com/isri-aist/NMPC">NMPC</a></li>
 <li><a href="https://github.com/isri-aist/CentroidalControlCollection">CentroidalControlCollection</a></li>
 <li><a href="https://github.com/isri-aist/BaselineWalkingController">BaselineWalkingController</a></li>
+<li><a href="https://github.com/isri-aist/CnoidRosUtils">CnoidRosUtils</a> (Only for Choreonoid simulation)</li>
 </ul>
 <h2>Preparation</h2>
 <ol type="1">
@@ -133,9 +135,9 @@ $(function() {
 <div class="line">$ roscore</div>
 <div class="line"># Terminal 2</div>
 <div class="line">$ source ~/ros/ws_lmc/devel/setup.bash</div>
-<div class="line">$ cd /usr/share/hrpsys/samples/JVRC1</div>
-<div class="line">$ ./clear-omninames.sh</div>
-<div class="line">$ choreonoid sim_mc.cnoid --start-simulation</div>
+<div class="line">$ roscd locomanip_controller/cnoid/project/</div>
+<div class="line">$ /usr/share/hrpsys/samples/JVRC1/clear-omninames.sh</div>
+<div class="line">$ choreonoid LMC_JVRC1_Cart.cnoid --start-simulation</div>
 <div class="line"># Terminal 3</div>
 <div class="line">$ source ~/ros/ws_lmc/devel/setup.bash</div>
 <div class="line">$ roslaunch locomanip_controller display.launch</div>

@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['waypoint_197',['Waypoint',['../structLMC_1_1Waypoint.html#ae713013e421ee8fd00b5291f5f670565',1,'LMC::Waypoint']]],
-  ['waypointqueue_198',['waypointQueue',['../classLMC_1_1ManipManager.html#a311fd4002a73da2845da45b0c6844711',1,'LMC::ManipManager']]]
+  ['ungrasp_214',['Ungrasp',['../classLMC_1_1ManipPhase_1_1Ungrasp.html#a7a63c672be2c8981fd41cbc034097065',1,'LMC::ManipPhase::Ungrasp']]],
+  ['update_215',['update',['../classLMC_1_1ManipManager.html#a85f0a441416dcae477d0fcd975b129e4',1,'LMC::ManipManager']]],
+  ['updatefootstep_216',['updateFootstep',['../classLMC_1_1ManipManager.html#a1bcfeb23c350745aa48b57d5b6282a9e',1,'LMC::ManipManager']]],
+  ['updatefootstepforvelmode_217',['updateFootstepForVelMode',['../classLMC_1_1ManipManager.html#acc5d8c7d28e4ae1f1b8f50a10b0adb30',1,'LMC::ManipManager']]],
+  ['updatehandtraj_218',['updateHandTraj',['../classLMC_1_1ManipManager.html#aab2212586d145b4f766c50340e8e9805',1,'LMC::ManipManager']]],
+  ['updateobjforvelmode_219',['updateObjForVelMode',['../classLMC_1_1ManipManager.html#a2e969f4d64684187fdb7132f908f59c1',1,'LMC::ManipManager']]],
+  ['updateobjtraj_220',['updateObjTraj',['../classLMC_1_1ManipManager.html#a6144b030a871107b49a427dd3e4866de',1,'LMC::ManipManager']]]
 ];

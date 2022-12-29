@@ -74,7 +74,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="structLMC_1_1GuiManipState-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">LMC::GuiManipState Struct Reference</div>  </div>
@@ -126,9 +125,13 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a365edeb119c9b1c393e96fcef5a3c8f1"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structLMC_1_1GuiManipState.html#a365edeb119c9b1c393e96fcef5a3c8f1">walkToObjConfigKeys_</a></td></tr>
+<tr class="separator:a365edeb119c9b1c393e96fcef5a3c8f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab115663ab26f94ea610efe5b01300f15"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structLMC_1_1GuiManipState.html#ab115663ab26f94ea610efe5b01300f15">moveObjConfigKeys_</a></td></tr>
-<tr class="memdesc:ab115663ab26f94ea610efe5b01300f15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry keys of GUI form.  <a href="structLMC_1_1GuiManipState.html#ab115663ab26f94ea610efe5b01300f15">More...</a><br /></td></tr>
 <tr class="separator:ab115663ab26f94ea610efe5b01300f15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eb8c14e548ee9912a8e3d9cda79c5b4"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structLMC_1_1GuiManipState.html#a6eb8c14e548ee9912a8e3d9cda79c5b4">updateObjConfigKeys_</a></td></tr>
+<tr class="separator:a6eb8c14e548ee9912a8e3d9cda79c5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_structLMC_1_1State"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_structLMC_1_1State')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="structLMC_1_1State.html">LMC::State</a></td></tr>
 <tr class="memitem:a8879eb8724e40204558b11b2d55e7d1b inherit pro_attribs_structLMC_1_1State"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structLMC_1_1LocomanipController.html">LocomanipController</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structLMC_1_1State.html#a8879eb8724e40204558b11b2d55e7d1b">ctlPtr_</a> = nullptr</td></tr>
 <tr class="memdesc:a8879eb8724e40204558b11b2d55e7d1b inherit pro_attribs_structLMC_1_1State"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to controller.  <a href="structLMC_1_1State.html#a8879eb8724e40204558b11b2d55e7d1b">More...</a><br /></td></tr>
@@ -258,10 +261,66 @@ Additional Inherited Members</h2></td></tr>
 <div class="line">                                                                           {<span class="stringliteral">&quot;startTime&quot;</span>, <span class="stringliteral">&quot;start time from now [sec]&quot;</span>},</div>
 <div class="line">                                                                           {<span class="stringliteral">&quot;endTime&quot;</span>, <span class="stringliteral">&quot;end time from now [sec]&quot;</span>},</div>
 <div class="line">                                                                           {<span class="stringliteral">&quot;footstep&quot;</span>, <span class="stringliteral">&quot;whether to enable footstep&quot;</span>}}</div>
-</div><!-- fragment -->
-<p>Entry keys of GUI form. </p>
+</div><!-- fragment --><p>Entry keys of GUI form </p>
 
-<p class="definition">Definition at line <a class="el" href="GuiManipState_8h_source.html#l00022">22</a> of file <a class="el" href="GuiManipState_8h_source.html">GuiManipState.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="GuiManipState_8h_source.html#l00027">27</a> of file <a class="el" href="GuiManipState_8h_source.html">GuiManipState.h</a>.</p>
+
+</div>
+</div>
+<a id="a6eb8c14e548ee9912a8e3d9cda79c5b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eb8c14e548ee9912a8e3d9cda79c5b4">&#9670;&nbsp;</a></span>updateObjConfigKeys_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::unordered_map&lt;std::string, std::string&gt; LMC::GuiManipState::updateObjConfigKeys_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">      {<span class="stringliteral">&quot;target&quot;</span>, <span class="stringliteral">&quot;target object pose&quot;</span>},</div>
+<div class="line">      {<span class="stringliteral">&quot;interpDuration&quot;</span>, <span class="stringliteral">&quot;interpolation duration [sec]&quot;</span>}}</div>
+</div><!-- fragment --><p>Entry keys of GUI form </p>
+
+<p class="definition">Definition at line <a class="el" href="GuiManipState_8h_source.html#l00032">32</a> of file <a class="el" href="GuiManipState_8h_source.html">GuiManipState.h</a>.</p>
+
+</div>
+</div>
+<a id="a365edeb119c9b1c393e96fcef5a3c8f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a365edeb119c9b1c393e96fcef5a3c8f1">&#9670;&nbsp;</a></span>walkToObjConfigKeys_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::unordered_map&lt;std::string, std::string&gt; LMC::GuiManipState::walkToObjConfigKeys_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">      {<span class="stringliteral">&quot;x&quot;</span>, <span class="stringliteral">&quot;goal x relative to object [m]&quot;</span>},</div>
+<div class="line">      {<span class="stringliteral">&quot;y&quot;</span>, <span class="stringliteral">&quot;goal y relative to object [m]&quot;</span>},</div>
+<div class="line">      {<span class="stringliteral">&quot;yaw&quot;</span>, <span class="stringliteral">&quot;goal yaw relative to object [deg]&quot;</span>}}</div>
+</div><!-- fragment --><p>Entry keys of GUI form </p>
+
+<p class="definition">Definition at line <a class="el" href="GuiManipState_8h_source.html#l00023">23</a> of file <a class="el" href="GuiManipState_8h_source.html">GuiManipState.h</a>.</p>
 
 </div>
 </div>
