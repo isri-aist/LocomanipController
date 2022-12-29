@@ -176,9 +176,10 @@ jobs:
           kill -9 ${CNOID_PID}
           sleep 10s
           mkdir -p /tmp/results
-          ffmpeg -nostats -i /tmp/video.avi /tmp/results/video.mp4
-          LOG_PATH=`readlink -f /tmp/mc-control-LocomanipController-latest.bin`
-          tar czf /tmp/results/`basename ${LOG_PATH}`.tar.gz -C `dirname ${LOG_PATH}` `basename ${LOG_PATH}`
+          ffmpeg -nostats -i /tmp/video.avi /tmp/results/LMC-video-${{ matrix.motion-type }}.mp4
+          LOG_FILENAME=LMC-log-${{ matrix.motion-type }}
+          mv `readlink -f /tmp/mc-control-LocomanipController-latest.bin` /tmp/${LOG_FILENAME}.bin
+          tar czf /tmp/results/${LOG_FILENAME}.tar.gz -C /tmp ${LOG_FILENAME}.bin
       - name: Upload simulation data
         # Only run for one configuration
         if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head'
