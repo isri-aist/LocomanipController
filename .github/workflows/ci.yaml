@@ -29,7 +29,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-18.04]
+        # Skip ubuntu-18.04 due to the issue in https://github.com/isri-aist/CnoidRosUtils/issues/1#issuecomment-1367072885
+        os: [ubuntu-20.04] # [ubuntu-20.04, ubuntu-18.04]
         build-type: [RelWithDebInfo, Debug]
         mc-rtc-version: [head, stable]
         motion-type: [PushCartWaypoint, PushCartVelMode]
