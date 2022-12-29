@@ -33,10 +33,15 @@ jobs:
         os: [ubuntu-20.04] # [ubuntu-20.04, ubuntu-18.04]
         build-type: [RelWithDebInfo, Debug]
         mc-rtc-version: [head, stable]
-        motion-type: [PushCartWaypoint, PushCartVelMode]
+        motion-type: [PushCartWaypoint]
         exclude:
           - build-type: Debug
             mc-rtc-version: stable
+        include:
+          - os: ubuntu-20.04
+            build-type: RelWithDebInfo
+            mc-rtc-version: head
+            motion-type: PushCartVelMode
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set ROS version
