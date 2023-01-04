@@ -2,7 +2,7 @@ var searchData=
 [
   ['base_51',['Base',['../classLMC_1_1ManipManager.html#a991db0c4b38939126c937d1a2ceb7f0d',1,'LMC::ManipManager']]],
   ['force_52',['force',['../namespacemc__tasks_1_1force.html',1,'mc_tasks']]],
-  ['makefootstep_53',['makeFootstep',['../classLMC_1_1ManipManager.html#a09cb7ed28c688691fd828a673fd2df0f',1,'LMC::ManipManager']]],
+  ['makefootstep_53',['makeFootstep',['../classLMC_1_1ManipManager.html#a7d6ee26f8567b6acfc9afe29226405a9',1,'LMC::ManipManager']]],
   ['makenextmanipphase_54',['makeNextManipPhase',['../classLMC_1_1ManipPhase_1_1Base.html#ad86b8f7af222ee0fef479e5eee0ffc9c',1,'LMC::ManipPhase::Base::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1PreReach.html#a180a3ee4e85c11849c3a2dccd6a2a710',1,'LMC::ManipPhase::PreReach::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1Reach.html#a58044edcef94edcc41e697e4870cda4e',1,'LMC::ManipPhase::Reach::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1Grasp.html#a2f33c348422a0384c308adecb6de27f7',1,'LMC::ManipPhase::Grasp::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1Ungrasp.html#ae0bec6ca85b06fb710097da378704474',1,'LMC::ManipPhase::Ungrasp::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1Release.html#a2eb96b695bea30f4e34336d11a094561',1,'LMC::ManipPhase::Release::makeNextManipPhase()']]],
   ['manipmanager_55',['ManipManager',['../classLMC_1_1ManipManager.html',1,'LMC::ManipManager'],['../classLMC_1_1ManipManager.html#aae65ad350f594ac235204c80d77d31eb',1,'LMC::ManipManager::ManipManager()']]],
   ['manipmanager_2eh_56',['ManipManager.h',['../ManipManager_8h.html',1,'']]],

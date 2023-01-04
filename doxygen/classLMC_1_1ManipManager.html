@@ -208,9 +208,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:acc5d8c7d28e4ae1f1b8f50a10b0adb30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#acc5d8c7d28e4ae1f1b8f50a10b0adb30">updateFootstepForVelMode</a> ()</td></tr>
 <tr class="memdesc:acc5d8c7d28e4ae1f1b8f50a10b0adb30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update footstep in velocity mode.  <a href="classLMC_1_1ManipManager.html#acc5d8c7d28e4ae1f1b8f50a10b0adb30">More...</a><br /></td></tr>
 <tr class="separator:acc5d8c7d28e4ae1f1b8f50a10b0adb30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09cb7ed28c688691fd828a673fd2df0f"><td class="memItemLeft" align="right" valign="top">BWC::Footstep&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a09cb7ed28c688691fd828a673fd2df0f">makeFootstep</a> (const BWC::Foot &amp;foot, const sva::PTransformd &amp;footMidpose, double startTime, const mc_rtc::Configuration &amp;mcRtcConfig={}) const</td></tr>
-<tr class="memdesc:a09cb7ed28c688691fd828a673fd2df0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a footstep.  <a href="classLMC_1_1ManipManager.html#a09cb7ed28c688691fd828a673fd2df0f">More...</a><br /></td></tr>
-<tr class="separator:a09cb7ed28c688691fd828a673fd2df0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d6ee26f8567b6acfc9afe29226405a9"><td class="memItemLeft" align="right" valign="top">BWC::Footstep&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a7d6ee26f8567b6acfc9afe29226405a9">makeFootstep</a> (const BWC::Foot &amp;foot, const sva::PTransformd &amp;footMidpose, double startTime, const mc_rtc::Configuration &amp;swingTrajConfig={}) const</td></tr>
+<tr class="memdesc:a7d6ee26f8567b6acfc9afe29226405a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a footstep.  <a href="classLMC_1_1ManipManager.html#a7d6ee26f8567b6acfc9afe29226405a9">More...</a><br /></td></tr>
+<tr class="separator:a7d6ee26f8567b6acfc9afe29226405a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c561ed6dc8e623e308f307f393a32b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a3c561ed6dc8e623e308f307f393a32b2">objPoseCallback</a> (const geometry_msgs::PoseStamped::ConstPtr &amp;poseStMsg)</td></tr>
 <tr class="memdesc:a3c561ed6dc8e623e308f307f393a32b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">ROS callback of object pose topic.  <a href="classLMC_1_1ManipManager.html#a3c561ed6dc8e623e308f307f393a32b2">More...</a><br /></td></tr>
 <tr class="separator:a3c561ed6dc8e623e308f307f393a32b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -585,8 +585,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a09cb7ed28c688691fd828a673fd2df0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09cb7ed28c688691fd828a673fd2df0f">&#9670;&nbsp;</a></span>makeFootstep()</h2>
+<a id="a7d6ee26f8567b6acfc9afe29226405a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d6ee26f8567b6acfc9afe29226405a9">&#9670;&nbsp;</a></span>makeFootstep()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -616,7 +616,7 @@ Friends</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const mc_rtc::Configuration &amp;&#160;</td>
-          <td class="paramname"><em>mcRtcConfig</em> = <code>{}</code>&#160;</td>
+          <td class="paramname"><em>swingTrajConfig</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -637,7 +637,7 @@ Friends</h2></td></tr>
     <tr><td class="paramname">foot</td><td>foot </td></tr>
     <tr><td class="paramname">footMidpose</td><td>middle pose of both feet </td></tr>
     <tr><td class="paramname">startTime</td><td>time to start the footstep </td></tr>
-    <tr><td class="paramname">mcRtcConfig</td><td>mc_rtc configuration </td></tr>
+    <tr><td class="paramname">swingTrajConfig</td><td>configuration for swing trajectory </td></tr>
   </table>
   </dd>
 </dl>
