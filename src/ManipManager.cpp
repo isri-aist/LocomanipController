@@ -516,14 +516,12 @@ void ManipManager::updateFootstepForVelMode()
 BWC::Footstep ManipManager::makeFootstep(const BWC::Foot & foot,
                                          const sva::PTransformd & footMidpose,
                                          double startTime,
-                                         const mc_rtc::Configuration & mcRtcConfig) const
+                                         const mc_rtc::Configuration & swingTrajConfig) const
 {
-  BWC::Footstep footstep(foot, ctl().footManager_->config().midToFootTranss.at(foot) * footMidpose, startTime,
-                         startTime + 0.5 * config_.doubleSupportRatio * config_.footstepDuration,
-                         startTime + (1.0 - 0.5 * config_.doubleSupportRatio) * config_.footstepDuration,
-                         startTime + config_.footstepDuration);
-  footstep.config.load(mcRtcConfig);
-  return footstep;
+  return BWC::Footstep(foot, ctl().footManager_->config().midToFootTranss.at(foot) * footMidpose, startTime,
+                       startTime + 0.5 * config_.doubleSupportRatio * config_.footstepDuration,
+                       startTime + (1.0 - 0.5 * config_.doubleSupportRatio) * config_.footstepDuration,
+                       startTime + config_.footstepDuration, swingTrajConfig);
 }
 
 void ManipManager::objPoseCallback(const geometry_msgs::PoseStamped::ConstPtr & poseStMsg)

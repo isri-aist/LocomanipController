@@ -271,12 +271,12 @@ protected:
       \param foot foot
       \param footMidpose middle pose of both feet
       \param startTime time to start the footstep
-      \param mcRtcConfig mc_rtc configuration
+      \param swingTrajConfig configuration for swing trajectory
   */
   BWC::Footstep makeFootstep(const BWC::Foot & foot,
                              const sva::PTransformd & footMidpose,
                              double startTime,
-                             const mc_rtc::Configuration & mcRtcConfig = {}) const;
+                             const mc_rtc::Configuration & swingTrajConfig = {}) const;
 
   /** \brief ROS callback of object pose topic. */
   void objPoseCallback(const geometry_msgs::PoseStamped::ConstPtr & poseStMsg);
