@@ -93,7 +93,7 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
     if(config_.has("configs") && config_("configs").has("waypointList"))
     {
       double startTime = ctl().t();
-      sva::PTransformd pose = ctl().manipManager_->calcRefObjPose(ctl().t(), true);
+      sva::PTransformd pose = ctl().manipManager_->calcRefObjPose(ctl().t());
 
       for(const auto & waypointConfig : config_("configs")("waypointList"))
       {

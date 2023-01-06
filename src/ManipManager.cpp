@@ -292,16 +292,6 @@ void ManipManager::releaseHandFromObj()
   }
 }
 
-sva::PTransformd ManipManager::calcRefObjPose(double t, bool nominal) const
-{
-  sva::PTransformd pose = (*objPoseFunc_)(t);
-  if(!nominal)
-  {
-    pose = objPoseOffset_ * pose;
-  }
-  return pose;
-}
-
 bool ManipManager::startVelMode()
 {
   if(velMode_)
@@ -482,7 +472,7 @@ void ManipManager::updateFootstep()
     {
       objPoseTime = objPoseFunc_->endTime();
     }
-    footMidpose = config_.objToFootMidTrans * calcRefObjPose(objPoseTime, true);
+    footMidpose = config_.objToFootMidTrans * calcRefObjPose(objPoseTime);
     const auto & footstep = makeFootstep(foot, footMidpose, startTime);
     ctl().footManager_->appendFootstep(footstep);
 
