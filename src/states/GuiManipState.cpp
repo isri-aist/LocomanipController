@@ -73,7 +73,7 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             sva::PTransformd pose =
                 sva::PTransformd(sva::RotZ(mc_rtc::constants::toRad(config(moveObjConfigKeys_.at("yaw")))),
                                  Eigen::Vector3d(config(moveObjConfigKeys_.at("x")), 0.0, 0.0))
-                * ctl().manipManager_->calcRefObjPose(ctl().t());
+                * ctl().manipManager_->calcRefObjPose(ctl().t(), true);
             ctl().manipManager_->appendWaypoint(Waypoint(startTime, endTime, pose));
             if(config(moveObjConfigKeys_.at("footstep")))
             {

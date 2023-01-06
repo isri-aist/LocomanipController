@@ -177,11 +177,9 @@ public:
 
   /** \brief Calculate reference object pose.
       \param t time
+      \param nominal whether to return nominal pose (pose without considering objPoseOffset)
   */
-  inline sva::PTransformd calcRefObjPose(double t) const
-  {
-    return (*objPoseFunc_)(t);
-  }
+  sva::PTransformd calcRefObjPose(double t, bool nominal = false) const;
 
   /** \brief Calculate reference object velocity.
       \param t time
@@ -303,6 +301,9 @@ protected:
 
   //! Last waypoint pose
   sva::PTransformd lastWaypointPose_ = sva::PTransformd::Identity();
+
+  //! Object pose offset
+  sva::PTransformd objPoseOffset_ = sva::PTransformd::Identity();
 
   //! Manipulation phases
   std::unordered_map<Hand, std::shared_ptr<ManipPhase::Base>> manipPhases_;
