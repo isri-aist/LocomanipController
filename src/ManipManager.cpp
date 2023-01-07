@@ -79,8 +79,11 @@ void ManipManager::reset()
     }
   }
 
-  objPoseFunc_->clearPoints();
+  objPoseOffsetFunc_.reset();
+  objPoseOffset_ = sva::PTransformd::Identity();
+
   sva::PTransformd objPoseWithoutOffset = objPoseOffset_.inv() * ctl().obj().posW();
+  objPoseFunc_->clearPoints();
   objPoseFunc_->appendPoint(std::make_pair(ctl().t(), objPoseWithoutOffset));
   objPoseFunc_->appendPoint(std::make_pair(ctl().t() + config_.objHorizon, objPoseWithoutOffset));
   objPoseFunc_->calcCoeff();
@@ -293,6 +296,27 @@ void ManipManager::releaseHandFromObj()
   }
 }
 
+bool ManipManager::setObjPoseOffset(const sva::PTransformd & newObjPoseOffset, double interpDuration)
+{
+  if(objPoseOffsetFunc_)
+  {
+    mc_rtc::log::error("[ManipManager] The object pose offset is being interpolated, so it cannot be set anew.");
+    return false;
+  }
+  if(interpDuration < 0.0)
+  {
+    mc_rtc::log::error("[ManipManager] Ignore the object pose offset with negative interpolation duration: {}",
+                       interpDuration);
+    return false;
+  }
+
+  objPoseOffsetFunc_ = std::make_shared<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>();
+  objPoseOffsetFunc_->appendPoint(std::make_pair(ctl().t(), objPoseOffset_));
+  objPoseOffsetFunc_->appendPoint(std::make_pair(ctl().t() + interpDuration, newObjPoseOffset));
+  objPoseOffsetFunc_->calcCoeff();
+  return true;
+}
+
 bool ManipManager::startVelMode()
 {
   if(velMode_)
@@ -384,6 +408,18 @@ void ManipManager::updateObjTraj()
     }
 
     objPoseFunc_->calcCoeff();
+  }
+
+  // Update objPoseOffset_
+  {
+    if(objPoseOffsetFunc_)
+    {
+      objPoseOffset_ = (*objPoseOffsetFunc_)(std::min(ctl().t(), objPoseOffsetFunc_->endTime()));
+      if(objPoseOffsetFunc_->endTime() <= ctl().t())
+      {
+        objPoseOffsetFunc_.reset();
+      }
+    }
   }
 
   // Update control object pose

@@ -204,17 +204,18 @@ public:
     return waypointQueue_;
   }
 
-  /** \brief Getter of object pose offset. */
+  /** \brief Const accessor to the object pose offset. */
   inline const sva::PTransformd & objPoseOffset() const noexcept
   {
     return objPoseOffset_;
   }
 
-  /** \brief Setter of object pose offset. */
-  inline void objPoseOffset(const sva::PTransformd & objPoseOffset) noexcept
-  {
-    objPoseOffset_ = objPoseOffset;
-  }
+  /** \brief Set object pose offset with interpolation.
+      \param newObjPoseOffset object pose offset to set
+      \param interpDuration interpolation duration [sec]
+      \return whether newObjPoseOffset is successfully set
+   */
+  bool setObjPoseOffset(const sva::PTransformd & newObjPoseOffset, double interpDuration);
 
   /** \brief Get manipulation phase. */
   inline const std::shared_ptr<ManipPhase::Base> & manipPhase(const Hand & hand) const
@@ -321,6 +322,9 @@ protected:
 
   //! Object pose offset
   sva::PTransformd objPoseOffset_ = sva::PTransformd::Identity();
+
+  //! Object pose offset function
+  std::shared_ptr<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseOffsetFunc_;
 
   //! Manipulation phases
   std::unordered_map<Hand, std::shared_ptr<ManipPhase::Base>> manipPhases_;
