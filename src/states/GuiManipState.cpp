@@ -36,8 +36,8 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             sva::PTransformd objToFootMidTrans =
                 convertTo3d(Eigen::Vector3d(config(walkToObjConfigKeys_.at("x")), config(walkToObjConfigKeys_.at("y")),
                                             mc_rtc::constants::toRad(config(walkToObjConfigKeys_.at("yaw")))));
-            ctl().footManager_->walkToRelativePose(
-                convertTo2d(objToFootMidTrans * ctl().obj().posW() * initialFootMidpose.inv()));
+            ctl().footManager_->walkToRelativePose(convertTo2d(
+                objToFootMidTrans * ctl().manipManager_->calcRefObjPose(ctl().t()) * initialFootMidpose.inv()));
           },
           mc_rtc::gui::FormNumberInput(walkToObjConfigKeys_.at("x"), true,
                                        ctl().manipManager_->config().objToFootMidTrans.translation().x()),
@@ -102,7 +102,7 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             sva::PTransformd pose;
             if(config(updateObjConfigKeys_.at("target")) == "real")
             {
-              pose = ctl().realObj().posW();
+              pose = ctl().manipManager_->objPoseOffset().inv() * ctl().realObj().posW();
             }
             else if(config(updateObjConfigKeys_.at("target")) == "nominal")
             {

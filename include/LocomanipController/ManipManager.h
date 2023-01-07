@@ -166,6 +166,8 @@ public:
   /** \brief Append a target waypoint to the queue.
       \param newWaypoint waypoint to append
       \return whether newWaypoint is appended
+
+      A waypoint pose is an object pose that "does not" include an offset pose.
   */
   bool appendWaypoint(const Waypoint & newWaypoint);
 
@@ -177,6 +179,8 @@ public:
 
   /** \brief Calculate reference object pose.
       \param t time
+
+      The returned reference object pose "does not" include an offset pose.
   */
   inline sva::PTransformd calcRefObjPose(double t) const
   {
@@ -191,10 +195,25 @@ public:
     return objPoseFunc_->derivative(t, 1);
   }
 
-  /** \brief Access waypoint queue. */
+  /** \brief Access waypoint queue.
+
+      A waypoint pose is an object pose that "does not" include an offset pose.
+   */
   inline const std::deque<Waypoint> & waypointQueue() const noexcept
   {
     return waypointQueue_;
+  }
+
+  /** \brief Getter of object pose offset. */
+  inline const sva::PTransformd & objPoseOffset() const noexcept
+  {
+    return objPoseOffset_;
+  }
+
+  /** \brief Setter of object pose offset. */
+  inline void objPoseOffset(const sva::PTransformd & objPoseOffset) noexcept
+  {
+    objPoseOffset_ = objPoseOffset;
   }
 
   /** \brief Get manipulation phase. */
@@ -284,13 +303,6 @@ protected:
   /** \brief ROS callback of object velocity topic. */
   void objVelCallback(const geometry_msgs::TwistStamped::ConstPtr & twistStMsg);
 
-public:
-  /** \brief Object pose function
-
-      \note This is public only for asynchronous MPC; protected is generally sufficient.
-   */
-  std::shared_ptr<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseFunc_;
-
 protected:
   //! Configuration
   Configuration config_;
@@ -303,6 +315,12 @@ protected:
 
   //! Last waypoint pose
   sva::PTransformd lastWaypointPose_ = sva::PTransformd::Identity();
+
+  //! Object pose function
+  std::shared_ptr<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseFunc_;
+
+  //! Object pose offset
+  sva::PTransformd objPoseOffset_ = sva::PTransformd::Identity();
 
   //! Manipulation phases
   std::unordered_map<Hand, std::shared_ptr<ManipPhase::Base>> manipPhases_;

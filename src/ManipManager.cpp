@@ -80,10 +80,11 @@ void ManipManager::reset()
   }
 
   objPoseFunc_->clearPoints();
-  objPoseFunc_->appendPoint(std::make_pair(ctl().t(), ctl().obj().posW()));
-  objPoseFunc_->appendPoint(std::make_pair(ctl().t() + config_.objHorizon, ctl().obj().posW()));
+  sva::PTransformd objPoseWithoutOffset = objPoseOffset_.inv() * ctl().obj().posW();
+  objPoseFunc_->appendPoint(std::make_pair(ctl().t(), objPoseWithoutOffset));
+  objPoseFunc_->appendPoint(std::make_pair(ctl().t() + config_.objHorizon, objPoseWithoutOffset));
   objPoseFunc_->calcCoeff();
-  lastWaypointPose_ = ctl().obj().posW();
+  lastWaypointPose_ = objPoseWithoutOffset;
 
   for(const auto & hand : Hands::Both)
   {
@@ -388,7 +389,7 @@ void ManipManager::updateObjTraj()
   // Update control object pose
   if(!velMode_)
   {
-    ctl().obj().posW(calcRefObjPose(ctl().t()));
+    ctl().obj().posW(objPoseOffset_ * calcRefObjPose(ctl().t()));
     ctl().obj().velW(calcRefObjVel(ctl().t()));
   }
 }
@@ -490,9 +491,10 @@ void ManipManager::updateObjForVelMode()
   sva::MotionVecd footMidvel = BWC::projGround(
       0.5 * (ctl().footManager_->targetFootVel(BWC::Foot::Left) + ctl().footManager_->targetFootVel(BWC::Foot::Right)));
 
-  ctl().obj().posW(config_.objToFootMidTrans.inv() * footMidpose);
+  sva::PTransformd objPoseWithoutOffset = config_.objToFootMidTrans.inv() * footMidpose;
+  ctl().obj().posW(objPoseOffset_ * objPoseWithoutOffset);
   ctl().obj().velW(config_.objToFootMidTrans.invMul(footMidvel));
-  lastWaypointPose_ = ctl().obj().posW();
+  lastWaypointPose_ = objPoseWithoutOffset;
 }
 
 void ManipManager::updateFootstepForVelMode()
@@ -506,8 +508,9 @@ void ManipManager::updateFootstepForVelMode()
     return sva::PTransformd(sva::RotZ(trans.z()), Eigen::Vector3d(trans.x(), trans.y(), 0));
   };
 
-  sva::PTransformd currentTargetFootMidpose = config_.objToFootMidTrans * ctl().obj().posW();
-  sva::PTransformd nextTargetFootMidpose = config_.objToFootMidTrans * convertTo3d(targetVel_) * ctl().obj().posW();
+  // objPoseWithoutOffset is set in lastWaypointPose_
+  sva::PTransformd currentTargetFootMidpose = config_.objToFootMidTrans * lastWaypointPose_;
+  sva::PTransformd nextTargetFootMidpose = config_.objToFootMidTrans * convertTo3d(targetVel_) * lastWaypointPose_;
   Eigen::Vector3d targetFootMidvel = convertTo2d(nextTargetFootMidpose * currentTargetFootMidpose.inv());
 
   ctl().footManager_->setRelativeVel(targetFootMidvel);

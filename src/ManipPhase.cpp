@@ -43,8 +43,7 @@ void PreReach::run()
   for(const auto & hand : Hands::Both)
   {
     ctl().handTasks_.at(hand)->targetPose(manipManager_->config().preReachTranss.at(hand)
-                                          * manipManager_->config().objToHandTranss.at(hand)
-                                          * manipManager_->calcRefObjPose(ctl().t()));
+                                          * manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
   }
 }
 
@@ -84,7 +83,7 @@ void Reach::run()
     {
       ctl().handTasks_.at(hand)->targetPose(
           sva::interpolate(manipManager_->config().preReachTranss.at(hand), sva::PTransformd::Identity(), reachingRatio)
-          * manipManager_->config().objToHandTranss.at(hand) * manipManager_->calcRefObjPose(ctl().t()));
+          * manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
     }
   }
 }
@@ -119,8 +118,7 @@ void Grasp::run()
 {
   for(const auto & hand : Hands::Both)
   {
-    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand)
-                                          * manipManager_->calcRefObjPose(ctl().t()));
+    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
   }
 }
 
@@ -147,8 +145,7 @@ void Hold::run()
 {
   for(const auto & hand : Hands::Both)
   {
-    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand)
-                                          * manipManager_->calcRefObjPose(ctl().t()));
+    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
   }
 }
 
@@ -165,8 +162,7 @@ void Ungrasp::run()
 {
   for(const auto & hand : Hands::Both)
   {
-    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand)
-                                          * manipManager_->calcRefObjPose(ctl().t()));
+    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
   }
 }
 
@@ -213,7 +209,7 @@ void Release::run()
     {
       ctl().handTasks_.at(hand)->targetPose(
           sva::interpolate(manipManager_->config().preReachTranss.at(hand), sva::PTransformd::Identity(), reachingRatio)
-          * manipManager_->config().objToHandTranss.at(hand) * manipManager_->calcRefObjPose(ctl().t()));
+          * manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
     }
   }
 }

@@ -22,7 +22,8 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   {
     if(config_.has("configs") && config_("configs")("preUpdateObj", false))
     {
-      ctl().manipManager_->appendWaypoint(Waypoint(ctl().t(), ctl().t() + 1.0, ctl().realObj().posW()));
+      ctl().manipManager_->appendWaypoint(
+          Waypoint(ctl().t(), ctl().t() + 1.0, ctl().manipManager_->objPoseOffset().inv() * ctl().realObj().posW()));
       phase_ = 1;
     }
     else
@@ -51,7 +52,7 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
       sva::PTransformd objToFootMidTrans =
           config_("configs")("objToFootMidTrans", ctl().manipManager_->config().objToFootMidTrans);
       ctl().footManager_->walkToRelativePose(
-          convertTo2d(objToFootMidTrans * ctl().obj().posW() * initialFootMidpose.inv()));
+          convertTo2d(objToFootMidTrans * ctl().manipManager_->calcRefObjPose(ctl().t()) * initialFootMidpose.inv()));
       phase_ = 3;
     }
     else
