@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['baseoritaskstiffness_5f_225',['baseOriTaskStiffness_',['../structLMC_1_1InitialState.html#a2107e06a29a4198d73fa783666641fe3',1,'LMC::InitialState']]],
-  ['both_226',['Both',['../namespaceLMC_1_1Hands.html#a8c9267d6007b258d4593e9460685694e',1,'LMC::Hands']]]
+  ['baseoritaskstiffness_5f_227',['baseOriTaskStiffness_',['../structLMC_1_1InitialState.html#a2107e06a29a4198d73fa783666641fe3',1,'LMC::InitialState']]],
+  ['both_228',['Both',['../namespaceLMC_1_1Hands.html#a8c9267d6007b258d4593e9460685694e',1,'LMC::Hands']]]
 ];

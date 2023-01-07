@@ -75,7 +75,6 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
@@ -148,15 +147,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac842b70c829b0f5704491db2d3abadfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#ac842b70c829b0f5704491db2d3abadfa">releaseHandFromObj</a> ()</td></tr>
 <tr class="memdesc:ac842b70c829b0f5704491db2d3abadfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release hand from object.  <a href="classLMC_1_1ManipManager.html#ac842b70c829b0f5704491db2d3abadfa">More...</a><br /></td></tr>
 <tr class="separator:ac842b70c829b0f5704491db2d3abadfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fd16fc6975fd013f28b971ec6517d36"><td class="memItemLeft" align="right" valign="top">sva::PTransformd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a4fd16fc6975fd013f28b971ec6517d36">calcRefObjPose</a> (double t, bool nominal=false) const</td></tr>
-<tr class="memdesc:a4fd16fc6975fd013f28b971ec6517d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate reference object pose.  <a href="classLMC_1_1ManipManager.html#a4fd16fc6975fd013f28b971ec6517d36">More...</a><br /></td></tr>
-<tr class="separator:a4fd16fc6975fd013f28b971ec6517d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8dcdc1e74c20f68f30dda4ab4d2f17c"><td class="memItemLeft" align="right" valign="top">sva::PTransformd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#ab8dcdc1e74c20f68f30dda4ab4d2f17c">calcRefObjPose</a> (double t) const</td></tr>
+<tr class="memdesc:ab8dcdc1e74c20f68f30dda4ab4d2f17c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate reference object pose.  <a href="classLMC_1_1ManipManager.html#ab8dcdc1e74c20f68f30dda4ab4d2f17c">More...</a><br /></td></tr>
+<tr class="separator:ab8dcdc1e74c20f68f30dda4ab4d2f17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ed1ab343ff9420e9f826ab6b708f699"><td class="memItemLeft" align="right" valign="top">sva::MotionVecd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a2ed1ab343ff9420e9f826ab6b708f699">calcRefObjVel</a> (double t) const</td></tr>
 <tr class="memdesc:a2ed1ab343ff9420e9f826ab6b708f699"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate reference object velocity.  <a href="classLMC_1_1ManipManager.html#a2ed1ab343ff9420e9f826ab6b708f699">More...</a><br /></td></tr>
 <tr class="separator:a2ed1ab343ff9420e9f826ab6b708f699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a311fd4002a73da2845da45b0c6844711"><td class="memItemLeft" align="right" valign="top">const std::deque&lt; <a class="el" href="structLMC_1_1Waypoint.html">Waypoint</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a311fd4002a73da2845da45b0c6844711">waypointQueue</a> () const noexcept</td></tr>
 <tr class="memdesc:a311fd4002a73da2845da45b0c6844711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access waypoint queue.  <a href="classLMC_1_1ManipManager.html#a311fd4002a73da2845da45b0c6844711">More...</a><br /></td></tr>
 <tr class="separator:a311fd4002a73da2845da45b0c6844711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81a74ea6248b6f5193aabf0cdbc9a056"><td class="memItemLeft" align="right" valign="top">const sva::PTransformd &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a81a74ea6248b6f5193aabf0cdbc9a056">objPoseOffset</a> () const noexcept</td></tr>
+<tr class="memdesc:a81a74ea6248b6f5193aabf0cdbc9a056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter of object pose offset.  <a href="classLMC_1_1ManipManager.html#a81a74ea6248b6f5193aabf0cdbc9a056">More...</a><br /></td></tr>
+<tr class="separator:a81a74ea6248b6f5193aabf0cdbc9a056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e449ba842a47cb9fa41a24d99ea4c63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a2e449ba842a47cb9fa41a24d99ea4c63">objPoseOffset</a> (const sva::PTransformd &amp;objPoseOffset) noexcept</td></tr>
+<tr class="memdesc:a2e449ba842a47cb9fa41a24d99ea4c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter of object pose offset.  <a href="classLMC_1_1ManipManager.html#a2e449ba842a47cb9fa41a24d99ea4c63">More...</a><br /></td></tr>
+<tr class="separator:a2e449ba842a47cb9fa41a24d99ea4c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a489da8f6151d012e012cd1a6c4e4bf21"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; <a class="el" href="classLMC_1_1ManipPhase_1_1Base.html">ManipPhase::Base</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a489da8f6151d012e012cd1a6c4e4bf21">manipPhase</a> (const <a class="el" href="namespaceLMC.html#ae7f6623df43544f9ff871b19c576d891">Hand</a> &amp;hand) const</td></tr>
 <tr class="memdesc:a489da8f6151d012e012cd1a6c4e4bf21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get manipulation phase.  <a href="classLMC_1_1ManipManager.html#a489da8f6151d012e012cd1a6c4e4bf21">More...</a><br /></td></tr>
 <tr class="separator:a489da8f6151d012e012cd1a6c4e4bf21"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,12 +183,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a895c603d6e6756e717baa060709a1887"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a895c603d6e6756e717baa060709a1887">velMode</a> () const</td></tr>
 <tr class="memdesc:a895c603d6e6756e717baa060709a1887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the velocity mode (i.e., moving the object at the relative target velocity) is enabled.  <a href="classLMC_1_1ManipManager.html#a895c603d6e6756e717baa060709a1887">More...</a><br /></td></tr>
 <tr class="separator:a895c603d6e6756e717baa060709a1887"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a74a8fa1a415c3f748288556f4d8d262f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; BWC::CubicInterpolator&lt; sva::PTransformd, sva::MotionVecd &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a74a8fa1a415c3f748288556f4d8d262f">objPoseFunc_</a></td></tr>
-<tr class="memdesc:a74a8fa1a415c3f748288556f4d8d262f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object pose function.  <a href="classLMC_1_1ManipManager.html#a74a8fa1a415c3f748288556f4d8d262f">More...</a><br /></td></tr>
-<tr class="separator:a74a8fa1a415c3f748288556f4d8d262f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -232,6 +231,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ae6cbfe5f5d472180d608824d9e6db7ba"><td class="memItemLeft" align="right" valign="top">sva::PTransformd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#ae6cbfe5f5d472180d608824d9e6db7ba">lastWaypointPose_</a> = sva::PTransformd::Identity()</td></tr>
 <tr class="memdesc:ae6cbfe5f5d472180d608824d9e6db7ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last waypoint pose.  <a href="classLMC_1_1ManipManager.html#ae6cbfe5f5d472180d608824d9e6db7ba">More...</a><br /></td></tr>
 <tr class="separator:ae6cbfe5f5d472180d608824d9e6db7ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74a8fa1a415c3f748288556f4d8d262f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; BWC::CubicInterpolator&lt; sva::PTransformd, sva::MotionVecd &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a74a8fa1a415c3f748288556f4d8d262f">objPoseFunc_</a></td></tr>
+<tr class="memdesc:a74a8fa1a415c3f748288556f4d8d262f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object pose function.  <a href="classLMC_1_1ManipManager.html#a74a8fa1a415c3f748288556f4d8d262f">More...</a><br /></td></tr>
+<tr class="separator:a74a8fa1a415c3f748288556f4d8d262f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f89168a7381e618f8de0ab2edd0d3df"><td class="memItemLeft" align="right" valign="top">sva::PTransformd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a0f89168a7381e618f8de0ab2edd0d3df">objPoseOffset_</a> = sva::PTransformd::Identity()</td></tr>
 <tr class="memdesc:a0f89168a7381e618f8de0ab2edd0d3df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object pose offset.  <a href="classLMC_1_1ManipManager.html#a0f89168a7381e618f8de0ab2edd0d3df">More...</a><br /></td></tr>
 <tr class="separator:a0f89168a7381e618f8de0ab2edd0d3df"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -375,44 +377,45 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>whether newWaypoint is appended </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>whether newWaypoint is appended</dd></dl>
+<p>A waypoint pose is an object pose that "does not" include an offset pose. </p>
 
 </div>
 </div>
-<a id="a4fd16fc6975fd013f28b971ec6517d36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fd16fc6975fd013f28b971ec6517d36">&#9670;&nbsp;</a></span>calcRefObjPose()</h2>
+<a id="ab8dcdc1e74c20f68f30dda4ab4d2f17c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8dcdc1e74c20f68f30dda4ab4d2f17c">&#9670;&nbsp;</a></span>calcRefObjPose()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">sva::PTransformd LMC::ManipManager::calcRefObjPose </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>nominal</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calculate reference object pose. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">t</td><td>time </td></tr>
-    <tr><td class="paramname">nominal</td><td>whether to return nominal pose (pose without considering objPoseOffset) </td></tr>
+    <tr><td class="paramname">t</td><td>time</td></tr>
   </table>
   </dd>
 </dl>
+<p>The returned reference object pose "does not" include an offset pose. </p>
+
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00185">185</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -448,7 +451,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00187">187</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00193">193</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -506,7 +509,7 @@ Friends</h2></td></tr>
 
 <p>Accessor to the controller. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00248">248</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00269">269</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -535,7 +538,7 @@ Friends</h2></td></tr>
 
 <p>Const accessor to the controller. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00242">242</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00263">263</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -585,7 +588,7 @@ Friends</h2></td></tr>
 
 <p>Set function to interpolate stiffness of hand task. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00205">205</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00226">226</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -674,7 +677,7 @@ Friends</h2></td></tr>
 
 <p>Get manipulation phase. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00199">199</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00220">220</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -703,6 +706,65 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>ROS callback of object pose topic. </p>
+
+</div>
+</div>
+<a id="a81a74ea6248b6f5193aabf0cdbc9a056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81a74ea6248b6f5193aabf0cdbc9a056">&#9670;&nbsp;</a></span>objPoseOffset() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sva::PTransformd&amp; LMC::ManipManager::objPoseOffset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter of object pose offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00208">208</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+
+</div>
+</div>
+<a id="a2e449ba842a47cb9fa41a24d99ea4c63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e449ba842a47cb9fa41a24d99ea4c63">&#9670;&nbsp;</a></span>objPoseOffset() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LMC::ManipManager::objPoseOffset </td>
+          <td>(</td>
+          <td class="paramtype">const sva::PTransformd &amp;&#160;</td>
+          <td class="paramname"><em>objPoseOffset</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setter of object pose offset. </p>
+
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00214">214</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -837,7 +899,7 @@ Friends</h2></td></tr>
 
 <p>Require sending footstep command following an object. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00211">211</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00232">232</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -893,7 +955,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00229">229</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00250">250</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1145,7 +1207,7 @@ Friends</h2></td></tr>
 
 <p>Whether the velocity mode (i.e., moving the object at the relative target velocity) is enabled. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00235">235</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00256">256</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1173,8 +1235,9 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Access waypoint queue. </p>
+<p>A waypoint pose is an object pose that "does not" include an offset pose. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00193">193</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00202">202</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1225,7 +1288,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>ROS variables </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00329">329</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00346">346</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1251,7 +1314,7 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="structLMC_1_1ManipManager_1_1Configuration.html" title="Configuration.">Configuration</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00294">294</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00308">308</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1277,7 +1340,7 @@ Friends</h2></td></tr>
 
 <p>Pointer to controller. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00297">297</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00311">311</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1303,7 +1366,7 @@ Friends</h2></td></tr>
 
 <p>Function to interpolate stiffness of hand task. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00312">312</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00329">329</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1329,7 +1392,7 @@ Friends</h2></td></tr>
 
 <p>Last waypoint pose. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00303">303</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00317">317</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1355,7 +1418,7 @@ Friends</h2></td></tr>
 
 <p>Manipulation phases. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00309">309</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00326">326</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1380,7 +1443,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>ROS variables </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00328">328</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00345">345</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1389,17 +1452,24 @@ Friends</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::shared_ptr&lt;BWC::CubicInterpolator&lt;sva::PTransformd, sva::MotionVecd&gt; &gt; LMC::ManipManager::objPoseFunc_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Object pose function. </p>
-<dl class="section note"><dt>Note</dt><dd>This is public only for asynchronous MPC; protected is generally sufficient. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00290">290</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00320">320</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1425,7 +1495,7 @@ Friends</h2></td></tr>
 
 <p>Object pose offset. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00306">306</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00323">323</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1450,7 +1520,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>ROS variables </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00330">330</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00347">347</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1475,7 +1545,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>ROS variables </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00331">331</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00348">348</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1501,7 +1571,7 @@ Friends</h2></td></tr>
 
 <p>Whether to require sending footstep command following an object. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00318">318</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00335">335</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1527,7 +1597,7 @@ Friends</h2></td></tr>
 
 <p>Whether to require updating impedance gains. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00315">315</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00332">332</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1553,7 +1623,7 @@ Friends</h2></td></tr>
 
 <p>Relative target velocity of object in the velocity mode (x [m/s], y [m/s], theta [rad/s]) </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00324">324</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00341">341</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1579,7 +1649,7 @@ Friends</h2></td></tr>
 
 <p>Whether the velocity mode (i.e., moving the object at the relative target velocity) is enabled. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00321">321</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00338">338</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
@@ -1605,7 +1675,7 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="structLMC_1_1Waypoint.html" title="Waypoint of object trajectory.">Waypoint</a> queue. </p>
 
-<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00300">300</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ManipManager_8h_source.html#l00314">314</a> of file <a class="el" href="ManipManager_8h_source.html">ManipManager.h</a>.</p>
 
 </div>
 </div>
