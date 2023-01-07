@@ -172,8 +172,8 @@ items:
               data: 
                 Link name: ""
                 Frame id: ""
-                Pose topic name (only for topic output): ""
-                Velocity topic name (only for topic output): ""
+                Pose topic name (only for topic output): "/cnoid/object/pose"
+                Velocity topic name (only for topic output): "/cnoid/object/vel"
                 TF frame id (only for TF output): ""
                 Publish rate: 30
                 Output TF: false

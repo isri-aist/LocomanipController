@@ -17,5 +17,5 @@ states:
         duration: 10.0 # [sec]
 
 ManipManager:
-  objPoseTopic: /cnoid/Cart/pose
-  objVelTopic: /cnoid/Cart/vel
+  objPoseTopic: /cnoid/object/pose
+  objVelTopic: /cnoid/object/vel
