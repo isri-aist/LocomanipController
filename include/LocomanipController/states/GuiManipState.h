@@ -32,6 +32,10 @@ protected:
   const std::unordered_map<std::string, std::string> updateObjConfigKeys_ = {
       {"target", "target object pose"},
       {"interpDuration", "interpolation duration [sec]"}};
+  const std::unordered_map<std::string, std::string> poseOffsetConfigKeys_ = {
+      {"xyz", "xyz position [m]"},
+      {"rpy", "rpy orientation [deg]"},
+      {"interpDuration", "interpolation duration [sec]"}};
   //! @}
 };
 } // namespace LMC

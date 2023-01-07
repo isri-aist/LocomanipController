@@ -1,3 +1,4 @@
+#include <mc_rbdyn/rpy_utils.h>
 #include <mc_rtc/gui/Button.h>
 #include <mc_rtc/gui/Form.h>
 
@@ -121,6 +122,20 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
           },
           mc_rtc::gui::FormComboInput(updateObjConfigKeys_.at("target"), true, {"real", "nominal"}, false, 0),
           mc_rtc::gui::FormNumberInput(updateObjConfigKeys_.at("interpDuration"), true, 1.0)));
+  ctl().gui()->addElement(
+      {ctl().name(), "GuiManip", "PoseOffset"},
+      mc_rtc::gui::Form(
+          "PoseOffset",
+          [this](const mc_rtc::Configuration & config) {
+            Eigen::Vector3d rpy = config(poseOffsetConfigKeys_.at("rpy"));
+            ctl().manipManager_->setObjPoseOffset(
+                sva::PTransformd(mc_rbdyn::rpyToMat(rpy.unaryExpr(&mc_rtc::constants::toRad)),
+                                 config(poseOffsetConfigKeys_.at("xyz"))),
+                config(poseOffsetConfigKeys_.at("interpDuration")));
+          },
+          mc_rtc::gui::FormArrayInput<Eigen::Vector3d>(poseOffsetConfigKeys_.at("xyz"), true, Eigen::Vector3d::Zero()),
+          mc_rtc::gui::FormArrayInput<Eigen::Vector3d>(poseOffsetConfigKeys_.at("rpy"), true, Eigen::Vector3d::Zero()),
+          mc_rtc::gui::FormNumberInput(poseOffsetConfigKeys_.at("interpDuration"), true, 1.0)));
 
   output("OK");
 }
