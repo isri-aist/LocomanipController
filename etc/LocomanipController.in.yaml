@@ -140,6 +140,7 @@ FootManager:
   name: FootManager
   footstepDuration: 0.8 # [sec]
   doubleSupportRatio: 0.125 # []
+  deltaTransLimit: [0.15, 0.1, 12.5] # (x [m], y [m], theta [deg])
   midToFootTranss:
     Left:
       translation: [0, 0.105, 0] # [m]
@@ -147,10 +148,13 @@ FootManager:
       translation: [0, -0.105, 0] # [m]
   zmpHorizon: 3.0 # [sec]
   zmpOffset: [0, -0.02, 0] # (positive for x-forward, y-outside, z-upward) [m]
+  defaultSwingTrajType: CubicSplineSimple
+  footstepQueueSizeInVelMode: 3
   overwriteLandingPose: false
   stopSwingTrajForTouchDownFoot: true
   keepSupportFootPoseForTouchDownFoot: false
   enableWrenchDistForTouchDownFoot: true
+  enableArmSwing: false
   fricCoeff: 0.5
   touchDownRemainingDuration: 0.2 # [sec]
   touchDownPosError: 0.02 # [m]
@@ -190,8 +194,8 @@ FootManager:
 ManipManager:
   name: ManipManager
   objHorizon: 3.0 # [sec]
-  objPoseTopic: /obj/pose
-  objVelTopic: /obj/vel
+  objPoseTopic: /object/pose
+  objVelTopic: /object/vel
   handTaskStiffness: 1000.0
   handTaskStiffnessInterpDuration: 4.0 # [sec]
   preReachDuration: 3.0 # [ec]
@@ -235,7 +239,7 @@ ManipManager:
       opening: 1.0
   objToFootMidTrans:
     translation: [-0.65, 0, 0] # [m]
-  footstepDuration: 1.2 # [sec]
+  footstepDuration: 1.0 # [sec]
   doubleSupportRatio: 0.2 # [sec]
 
 CentroidalManager:
@@ -265,6 +269,11 @@ CentroidalManager:
 
 OverwriteConfigList:
   hrp5_p:
+    PostureTask:
+      jointWeights:
+        WP: 50
+        WR: 50
+
     CoMTask:
       activeJoints: [
       "Root",
@@ -275,8 +284,8 @@ OverwriteConfigList:
       body: Chest_Link2
 
     FootManager:
-      footstepDuration: 1.2 # [sec]
-      doubleSupportRatio: 0.2 # []
+      footstepDuration: 0.9 # [sec]
+      doubleSupportRatio: 0.15 # []
       impedanceGains:
         singleSupport:
           spring:
@@ -292,11 +301,9 @@ OverwriteConfigList:
 
   hrp2_drc:
     PostureTask:
-      jointGains:
-        - jointName: CHEST_JOINT0
-          stiffness: 1000.0
-        - jointName: CHEST_JOINT1
-          stiffness: 1000.0
+      jointWeights:
+        CHEST_JOINT0: 50
+        CHEST_JOINT1: 50
 
     CoMTask:
       activeJoints: [
@@ -308,9 +315,21 @@ OverwriteConfigList:
     BaseOrientationTask:
       body: CHEST_LINK1
 
+    HandTaskList:
+      - type: impedance
+        hand: Left
+        surface: InternLeftHand
+        stiffness: 1000.0
+        weight: 1000.0
+      - type: impedance
+        hand: Right
+        surface: InternRightHand
+        stiffness: 1000.0
+        weight: 1000.0
+
     FootManager:
-      footstepDuration: 1.2 # [sec]
-      doubleSupportRatio: 0.2 # []
+      footstepDuration: 0.9 # [sec]
+      doubleSupportRatio: 0.15 # []
       zmpOffset: [0, -0.03, 0] # (positive for x-forward, y-outside, z-upward) [m]
 
     CentroidalManager:
