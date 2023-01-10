@@ -214,6 +214,8 @@ void ManipManager::addToLogger(mc_rtc::Logger & logger)
   logger.addLogEntry(config_.name + "_objVel_ref", this, [this]() { return ctl().obj().velW(); });
   logger.addLogEntry(config_.name + "_objVel_measured", this, [this]() { return ctl().realObj().velW(); });
 
+  MC_RTC_LOG_HELPER(config_.name + "_objPoseOffset", objPoseOffset_);
+
   for(const auto & hand : Hands::Both)
   {
     logger.addLogEntry(config_.name + "_manipPhase_" + std::to_string(hand), this,
