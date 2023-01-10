@@ -268,8 +268,8 @@ void ManipManager::reachHandToObj()
   {
     if(manipPhases_.at(hand)->label() != ManipPhaseLabel::Free)
     {
-      mc_rtc::log::error("[ManipManager] Cannot reach hand because {} manipulation phase is {}", std::to_string(hand),
-                         std::to_string(ctl().manipManager_->manipPhase(hand)->label()));
+      mc_rtc::log::error("[ManipManager] The hand must be in Free phase to reach, but the {} hand is in {} phase.",
+                         std::to_string(hand), std::to_string(ctl().manipManager_->manipPhase(hand)->label()));
       continue;
     }
     manipPhases_.at(hand) = std::make_shared<ManipPhase::PreReach>(hand, this);
@@ -282,8 +282,8 @@ void ManipManager::releaseHandFromObj()
   {
     if(manipPhases_.at(hand)->label() != ManipPhaseLabel::Hold)
     {
-      mc_rtc::log::error("[ManipManager] Cannot release hand because {} manipulation phase is {}", std::to_string(hand),
-                         std::to_string(ctl().manipManager_->manipPhase(hand)->label()));
+      mc_rtc::log::error("[ManipManager] The hand must be in Hold phase to release, but the {} hand is in {} phase.",
+                         std::to_string(hand), std::to_string(ctl().manipManager_->manipPhase(hand)->label()));
       continue;
     }
 
