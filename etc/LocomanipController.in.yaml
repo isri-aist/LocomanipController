@@ -86,7 +86,7 @@ PostureTask:
 
 CoMTask:
   type: com
-  stiffness: [1000.0, 1000.0, 100.0]
+  stiffness: [1000.0, 1000.0, 1000.0]
   weight: 1000.0
 
 BaseOrientationTask:
@@ -280,6 +280,7 @@ OverwriteConfigList:
       jointWeights:
         WP: 50
         WR: 50
+        WY: 50
 
     CoMTask:
       activeJoints: [
@@ -308,6 +309,11 @@ OverwriteConfigList:
 
   hrp2_drc:
     PostureTask:
+      target:
+        RARM_JOINT4: [0.7853981633974483] # 45
+        RARM_JOINT6: [-0.7853981633974483] # -45
+        LARM_JOINT4: [-0.7853981633974483] # -45
+        LARM_JOINT6: [0.7853981633974483] # 45
       jointWeights:
         CHEST_JOINT0: 50
         CHEST_JOINT1: 50
@@ -315,7 +321,6 @@ OverwriteConfigList:
     CoMTask:
       activeJoints: [
       "Root",
-      "CHEST_JOINT0", "CHEST_JOINT1",
       "RLEG_JOINT0", "RLEG_JOINT1", "RLEG_JOINT2", "RLEG_JOINT3", "RLEG_JOINT4", "RLEG_JOINT5",
       "LLEG_JOINT0", "LLEG_JOINT1", "LLEG_JOINT2", "LLEG_JOINT3", "LLEG_JOINT4", "LLEG_JOINT5"]
 
@@ -325,12 +330,12 @@ OverwriteConfigList:
     HandTaskList:
       - type: impedance
         hand: Left
-        surface: InternLeftHand
+        surface: LeftGripper
         stiffness: 1000.0
         weight: 1000.0
       - type: impedance
         hand: Right
-        surface: InternRightHand
+        surface: RightGripper
         stiffness: 1000.0
         weight: 1000.0
 
