@@ -217,6 +217,12 @@ public:
    */
   bool setObjPoseOffset(const sva::PTransformd & newObjPoseOffset, double interpDuration);
 
+  /** \brief Whether the object pose offset is being interpolated. */
+  inline bool interpolatingObjPoseOffset() const
+  {
+    return static_cast<bool>(objPoseOffsetFunc_);
+  };
+
   /** \brief Get manipulation phase. */
   inline const std::shared_ptr<ManipPhase::Base> & manipPhase(const Hand & hand) const
   {

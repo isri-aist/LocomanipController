@@ -91,6 +91,25 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   }
   else if(phase_ == 6)
   {
+    if(config_.has("configs") && config_("configs").has("preObjPoseOffset"))
+    {
+      ctl().manipManager_->setObjPoseOffset(config_("configs")("preObjPoseOffset"), 1.0);
+      phase_ = 7;
+    }
+    else
+    {
+      phase_ = 8;
+    }
+  }
+  else if(phase_ == 7)
+  {
+    if(!ctl().manipManager_->interpolatingObjPoseOffset())
+    {
+      phase_ = 8;
+    }
+  }
+  else if(phase_ == 8)
+  {
     if(config_.has("configs") && config_("configs").has("waypointList"))
     {
       double startTime = ctl().t();
@@ -129,7 +148,7 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
         ctl().manipManager_->requireFootstepFollowingObj();
       }
 
-      phase_ = 7;
+      phase_ = 9;
     }
     else if(config_.has("configs") && config_("configs").has("velocityMode"))
     {
@@ -137,14 +156,14 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
       ctl().manipManager_->setRelativeVel(config_("configs")("velocityMode")("velocity"));
       velModeEndTime_ = ctl().t() + static_cast<double>(config_("configs")("velocityMode")("duration"));
 
-      phase_ = 7;
+      phase_ = 9;
     }
     else
     {
-      phase_ = 8;
+      phase_ = 10;
     }
   }
-  else if(phase_ == 7)
+  else if(phase_ == 9)
   {
     if(config_.has("configs") && config_("configs").has("velocityMode"))
     {
@@ -161,31 +180,50 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
     if(ctl().manipManager_->waypointQueue().empty() && ctl().footManager_->footstepQueue().empty()
        && !ctl().manipManager_->velMode())
     {
-      phase_ = 8;
+      phase_ = 10;
     }
   }
-  else if(phase_ == 8)
+  else if(phase_ == 10)
+  {
+    if(config_.has("configs") && config_("configs").has("postObjPoseOffset"))
+    {
+      ctl().manipManager_->setObjPoseOffset(config_("configs")("postObjPoseOffset"), 1.0);
+      phase_ = 11;
+    }
+    else
+    {
+      phase_ = 12;
+    }
+  }
+  else if(phase_ == 11)
+  {
+    if(!ctl().manipManager_->interpolatingObjPoseOffset())
+    {
+      phase_ = 12;
+    }
+  }
+  else if(phase_ == 12)
   {
     if(config_.has("configs") && config_("configs")("release", true))
     {
       ctl().manipManager_->releaseHandFromObj();
-      phase_ = 9;
+      phase_ = 13;
     }
     else
     {
-      phase_ = 10;
+      phase_ = 14;
     }
   }
-  else if(phase_ == 9)
+  else if(phase_ == 13)
   {
     if(ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Free
        && ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Free)
     {
-      phase_ = 10;
+      phase_ = 14;
     }
   }
 
-  return phase_ == 10;
+  return phase_ == 14;
 }
 
 void ConfigManipState::teardown(mc_control::fsm::Controller &) {}
