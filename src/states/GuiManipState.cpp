@@ -69,6 +69,13 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
                   ctl().manipManager_->waypointQueue().size());
               return;
             }
+            if(!ctl().footManager_->footstepQueue().empty())
+            {
+              mc_rtc::log::error(
+                  "[GuiManipState] \"MoveObj\" command is available only when the footstep queue is empty: {}",
+                  ctl().footManager_->footstepQueue().size());
+              return;
+            }
             double startTime = ctl().t() + static_cast<double>(config(moveObjConfigKeys_.at("startTime")));
             double endTime = ctl().t() + static_cast<double>(config(moveObjConfigKeys_.at("endTime")));
             sva::PTransformd pose =
