@@ -204,6 +204,7 @@ ManipManager:
   handTaskStiffnessInterpDuration: 4.0 # [sec]
   preReachDuration: 3.0 # [ec]
   reachDuration: 1.5 # [sec]
+  reachHandDistThre: 0.5 # [m]
   objToHandTranss:
     Left:
       translation: [-0.35, 0.3, 1.0] # [m]

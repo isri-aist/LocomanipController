@@ -22,6 +22,7 @@ void ManipManager::Configuration::load(const mc_rtc::Configuration & mcRtcConfig
   mcRtcConfig("handTaskStiffnessInterpDuration", handTaskStiffnessInterpDuration);
   mcRtcConfig("preReachDuration", preReachDuration);
   mcRtcConfig("reachDuration", reachDuration);
+  mcRtcConfig("reachHandDistThre", reachHandDistThre);
 
   if(mcRtcConfig.has("objToHandTranss"))
   {
@@ -162,6 +163,9 @@ void ManipManager::addToGUI(mc_rtc::gui::StateBuilder & gui)
       mc_rtc::gui::NumberInput(
           "reachDuration", [this]() { return config_.reachDuration; }, [this](double v) { config_.reachDuration = v; }),
       mc_rtc::gui::NumberInput(
+          "reachHandDistThre", [this]() { return config_.reachHandDistThre; },
+          [this](double v) { config_.reachHandDistThre = v; }),
+      mc_rtc::gui::NumberInput(
           "footstepDuration", [this]() { return config_.footstepDuration; },
           [this](double v) { config_.footstepDuration = v; }),
       mc_rtc::gui::NumberInput(
@@ -270,6 +274,16 @@ void ManipManager::reachHandToObj()
     {
       mc_rtc::log::error("[ManipManager] The hand must be in Free phase to reach, but the {} hand is in {} phase.",
                          std::to_string(hand), std::to_string(ctl().manipManager_->manipPhase(hand)->label()));
+      continue;
+    }
+    sva::PTransformd reachHandPose = config_.objToHandTranss.at(hand) * ctl().obj().posW();
+    double reachHandDist =
+        (reachHandPose.translation() - ctl().handTasks_.at(hand)->surfacePose().translation()).norm();
+    if(reachHandDist > config_.reachHandDistThre)
+    {
+      mc_rtc::log::error(
+          "[ManipManager] The reaching position of the {} hand is too far from the current position: {} > {}.",
+          std::to_string(hand), reachHandDist, config_.reachHandDistThre);
       continue;
     }
     manipPhases_.at(hand) = std::make_shared<ManipPhase::PreReach>(hand, this);

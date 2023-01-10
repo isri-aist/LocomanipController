@@ -83,6 +83,9 @@ public:
     //! Reach duration [sec]
     double reachDuration = 1.0;
 
+    //! Distance threshold of reaching hand [m]
+    double reachHandDistThre = 0.5;
+
     //! Transformations from object to hand
     std::unordered_map<Hand, sva::PTransformd> objToHandTranss = {
         {Hand::Left, sva::PTransformd(sva::RotY(-1 * mc_rtc::constants::PI / 2), Eigen::Vector3d(0, 0.4, 0))},
