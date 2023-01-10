@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['obj_194',['obj',['../structLMC_1_1LocomanipController.html#acaf9359c206b9ce9d745a98fc8ddff28',1,'LMC::LocomanipController::obj()'],['../structLMC_1_1LocomanipController.html#a951b7b6a962b57356ba9789d4d8404ff',1,'LMC::LocomanipController::obj() const']]],
-  ['objposecallback_195',['objPoseCallback',['../classLMC_1_1ManipManager.html#a3c561ed6dc8e623e308f307f393a32b2',1,'LMC::ManipManager']]],
-  ['objposeoffset_196',['objPoseOffset',['../classLMC_1_1ManipManager.html#a81a74ea6248b6f5193aabf0cdbc9a056',1,'LMC::ManipManager']]],
-  ['objvelcallback_197',['objVelCallback',['../classLMC_1_1ManipManager.html#acf93a839e0735217eff8b69b043b7a1f',1,'LMC::ManipManager']]],
-  ['opposite_198',['opposite',['../namespaceLMC.html#afb790ec9e345dd87af374a5677e32773',1,'LMC']]]
+  ['makefootstep_192',['makeFootstep',['../classLMC_1_1ManipManager.html#a7d6ee26f8567b6acfc9afe29226405a9',1,'LMC::ManipManager']]],
+  ['makenextmanipphase_193',['makeNextManipPhase',['../classLMC_1_1ManipPhase_1_1Base.html#ad86b8f7af222ee0fef479e5eee0ffc9c',1,'LMC::ManipPhase::Base::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1PreReach.html#a180a3ee4e85c11849c3a2dccd6a2a710',1,'LMC::ManipPhase::PreReach::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1Reach.html#a58044edcef94edcc41e697e4870cda4e',1,'LMC::ManipPhase::Reach::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1Grasp.html#a2f33c348422a0384c308adecb6de27f7',1,'LMC::ManipPhase::Grasp::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1Ungrasp.html#ae0bec6ca85b06fb710097da378704474',1,'LMC::ManipPhase::Ungrasp::makeNextManipPhase()'],['../classLMC_1_1ManipPhase_1_1Release.html#a2eb96b695bea30f4e34336d11a094561',1,'LMC::ManipPhase::Release::makeNextManipPhase()']]],
+  ['manipmanager_194',['ManipManager',['../classLMC_1_1ManipManager.html#aae65ad350f594ac235204c80d77d31eb',1,'LMC::ManipManager']]],
+  ['manipphase_195',['manipPhase',['../classLMC_1_1ManipManager.html#a489da8f6151d012e012cd1a6c4e4bf21',1,'LMC::ManipManager']]]
 ];

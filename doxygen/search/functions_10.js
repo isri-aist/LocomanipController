@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['waypoint_229',['Waypoint',['../structLMC_1_1Waypoint.html#ae713013e421ee8fd00b5291f5f670565',1,'LMC::Waypoint']]],
-  ['waypointqueue_230',['waypointQueue',['../classLMC_1_1ManipManager.html#a311fd4002a73da2845da45b0c6844711',1,'LMC::ManipManager']]]
+  ['velmode_230',['velMode',['../classLMC_1_1ManipManager.html#a895c603d6e6756e717baa060709a1887',1,'LMC::ManipManager']]]
 ];
