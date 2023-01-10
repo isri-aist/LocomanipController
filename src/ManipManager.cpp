@@ -501,8 +501,16 @@ void ManipManager::updateFootstep()
     return;
   }
 
+  auto convertTo2d = [](const sva::PTransformd & pose) -> Eigen::Vector3d {
+    return Eigen::Vector3d(pose.translation().x(), pose.translation().y(), mc_rbdyn::rpyFromMat(pose.rotation()).z());
+  };
+  auto convertTo3d = [](const Eigen::Vector3d & trans) -> sva::PTransformd {
+    return sva::PTransformd(sva::RotZ(trans.z()), Eigen::Vector3d(trans.x(), trans.y(), 0));
+  };
+
   BWC::Foot foot = BWC::Foot::Left;
-  sva::PTransformd footMidpose = sva::PTransformd::Identity();
+  sva::PTransformd footMidpose = BWC::projGround(sva::interpolate(
+      ctl().footManager_->targetFootPose(BWC::Foot::Left), ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
   double startTime = ctl().t() + 1.0;
   while(startTime < waypointQueue_.back().endTime)
   {
@@ -511,7 +519,9 @@ void ManipManager::updateFootstep()
     {
       objPoseTime = objPoseFunc_->endTime();
     }
-    footMidpose = config_.objToFootMidTrans * calcRefObjPose(objPoseTime);
+    Eigen::Vector3d deltaTrans =
+        convertTo2d(config_.objToFootMidTrans * calcRefObjPose(objPoseTime) * footMidpose.inv());
+    footMidpose = convertTo3d(ctl().footManager_->clampDeltaTrans(deltaTrans, foot)) * footMidpose;
     const auto & footstep = makeFootstep(foot, footMidpose, startTime);
     ctl().footManager_->appendFootstep(footstep);
 
