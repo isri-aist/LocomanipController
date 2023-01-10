@@ -40,11 +40,8 @@ PreReach::PreReach(const Hand & hand, ManipManager * manipManager) : Base(ManipP
 void PreReach::run()
 {
   // Set target pose of hand tasks
-  for(const auto & hand : Hands::Both)
-  {
-    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().preReachTranss.at(hand)
-                                          * manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
-  }
+  ctl().handTasks_.at(hand_)->targetPose(manipManager_->config().preReachTranss.at(hand_)
+                                         * manipManager_->config().objToHandTranss.at(hand_) * ctl().obj().posW());
 }
 
 bool PreReach::complete() const
@@ -79,12 +76,9 @@ void Reach::run()
       reachingRatio = (*reachingRatioFunc_)(reachingRatioFunc_->endTime());
       reachingRatioFunc_.reset();
     }
-    for(const auto & hand : Hands::Both)
-    {
-      ctl().handTasks_.at(hand)->targetPose(
-          sva::interpolate(manipManager_->config().preReachTranss.at(hand), sva::PTransformd::Identity(), reachingRatio)
-          * manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
-    }
+    ctl().handTasks_.at(hand_)->targetPose(
+        sva::interpolate(manipManager_->config().preReachTranss.at(hand_), sva::PTransformd::Identity(), reachingRatio)
+        * manipManager_->config().objToHandTranss.at(hand_) * ctl().obj().posW());
   }
 }
 
@@ -116,10 +110,7 @@ Grasp::Grasp(const Hand & hand, ManipManager * manipManager) : Base(ManipPhaseLa
 
 void Grasp::run()
 {
-  for(const auto & hand : Hands::Both)
-  {
-    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
-  }
+  ctl().handTasks_.at(hand_)->targetPose(manipManager_->config().objToHandTranss.at(hand_) * ctl().obj().posW());
 }
 
 bool Grasp::complete() const
@@ -143,10 +134,7 @@ Hold::Hold(const Hand & hand, ManipManager * manipManager) : Base(ManipPhaseLabe
 
 void Hold::run()
 {
-  for(const auto & hand : Hands::Both)
-  {
-    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
-  }
+  ctl().handTasks_.at(hand_)->targetPose(manipManager_->config().objToHandTranss.at(hand_) * ctl().obj().posW());
 }
 
 Ungrasp::Ungrasp(const Hand & hand, ManipManager * manipManager) : Base(ManipPhaseLabel::Ungrasp, hand, manipManager)
@@ -160,10 +148,7 @@ Ungrasp::Ungrasp(const Hand & hand, ManipManager * manipManager) : Base(ManipPha
 
 void Ungrasp::run()
 {
-  for(const auto & hand : Hands::Both)
-  {
-    ctl().handTasks_.at(hand)->targetPose(manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
-  }
+  ctl().handTasks_.at(hand_)->targetPose(manipManager_->config().objToHandTranss.at(hand_) * ctl().obj().posW());
 }
 
 bool Ungrasp::complete() const
@@ -205,12 +190,9 @@ void Release::run()
       reachingRatio = (*reachingRatioFunc_)(reachingRatioFunc_->endTime());
       reachingRatioFunc_.reset();
     }
-    for(const auto & hand : Hands::Both)
-    {
-      ctl().handTasks_.at(hand)->targetPose(
-          sva::interpolate(manipManager_->config().preReachTranss.at(hand), sva::PTransformd::Identity(), reachingRatio)
-          * manipManager_->config().objToHandTranss.at(hand) * ctl().obj().posW());
-    }
+    ctl().handTasks_.at(hand_)->targetPose(
+        sva::interpolate(manipManager_->config().preReachTranss.at(hand_), sva::PTransformd::Identity(), reachingRatio)
+        * manipManager_->config().objToHandTranss.at(hand_) * ctl().obj().posW());
   }
 }
 
