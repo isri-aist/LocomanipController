@@ -46,7 +46,6 @@
   </link>
   <joint name="Body" type="fixed">
     <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0" />
-    <axis xyz="  " />
     <parent link="Root" />
     <child link="Body" />
   </joint>
