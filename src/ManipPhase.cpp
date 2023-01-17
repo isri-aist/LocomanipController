@@ -34,7 +34,7 @@ PreReach::PreReach(const Hand & hand, ManipManager * manipManager) : Base(ManipP
 
 void PreReach::run()
 {
-  // Set stiffness of hand tasks
+  // Set stiffness of hand task
   double remainingDuration = std::max(endTime_ - ctl().t(), 1e-6);
   // This line differs from the optimal trajectory formulation, but it empirically gives a smooth IK solution
   remainingDuration *= 0.5;
@@ -44,7 +44,7 @@ void PreReach::run()
   double damping = std::min(4.0 / remainingDuration, dampingMax);
   ctl().handTasks_.at(hand_)->setGains(stiffness, damping);
 
-  // Set target pose of hand tasks
+  // Set target pose of hand task
   ctl().handTasks_.at(hand_)->targetPose(manipManager_->config().preReachTranss.at(hand_)
                                          * manipManager_->config().objToHandTranss.at(hand_) * ctl().obj().posW());
 }
@@ -61,7 +61,7 @@ std::shared_ptr<Base> PreReach::makeNextManipPhase() const
 
 Reach::Reach(const Hand & hand, ManipManager * manipManager) : Base(ManipPhaseLabel::Reach, hand, manipManager)
 {
-  // Set stiffness of hand tasks
+  // Set stiffness of hand task
   ctl().handTasks_.at(hand_)->stiffness(manipManager_->config().handTaskStiffness);
 
   // Setup reaching interpolation
@@ -71,7 +71,7 @@ Reach::Reach(const Hand & hand, ManipManager * manipManager) : Base(ManipPhaseLa
 
 void Reach::run()
 {
-  // Set target pose of hand tasks
+  // Set target pose of hand task
   if(reachingRatioFunc_)
   {
     double reachingRatio = 0.0;
@@ -185,7 +185,7 @@ Release::Release(const Hand & hand, ManipManager * manipManager) : Base(ManipPha
 
 void Release::run()
 {
-  // Set target pose of hand tasks
+  // Set target pose of hand task
   if(reachingRatioFunc_)
   {
     double reachingRatio = 0.0;
