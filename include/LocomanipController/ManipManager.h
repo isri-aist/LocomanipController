@@ -74,9 +74,6 @@ public:
     //! Stiffness of hand task
     double handTaskStiffness = 1000.0;
 
-    //! Interpolation duration of stiffness of hand task [sec]
-    double handTaskStiffnessInterpDuration = 4.0;
-
     //! Pre-reach duration [sec]
     double preReachDuration = 2.0;
 
@@ -287,12 +284,6 @@ public:
     return manipPhases_.at(hand);
   }
 
-  /** \brief Set function to interpolate stiffness of hand task. */
-  inline void handTaskStiffnessFunc(const std::shared_ptr<BWC::CubicInterpolator<double>> & handTaskStiffnessFunc)
-  {
-    handTaskStiffnessFunc_ = handTaskStiffnessFunc;
-  }
-
   /** \brief Require sending footstep command following an object. */
   void requireFootstepFollowingObj();
 
@@ -386,9 +377,6 @@ protected:
 
   //! Manipulation phases
   std::unordered_map<Hand, std::shared_ptr<ManipPhase::Base>> manipPhases_;
-
-  //! Function to interpolate stiffness of hand task
-  std::shared_ptr<BWC::CubicInterpolator<double>> handTaskStiffnessFunc_;
 
   //! Whether to require updating impedance gains
   bool requireImpGainUpdate_ = true;

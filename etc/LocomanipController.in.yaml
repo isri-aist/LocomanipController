@@ -207,7 +207,7 @@ ManipManager:
   objVelTopic: /object/vel
   handTaskStiffness: 1000.0
   handTaskStiffnessInterpDuration: 4.0 # [sec]
-  preReachDuration: 3.0 # [ec]
+  preReachDuration: 2.0 # [ec]
   reachDuration: 1.5 # [sec]
   reachHandDistThre: 0.5 # [m]
   objToHandTranss:

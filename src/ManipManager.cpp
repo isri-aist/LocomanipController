@@ -19,7 +19,6 @@ void ManipManager::Configuration::load(const mc_rtc::Configuration & mcRtcConfig
   mcRtcConfig("objPoseTopic", objPoseTopic);
   mcRtcConfig("objVelTopic", objVelTopic);
   mcRtcConfig("handTaskStiffness", handTaskStiffness);
-  mcRtcConfig("handTaskStiffnessInterpDuration", handTaskStiffnessInterpDuration);
   mcRtcConfig("preReachDuration", preReachDuration);
   mcRtcConfig("reachDuration", reachDuration);
   mcRtcConfig("reachHandDistThre", reachHandDistThre);
@@ -165,9 +164,6 @@ void ManipManager::addToGUI(mc_rtc::gui::StateBuilder & gui)
       mc_rtc::gui::NumberInput(
           "handTaskStiffness", [this]() { return config_.handTaskStiffness; },
           [this](double v) { config_.handTaskStiffness = v; }),
-      mc_rtc::gui::NumberInput(
-          "handTaskStiffnessInterpDuration", [this]() { return config_.handTaskStiffnessInterpDuration; },
-          [this](double v) { config_.handTaskStiffnessInterpDuration = v; }),
       mc_rtc::gui::NumberInput(
           "preReachDuration", [this]() { return config_.preReachDuration; },
           [this](double v) { config_.preReachDuration = v; }),
@@ -521,25 +517,6 @@ void ManipManager::updateHandTraj()
       {
         mc_rtc::log::error_and_throw("[ManipManager] {} next manipulation phase is nullptr.", std::to_string(hand));
       }
-    }
-  }
-
-  // Set stiffness of hand task
-  if(handTaskStiffnessFunc_)
-  {
-    double stiffness = 0.0;
-    if(ctl().t() < handTaskStiffnessFunc_->endTime())
-    {
-      stiffness = (*handTaskStiffnessFunc_)(ctl().t());
-    }
-    else
-    {
-      stiffness = (*handTaskStiffnessFunc_)(handTaskStiffnessFunc_->endTime());
-      handTaskStiffnessFunc_.reset();
-    }
-    for(const auto & hand : Hands::Both)
-    {
-      ctl().handTasks_.at(hand)->stiffness(stiffness);
     }
   }
 

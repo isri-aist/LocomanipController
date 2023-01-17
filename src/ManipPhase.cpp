@@ -28,17 +28,22 @@ PreReach::PreReach(const Hand & hand, ManipManager * manipManager) : Base(ManipP
   ctl().handTasks_.at(hand_)->reset();
   ctl().solver().addTask(ctl().handTasks_.at(hand_));
 
-  // Setup stiffness interpolation of hand task
-  manipManager_->handTaskStiffnessFunc(std::make_shared<BWC::CubicInterpolator<double>>(
-      std::map<double, double>{{ctl().t(), 0.0},
-                               {ctl().t() + manipManager_->config().handTaskStiffnessInterpDuration,
-                                manipManager_->config().handTaskStiffness}}));
-
+  // Set the end time of stiffness interpolation of hand task
   endTime_ = ctl().t() + manipManager_->config().preReachDuration;
 }
 
 void PreReach::run()
 {
+  // Set stiffness of hand tasks
+  double remainingDuration = std::max(endTime_ - ctl().t(), 1e-6);
+  // This line differs from the optimal trajectory formulation, but it empirically gives a smooth IK solution
+  remainingDuration *= 0.5;
+  double stiffnessMax = manipManager_->config().handTaskStiffness;
+  double dampingMax = 2 * std::sqrt(stiffnessMax);
+  double stiffness = std::min(6.0 / std::pow(remainingDuration, 2), stiffnessMax);
+  double damping = std::min(4.0 / remainingDuration, dampingMax);
+  ctl().handTasks_.at(hand_)->setGains(stiffness, damping);
+
   // Set target pose of hand tasks
   ctl().handTasks_.at(hand_)->targetPose(manipManager_->config().preReachTranss.at(hand_)
                                          * manipManager_->config().objToHandTranss.at(hand_) * ctl().obj().posW());
@@ -56,6 +61,9 @@ std::shared_ptr<Base> PreReach::makeNextManipPhase() const
 
 Reach::Reach(const Hand & hand, ManipManager * manipManager) : Base(ManipPhaseLabel::Reach, hand, manipManager)
 {
+  // Set stiffness of hand tasks
+  ctl().handTasks_.at(hand_)->stiffness(manipManager_->config().handTaskStiffness);
+
   // Setup reaching interpolation
   reachingRatioFunc_ = std::make_shared<BWC::CubicInterpolator<double>>(
       std::map<double, double>{{ctl().t(), 0.0}, {ctl().t() + manipManager_->config().reachDuration, 1.0}});
