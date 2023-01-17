@@ -49,6 +49,11 @@ void ManipManager::Configuration::load(const mc_rtc::Configuration & mcRtcConfig
   mcRtcConfig("doubleSupportRatio", doubleSupportRatio);
 }
 
+void ManipManager::VelModeData::Configuration::load(const mc_rtc::Configuration & mcRtcConfig)
+{
+  mcRtcConfig("nonholonomicObjectMotion", nonholonomicObjectMotion);
+}
+
 void ManipManager::VelModeData::reset(bool enabled, const sva::PTransformd & currentObjPose)
 {
   enabled_ = enabled;
@@ -177,6 +182,13 @@ void ManipManager::addToGUI(mc_rtc::gui::StateBuilder & gui)
       mc_rtc::gui::NumberInput(
           "doubleSupportRatio", [this]() { return config_.doubleSupportRatio; },
           [this](double v) { config_.doubleSupportRatio = v; }));
+
+  gui.addElement({ctl().name(), config_.name, "Config", "VelMode"},
+                 mc_rtc::gui::Checkbox(
+                     "nonholonomicObjectMotion", [this]() { return velModeData_.config_.nonholonomicObjectMotion; },
+                     [this]() {
+                       velModeData_.config_.nonholonomicObjectMotion = !velModeData_.config_.nonholonomicObjectMotion;
+                     }));
 
   gui.addElement({ctl().name(), config_.name, "ImpedanceGain"},
                  mc_rtc::gui::ArrayInput(
@@ -406,6 +418,15 @@ bool ManipManager::endVelMode()
   ctl().footManager_->endVelMode();
 
   return true;
+}
+
+void ManipManager::setRelativeVel(const Eigen::Vector3d & targetVel)
+{
+  velModeData_.targetVel_ = targetVel;
+  if(velModeData_.config_.nonholonomicObjectMotion)
+  {
+    velModeData_.targetVel_.y() = 0;
+  }
 }
 
 void ManipManager::updateObjTraj()

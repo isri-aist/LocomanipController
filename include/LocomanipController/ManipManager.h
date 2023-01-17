@@ -130,10 +130,13 @@ public:
     /** \brief Configuration. */
     struct Configuration
     {
+      //! Whether the object moves nonholonomic, like a wheel.
+      bool nonholonomicObjectMotion = true;
+
       /** \brief Load mc_rtc configuration.
           \param mcRtcConfig mc_rtc configuration
       */
-      void load(const mc_rtc::Configuration & mcRtcConfig) {}
+      void load(const mc_rtc::Configuration & mcRtcConfig);
     };
 
   public:
@@ -306,10 +309,7 @@ public:
   /** \brief Set the relative target velocity
       \param targetVel relative target velocity of object in the velocity mode (x [m/s], y [m/s], theta [rad/s])
    */
-  inline void setRelativeVel(const Eigen::Vector3d & targetVel)
-  {
-    velModeData_.targetVel_ = targetVel;
-  }
+  void setRelativeVel(const Eigen::Vector3d & targetVel);
 
   /** \brief Whether the velocity mode (i.e., moving the object at the relative target velocity) is enabled. */
   inline bool velModeEnabled() const

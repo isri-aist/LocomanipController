@@ -251,6 +251,8 @@ ManipManager:
     translation: [-0.65, 0, 0] # [m]
   footstepDuration: 1.0 # [sec]
   doubleSupportRatio: 0.2 # [sec]
+  VelMode:
+    nonholonomicObjectMotion: true
 
 CentroidalManager:
   name: CentroidalManager
