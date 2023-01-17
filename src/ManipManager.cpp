@@ -357,6 +357,13 @@ bool ManipManager::startVelMode()
     return false;
   }
 
+  if(ctl().footManager_->velModeData().config_.enableOnlineFootstepUpdate)
+  {
+    mc_rtc::log::error(
+        "[ManipManager] enableOnlineFootstepUpdate must be false in the FootManager velocity mode.");
+    return false;
+  }
+
   if(!ctl().footManager_->startVelMode())
   {
     mc_rtc::log::error("[ManipManager] Failed to start velocity mode in Footmanager.");
