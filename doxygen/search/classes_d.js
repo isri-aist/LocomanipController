@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['waypoint_158',['Waypoint',['../structLMC_1_1Waypoint.html',1,'LMC']]]
+  ['velmodedata_162',['VelModeData',['../classLMC_1_1ManipManager_1_1VelModeData.html',1,'LMC::ManipManager']]]
 ];

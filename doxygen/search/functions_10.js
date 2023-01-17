@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['velmode_231',['velMode',['../classLMC_1_1ManipManager.html#a895c603d6e6756e717baa060709a1887',1,'LMC::ManipManager']]]
+  ['velmodedata_235',['velModeData',['../classLMC_1_1ManipManager.html#a492978e5a5bc6113aa5c4c5326eefd3b',1,'LMC::ManipManager::velModeData()'],['../classLMC_1_1ManipManager_1_1VelModeData.html#a1599131460c683c257fc9adfbb7431e0',1,'LMC::ManipManager::VelModeData::VelModeData()']]],
+  ['velmodeenabled_236',['velModeEnabled',['../classLMC_1_1ManipManager.html#ad7beb16809196393ae2c55220015bfa9',1,'LMC::ManipManager']]]
 ];

@@ -1,6 +1,8 @@
 <map id="LMC::ManipManager" name="LMC::ManipManager">
-<area shape="rect" id="node1" title="Manipulation manager." alt="" coords="51,185,205,212"/>
-<area shape="rect" id="node2" href="$structLMC_1_1ManipManager_1_1Configuration.html" title="Configuration." alt="" coords="5,81,168,123"/>
-<area shape="rect" id="node3" href="$structLMC_1_1LocomanipController.html" title="Humanoid loco&#45;manipulation controller." alt="" coords="193,89,386,115"/>
-<area shape="rect" id="node4" title=" " alt="" coords="172,5,407,32"/>
+<area shape="rect" id="node1" title="Manipulation manager." alt="" coords="680,71,835,98"/>
+<area shape="rect" id="node2" href="$structLMC_1_1ManipManager_1_1Configuration.html" title="Configuration." alt="" coords="355,5,518,47"/>
+<area shape="rect" id="node3" href="$structLMC_1_1LocomanipController.html" title="Humanoid loco&#45;manipulation controller." alt="" coords="340,71,533,98"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,71,240,98"/>
+<area shape="rect" id="node5" href="$classLMC_1_1ManipManager_1_1VelModeData.html" title="Velocity mode data." alt="" coords="355,123,518,164"/>
+<area shape="rect" id="node6" href="$structLMC_1_1ManipManager_1_1VelModeData_1_1Configuration.html" title="Configuration." alt="" coords="19,123,226,164"/>
 </map>

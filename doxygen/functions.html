@@ -121,9 +121,10 @@ $(function() {
 </li>
 <li>config_
 : <a class="el" href="classLMC_1_1ManipManager.html#a8da2330e96f4c49fc40e809f63e3ed52">LMC::ManipManager</a>
+, <a class="el" href="classLMC_1_1ManipManager_1_1VelModeData.html#a56d6083ce7ece128ee1185a545c2ee20">LMC::ManipManager::VelModeData</a>
 </li>
 <li>ctl()
-: <a class="el" href="classLMC_1_1ManipManager.html#a83415df198b5065d62c44e1728daa7b8">LMC::ManipManager</a>
+: <a class="el" href="classLMC_1_1ManipManager.html#af771345d0471a1f6aebb36e8df3c4f3b">LMC::ManipManager</a>
 , <a class="el" href="classLMC_1_1ManipPhase_1_1Base.html#a4e7a87de732d269bc9e66fb5ee4700d5">LMC::ManipPhase::Base</a>
 , <a class="el" href="structLMC_1_1State.html#a649bc3c0da83adfce5b74ec34a6e9610">LMC::State</a>
 </li>
@@ -142,6 +143,9 @@ $(function() {
 
 
 <h3><a id="index_e"></a>- e -</h3><ul>
+<li>enabled_
+: <a class="el" href="classLMC_1_1ManipManager_1_1VelModeData.html#afe2c1c7b8e8a4477e3ccdf180c5cdc77">LMC::ManipManager::VelModeData</a>
+</li>
 <li>endTime
 : <a class="el" href="structLMC_1_1Waypoint.html#a4ff411ee10ae11dee94361ac345e6aa6">LMC::Waypoint</a>
 </li>
@@ -163,6 +167,12 @@ $(function() {
 </li>
 <li>Free()
 : <a class="el" href="classLMC_1_1ManipPhase_1_1Free.html#aa188b26dbfdb5e0ad496018ab3a50e69">LMC::ManipPhase::Free</a>
+</li>
+<li>frontFootstep_
+: <a class="el" href="classLMC_1_1ManipManager_1_1VelModeData.html#a0293b1556f6cf21749bcaa3a58a2ecf6">LMC::ManipManager::VelModeData</a>
+</li>
+<li>frontWaypointPose_
+: <a class="el" href="classLMC_1_1ManipManager_1_1VelModeData.html#a086c2c17ed4907921fdec1fa3005b51b">LMC::ManipManager::VelModeData</a>
 </li>
 </ul>
 
@@ -224,6 +234,7 @@ $(function() {
 </li>
 <li>load()
 : <a class="el" href="structLMC_1_1ManipManager_1_1Configuration.html#a41f4e2915d8424978a2a0c494e635fa8">LMC::ManipManager::Configuration</a>
+, <a class="el" href="structLMC_1_1ManipManager_1_1VelModeData_1_1Configuration.html#a1254140f7285e1fb59f63db5136ec8a6">LMC::ManipManager::VelModeData::Configuration</a>
 </li>
 <li>LocomanipController()
 : <a class="el" href="structLMC_1_1LocomanipController.html#a0cce7b141739d91e7f9b8160f6ac9a01">LMC::LocomanipController</a>
@@ -279,6 +290,9 @@ $(function() {
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>obj()
 : <a class="el" href="structLMC_1_1LocomanipController.html#acaf9359c206b9ce9d745a98fc8ddff28">LMC::LocomanipController</a>
+</li>
+<li>objDeltaTrans_
+: <a class="el" href="classLMC_1_1ManipManager_1_1VelModeData.html#a4e4594a92179b917e4c05d253828cd65">LMC::ManipManager::VelModeData</a>
 </li>
 <li>objHorizon
 : <a class="el" href="structLMC_1_1ManipManager_1_1Configuration.html#a5ff5829162de048397781fd993429db0">LMC::ManipManager::Configuration</a>
@@ -389,6 +403,7 @@ $(function() {
 <li>reset()
 : <a class="el" href="structLMC_1_1LocomanipController.html#aa61ddcf0a260e1c5717d653970aa363d">LMC::LocomanipController</a>
 , <a class="el" href="classLMC_1_1ManipManager.html#a216fecc374937409c7d1dc10ed891072">LMC::ManipManager</a>
+, <a class="el" href="classLMC_1_1ManipManager_1_1VelModeData.html#a9e840c05810f8438cd13f23f240060fd">LMC::ManipManager::VelModeData</a>
 </li>
 <li>run()
 : <a class="el" href="structLMC_1_1ConfigManipState.html#aa04e1ec5eb37a3e367ab83d15157aba7">LMC::ConfigManipState</a>
@@ -442,7 +457,7 @@ $(function() {
 
 <h3><a id="index_t"></a>- t -</h3><ul>
 <li>targetVel_
-: <a class="el" href="classLMC_1_1ManipManager.html#a70dc7010ab9cb7821768a6bab92a5b72">LMC::ManipManager</a>
+: <a class="el" href="classLMC_1_1ManipManager_1_1VelModeData.html#ac0f81a77069e016c09a67056147ef3fa">LMC::ManipManager::VelModeData</a>
 , <a class="el" href="structLMC_1_1TeleopState.html#adc4f81aeb2dd884bd5e193c1da864f7c">LMC::TeleopState</a>
 </li>
 <li>teardown()
@@ -473,17 +488,14 @@ $(function() {
 <li>updateFootstep()
 : <a class="el" href="classLMC_1_1ManipManager.html#a1bcfeb23c350745aa48b57d5b6282a9e">LMC::ManipManager</a>
 </li>
-<li>updateFootstepForVelMode()
-: <a class="el" href="classLMC_1_1ManipManager.html#acc5d8c7d28e4ae1f1b8f50a10b0adb30">LMC::ManipManager</a>
+<li>updateForVelMode()
+: <a class="el" href="classLMC_1_1ManipManager.html#a7d749c000431ad5644862cd8ab00fd40">LMC::ManipManager</a>
 </li>
 <li>updateHandTraj()
 : <a class="el" href="classLMC_1_1ManipManager.html#aab2212586d145b4f766c50340e8e9805">LMC::ManipManager</a>
 </li>
 <li>updateObjConfigKeys_
 : <a class="el" href="structLMC_1_1GuiManipState.html#a6eb8c14e548ee9912a8e3d9cda79c5b4">LMC::GuiManipState</a>
-</li>
-<li>updateObjForVelMode()
-: <a class="el" href="classLMC_1_1ManipManager.html#a2e969f4d64684187fdb7132f908f59c1">LMC::ManipManager</a>
 </li>
 <li>updateObjTraj()
 : <a class="el" href="classLMC_1_1ManipManager.html#a6144b030a871107b49a427dd3e4866de">LMC::ManipManager</a>
@@ -492,11 +504,17 @@ $(function() {
 
 
 <h3><a id="index_v"></a>- v -</h3><ul>
-<li>velMode()
-: <a class="el" href="classLMC_1_1ManipManager.html#a895c603d6e6756e717baa060709a1887">LMC::ManipManager</a>
+<li>velModeData()
+: <a class="el" href="classLMC_1_1ManipManager.html#a492978e5a5bc6113aa5c4c5326eefd3b">LMC::ManipManager</a>
 </li>
-<li>velMode_
-: <a class="el" href="classLMC_1_1ManipManager.html#a6413ce258123cf22ff486ee765d1468a">LMC::ManipManager</a>
+<li>VelModeData()
+: <a class="el" href="classLMC_1_1ManipManager_1_1VelModeData.html#a1599131460c683c257fc9adfbb7431e0">LMC::ManipManager::VelModeData</a>
+</li>
+<li>velModeData_
+: <a class="el" href="classLMC_1_1ManipManager.html#aca8b8b925841db057b4fb60786fb7d71">LMC::ManipManager</a>
+</li>
+<li>velModeEnabled()
+: <a class="el" href="classLMC_1_1ManipManager.html#ad7beb16809196393ae2c55220015bfa9">LMC::ManipManager</a>
 </li>
 <li>velModeEndTime_
 : <a class="el" href="structLMC_1_1ConfigManipState.html#a8ff16892246cabeeae441518226b342f">LMC::ConfigManipState</a>
