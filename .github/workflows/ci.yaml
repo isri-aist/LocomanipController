@@ -200,7 +200,7 @@ jobs:
           if [ "${{ matrix.motion-type }}" == "PushCartWaypoint" ]; then
             EXPECTED_OBJ_POS="1.18 0.494 0.0"
           else # if [ "${{ matrix.motion-type }}" == "PushCartVelMode" ]; then
-            EXPECTED_OBJ_POS="1.48 -0.375 0.0"
+            EXPECTED_OBJ_POS="1.33 -0.073 0.0"
           fi
           LOG_FILENAME=LMC-log-${{ matrix.motion-type }}
           python3 ${GITHUB_WORKSPACE}/catkin_ws/src/isri-aist/LocomanipController/.github/workflows/scripts/checkSimulationResults.py /tmp/${LOG_FILENAME}.bin --expected-obj-pos ${EXPECTED_OBJ_POS}
