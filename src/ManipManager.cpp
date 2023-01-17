@@ -483,8 +483,25 @@ void ManipManager::updateObjTraj()
   }
 
   // Update control object pose
-  ctl().obj().posW(objPoseOffset_ * calcRefObjPose(ctl().t()));
-  ctl().obj().velW(calcRefObjVel(ctl().t()));
+  sva::PTransformd objPoseWithoutOffset = calcRefObjPose(ctl().t());
+  {
+    ctl().obj().posW(objPoseOffset_ * objPoseWithoutOffset);
+    ctl().obj().velW(calcRefObjVel(ctl().t()));
+  }
+
+  // Update object waypoints visualization
+  {
+    std::vector<sva::PTransformd> waypointPoseList = {objPoseWithoutOffset};
+    for(const auto & waypoint : waypointQueue_)
+    {
+      waypointPoseList.push_back(waypoint.pose);
+    }
+
+    ctl().gui()->removeCategory({ctl().name(), config_.name, "WaypointsMarker"});
+    ctl().gui()->addElement({ctl().name(), config_.name, "WaypointsMarker"},
+                            mc_rtc::gui::Trajectory("Waypoints", {mc_rtc::gui::Color::Green, 0.04},
+                                                    [waypointPoseList]() { return waypointPoseList; }));
+  }
 }
 
 void ManipManager::updateHandTraj()
