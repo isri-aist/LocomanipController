@@ -167,18 +167,18 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   {
     if(config_.has("configs") && config_("configs").has("velocityMode"))
     {
-      if(ctl().t() > velModeEndTime_ - 1.0 && ctl().manipManager_->velMode())
+      if(ctl().t() > velModeEndTime_ - 1.0 && ctl().manipManager_->velModeEnabled())
       {
         ctl().manipManager_->setRelativeVel(Eigen::Vector3d::Zero());
       }
-      if(ctl().t() > velModeEndTime_ && ctl().manipManager_->velMode())
+      if(ctl().t() > velModeEndTime_ && ctl().manipManager_->velModeEnabled())
       {
         ctl().manipManager_->endVelMode();
       }
     }
 
     if(ctl().manipManager_->waypointQueue().empty() && ctl().footManager_->footstepQueue().empty()
-       && !ctl().manipManager_->velMode())
+       && !ctl().manipManager_->velModeEnabled())
     {
       phase_ = 10;
     }

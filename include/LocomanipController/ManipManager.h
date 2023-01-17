@@ -120,6 +120,52 @@ public:
     void load(const mc_rtc::Configuration & mcRtcConfig);
   };
 
+  /** \brief Velocity mode data.
+
+      In the velocity mode, the object is moved at the specified velocity.
+  */
+  class VelModeData
+  {
+  public:
+    /** \brief Configuration. */
+    struct Configuration
+    {
+      /** \brief Load mc_rtc configuration.
+          \param mcRtcConfig mc_rtc configuration
+      */
+      void load(const mc_rtc::Configuration & mcRtcConfig) {}
+    };
+
+  public:
+    /** \brief Constructor. */
+    VelModeData() {}
+
+    /** \brief Reset.
+        \param enabled whether the velocity mode is enabled
+        \param currentObjPose current object pose
+     */
+    void reset(bool enabled, const sva::PTransformd & currentObjPose);
+
+  public:
+    //! Configuration
+    Configuration config_;
+
+    //! Whether the velocity mode is enabled
+    bool enabled_ = false;
+
+    //! Relative target velocity of object in the velocity mode (x [m/s], y [m/s], theta [rad/s])
+    Eigen::Vector3d targetVel_ = Eigen::Vector3d::Zero();
+
+    //! Pointer to the front footstep in the footstep queue
+    const BWC::Footstep * frontFootstep_ = nullptr;
+
+    //! Pose of the front waypoint in the waypoint queue
+    sva::PTransformd frontWaypointPose_ = sva::PTransformd::Identity();
+
+    //! Object transformation in one footstep duration
+    Eigen::Vector3d objDeltaTrans_ = Eigen::Vector3d::Zero();
+  };
+
 public:
   /** \brief Constructor.
       \param ctlPtr pointer to controller
@@ -149,6 +195,12 @@ public:
   inline const Configuration & config() const noexcept
   {
     return config_;
+  }
+
+  /** \brief Const accessor to the velocity mode data. */
+  inline const VelModeData & velModeData() const noexcept
+  {
+    return velModeData_;
   }
 
   /** \brief Add entries to the GUI. */
@@ -239,10 +291,7 @@ public:
   }
 
   /** \brief Require sending footstep command following an object. */
-  inline void requireFootstepFollowingObj()
-  {
-    requireFootstepFollowingObj_ = true;
-  }
+  void requireFootstepFollowingObj();
 
   /** \brief Start velocity mode.
       \return whether it is successfully started
@@ -259,13 +308,13 @@ public:
    */
   inline void setRelativeVel(const Eigen::Vector3d & targetVel)
   {
-    targetVel_ = targetVel;
+    velModeData_.targetVel_ = targetVel;
   }
 
   /** \brief Whether the velocity mode (i.e., moving the object at the relative target velocity) is enabled. */
-  inline bool velMode() const
+  inline bool velModeEnabled() const
   {
-    return velMode_;
+    return velModeData_.enabled_;
   }
 
 protected:
@@ -290,11 +339,8 @@ protected:
   /** \brief Update footstep. */
   virtual void updateFootstep();
 
-  /** \brief Update object pose in velocity mode. */
-  void updateObjForVelMode();
-
-  /** \brief Update footstep in velocity mode. */
-  void updateFootstepForVelMode();
+  /** \brief Update object and footstep for velocity mode. */
+  void updateForVelMode();
 
   /** \brief Make a footstep.
       \param foot foot
@@ -316,6 +362,9 @@ protected:
 protected:
   //! Configuration
   Configuration config_;
+
+  //! Velocity mode data
+  VelModeData velModeData_;
 
   //! Pointer to controller
   LocomanipController * ctlPtr_ = nullptr;
@@ -346,12 +395,6 @@ protected:
 
   //! Whether to require sending footstep command following an object
   bool requireFootstepFollowingObj_ = false;
-
-  //! Whether the velocity mode (i.e., moving the object at the relative target velocity) is enabled
-  bool velMode_ = false;
-
-  //! Relative target velocity of object in the velocity mode (x [m/s], y [m/s], theta [rad/s])
-  Eigen::Vector3d targetVel_ = Eigen::Vector3d::Zero();
 
   //! ROS variables
   //! @{

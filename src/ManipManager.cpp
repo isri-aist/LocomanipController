@@ -49,10 +49,24 @@ void ManipManager::Configuration::load(const mc_rtc::Configuration & mcRtcConfig
   mcRtcConfig("doubleSupportRatio", doubleSupportRatio);
 }
 
+void ManipManager::VelModeData::reset(bool enabled, const sva::PTransformd & currentObjPose)
+{
+  enabled_ = enabled;
+  targetVel_.setZero();
+  frontFootstep_ = nullptr;
+  frontWaypointPose_ = currentObjPose;
+  objDeltaTrans_.setZero();
+}
+
 ManipManager::ManipManager(LocomanipController * ctlPtr, const mc_rtc::Configuration & mcRtcConfig)
 : ctlPtr_(ctlPtr), objPoseFunc_(std::make_shared<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>())
 {
   config_.load(mcRtcConfig);
+
+  if(mcRtcConfig.has("VelMode"))
+  {
+    velModeData_.config_.load(mcRtcConfig("VelMode"));
+  }
 }
 
 void ManipManager::reset()
@@ -99,8 +113,7 @@ void ManipManager::reset()
 
   requireFootstepFollowingObj_ = false;
 
-  velMode_ = false;
-  targetVel_.setZero();
+  velModeData_.reset(false, objPoseWithoutOffset);
 }
 
 void ManipManager::stop()
@@ -118,20 +131,13 @@ void ManipManager::update()
   // Call ROS callback
   callbackQueue_.callAvailable(ros::WallDuration());
 
-  if(velMode_)
+  if(velModeData_.enabled_)
   {
-    updateObjForVelMode();
+    updateForVelMode();
   }
   updateObjTraj();
   updateHandTraj();
-  if(velMode_)
-  {
-    updateFootstepForVelMode();
-  }
-  else
-  {
-    updateFootstep();
-  }
+  updateFootstep();
 }
 
 void ManipManager::addToGUI(mc_rtc::gui::StateBuilder & gui)
@@ -226,8 +232,9 @@ void ManipManager::addToLogger(mc_rtc::Logger & logger)
                        [this, hand]() { return std::to_string(manipPhases_.at(hand)->label()); });
   }
 
-  logger.addLogEntry(config_.name + "_velMode", this, [this]() -> std::string { return velMode_ ? "ON" : "OFF"; });
-  logger.addLogEntry(config_.name + "_targetVel", this, [this]() { return targetVel_; });
+  logger.addLogEntry(config_.name + "_velMode", this,
+                     [this]() -> std::string { return velModeData_.enabled_ ? "ON" : "OFF"; });
+  logger.addLogEntry(config_.name + "_targetVel", this, [this]() { return velModeData_.targetVel_; });
 }
 
 void ManipManager::removeFromLogger(mc_rtc::Logger & logger)
@@ -333,9 +340,19 @@ bool ManipManager::setObjPoseOffset(const sva::PTransformd & newObjPoseOffset, d
   return true;
 }
 
+void ManipManager::requireFootstepFollowingObj()
+{
+  if(velModeData_.enabled_)
+  {
+    mc_rtc::log::error("[ManipManager] requireFootstepFollowingObj is not available in the velocity mode.");
+    return;
+  }
+  requireFootstepFollowingObj_ = true;
+}
+
 bool ManipManager::startVelMode()
 {
-  if(velMode_)
+  if(velModeData_.enabled_)
   {
     mc_rtc::log::warning("[ManipManager] It is already in velocity mode, but startVelMode is called.");
     return false;
@@ -359,8 +376,7 @@ bool ManipManager::startVelMode()
 
   if(ctl().footManager_->velModeData().config_.enableOnlineFootstepUpdate)
   {
-    mc_rtc::log::error(
-        "[ManipManager] enableOnlineFootstepUpdate must be false in the FootManager velocity mode.");
+    mc_rtc::log::error("[ManipManager] enableOnlineFootstepUpdate must be false in the FootManager velocity mode.");
     return false;
   }
 
@@ -370,22 +386,22 @@ bool ManipManager::startVelMode()
     return false;
   }
 
-  velMode_ = true;
-  targetVel_.setZero();
+  velModeData_.reset(true, calcRefObjPose(ctl().t()));
+
+  requireFootstepFollowingObj_ = false;
 
   return true;
 }
 
 bool ManipManager::endVelMode()
 {
-  if(!velMode_)
+  if(!velModeData_.enabled_)
   {
     mc_rtc::log::warning("[ManipManager] It is not in velocity mode, but endVelMode is called.");
     return false;
   }
 
-  velMode_ = false;
-  targetVel_.setZero();
+  velModeData_.reset(false, calcRefObjPose(ctl().t()));
 
   ctl().footManager_->endVelMode();
 
@@ -446,11 +462,8 @@ void ManipManager::updateObjTraj()
   }
 
   // Update control object pose
-  if(!velMode_)
-  {
-    ctl().obj().posW(objPoseOffset_ * calcRefObjPose(ctl().t()));
-    ctl().obj().velW(calcRefObjVel(ctl().t()));
-  }
+  ctl().obj().posW(objPoseOffset_ * calcRefObjPose(ctl().t()));
+  ctl().obj().velW(calcRefObjVel(ctl().t()));
 }
 
 void ManipManager::updateHandTraj()
@@ -553,23 +566,8 @@ void ManipManager::updateFootstep()
   ctl().footManager_->appendFootstep(footstep);
 }
 
-void ManipManager::updateObjForVelMode()
+void ManipManager::updateForVelMode()
 {
-  sva::PTransformd footMidpose = BWC::projGround(sva::interpolate(
-      ctl().footManager_->targetFootPose(BWC::Foot::Left), ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
-  sva::MotionVecd footMidvel = BWC::projGround(
-      0.5 * (ctl().footManager_->targetFootVel(BWC::Foot::Left) + ctl().footManager_->targetFootVel(BWC::Foot::Right)));
-
-  sva::PTransformd objPoseWithoutOffset = config_.objToFootMidTrans.inv() * footMidpose;
-  ctl().obj().posW(objPoseOffset_ * objPoseWithoutOffset);
-  ctl().obj().velW(config_.objToFootMidTrans.invMul(footMidvel));
-  lastWaypointPose_ = objPoseWithoutOffset;
-}
-
-void ManipManager::updateFootstepForVelMode()
-{
-  requireFootstepFollowingObj_ = false;
-
   auto convertTo2d = [](const sva::PTransformd & pose) -> Eigen::Vector3d {
     return Eigen::Vector3d(pose.translation().x(), pose.translation().y(), mc_rbdyn::rpyFromMat(pose.rotation()).z());
   };
@@ -577,12 +575,56 @@ void ManipManager::updateFootstepForVelMode()
     return sva::PTransformd(sva::RotZ(trans.z()), Eigen::Vector3d(trans.x(), trans.y(), 0));
   };
 
-  // objPoseWithoutOffset is set in lastWaypointPose_
-  sva::PTransformd currentTargetFootMidpose = config_.objToFootMidTrans * lastWaypointPose_;
-  sva::PTransformd nextTargetFootMidpose = config_.objToFootMidTrans * convertTo3d(targetVel_) * lastWaypointPose_;
-  Eigen::Vector3d targetFootMidvel = convertTo2d(nextTargetFootMidpose * currentTargetFootMidpose.inv());
+  const auto & frontFootstep = ctl().footManager_->footstepQueue().front();
 
-  ctl().footManager_->setRelativeVel(targetFootMidvel);
+  // When the front footstep of queue switches to the next one, the corresponding waypoint is added to the queue
+  if(velModeData_.frontFootstep_ != &frontFootstep)
+  {
+    velModeData_.frontFootstep_ = &frontFootstep;
+    velModeData_.frontWaypointPose_ = convertTo3d(velModeData_.objDeltaTrans_) * velModeData_.frontWaypointPose_;
+    appendWaypoint(Waypoint(std::max(frontFootstep.transitStartTime, ctl().t()), frontFootstep.transitEndTime,
+                            velModeData_.frontWaypointPose_));
+  }
+
+  // Assuming that the front footstep of queue is fixed, find the objDeltaTrans where the next footstep is in
+  // reachability (i.e., not changed by clampDeltaTrans)
+  {
+    sva::PTransformd frontFootMidpose =
+        ctl().footManager_->config().midToFootTranss.at(frontFootstep.foot).inv() * frontFootstep.pose;
+    auto calcFootstepDeltaTrans = [&](const Eigen::Vector3d & _objDeltaTrans) {
+      sva::PTransformd newWaypointPose = convertTo3d(_objDeltaTrans) * velModeData_.frontWaypointPose_;
+      sva::PTransformd nextFootMidpose = config_.objToFootMidTrans * newWaypointPose;
+      return convertTo2d(nextFootMidpose * frontFootMidpose.inv());
+    };
+    constexpr size_t searchNum = 10;
+    constexpr double reduceRatio = 0.8;
+    constexpr double clampDeltaTransThre = 1e-6;
+    Eigen::Vector3d footstepDeltaTrans;
+    Eigen::Vector3d objDeltaTrans = ctl().footManager_->config().footstepDuration * velModeData_.targetVel_;
+    for(size_t i = 1; i <= searchNum; i++)
+    {
+      if(i == searchNum)
+      {
+        objDeltaTrans.setZero();
+        footstepDeltaTrans.setZero();
+        break;
+      }
+
+      footstepDeltaTrans = calcFootstepDeltaTrans(objDeltaTrans);
+      Eigen::Vector3d footstepDeltaTransClamped =
+          ctl().footManager_->clampDeltaTrans(footstepDeltaTrans, BWC::opposite(frontFootstep.foot));
+      if((footstepDeltaTrans - footstepDeltaTransClamped).norm() < clampDeltaTransThre)
+      {
+        break;
+      }
+      else
+      {
+        objDeltaTrans *= reduceRatio;
+      }
+    }
+    velModeData_.objDeltaTrans_ = objDeltaTrans;
+    ctl().footManager_->setRelativeVel(footstepDeltaTrans / ctl().footManager_->config().footstepDuration);
+  }
 }
 
 BWC::Footstep ManipManager::makeFootstep(const BWC::Foot & foot,

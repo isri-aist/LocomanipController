@@ -178,7 +178,7 @@ FootManager:
         angular: [0, 0, 0]
   VelMode:
     footstepQueueSize: 3
-    enableOnlineFootstepUpdate: true
+    enableOnlineFootstepUpdate: false
   SwingTraj:
     CubicSplineSimple:
       withdrawDurationRatio: 0.25
