@@ -5,10 +5,10 @@
 #include <mc_tasks/ImpedanceTask.h>
 
 #include <BaselineWalkingController/FootManager.h>
-#include <BaselineWalkingController/MathUtils.h>
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
 #include <LocomanipController/ManipPhase.h>
+#include <LocomanipController/MathUtils.h>
 
 using namespace LMC;
 
@@ -557,9 +557,9 @@ void ManipManager::updateFootstep()
     return sva::PTransformd(sva::RotZ(trans.z()), Eigen::Vector3d(trans.x(), trans.y(), 0));
   };
 
-  BWC::Foot foot = BWC::Foot::Left;
-  sva::PTransformd footMidpose = BWC::projGround(sva::interpolate(
-      ctl().footManager_->targetFootPose(BWC::Foot::Left), ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
+  Foot foot = Foot::Left;
+  sva::PTransformd footMidpose = projGround(sva::interpolate(ctl().footManager_->targetFootPose(Foot::Left),
+                                                             ctl().footManager_->targetFootPose(Foot::Right), 0.5));
   double startTime = ctl().t() + 1.0;
   while(startTime < waypointQueue_.back().endTime)
   {
@@ -574,7 +574,7 @@ void ManipManager::updateFootstep()
     const auto & footstep = makeFootstep(foot, footMidpose, startTime);
     ctl().footManager_->appendFootstep(footstep);
 
-    foot = BWC::opposite(foot);
+    foot = opposite(foot);
     startTime = footstep.transitEndTime;
   }
   const auto & footstep = makeFootstep(foot, footMidpose, startTime);
@@ -627,7 +627,7 @@ void ManipManager::updateForVelMode()
 
       footstepDeltaTrans = calcFootstepDeltaTrans(objDeltaTrans);
       Eigen::Vector3d footstepDeltaTransClamped =
-          ctl().footManager_->clampDeltaTrans(footstepDeltaTrans, BWC::opposite(frontFootstep.foot));
+          ctl().footManager_->clampDeltaTrans(footstepDeltaTrans, opposite(frontFootstep.foot));
       if((footstepDeltaTrans - footstepDeltaTransClamped).norm() < clampDeltaTransThre)
       {
         break;
@@ -642,15 +642,15 @@ void ManipManager::updateForVelMode()
   }
 }
 
-BWC::Footstep ManipManager::makeFootstep(const BWC::Foot & foot,
-                                         const sva::PTransformd & footMidpose,
-                                         double startTime,
-                                         const mc_rtc::Configuration & swingTrajConfig) const
+Footstep ManipManager::makeFootstep(const Foot & foot,
+                                    const sva::PTransformd & footMidpose,
+                                    double startTime,
+                                    const mc_rtc::Configuration & swingTrajConfig) const
 {
-  return BWC::Footstep(foot, ctl().footManager_->config().midToFootTranss.at(foot) * footMidpose, startTime,
-                       startTime + 0.5 * config_.doubleSupportRatio * config_.footstepDuration,
-                       startTime + (1.0 - 0.5 * config_.doubleSupportRatio) * config_.footstepDuration,
-                       startTime + config_.footstepDuration, swingTrajConfig);
+  return Footstep(foot, ctl().footManager_->config().midToFootTranss.at(foot) * footMidpose, startTime,
+                  startTime + 0.5 * config_.doubleSupportRatio * config_.footstepDuration,
+                  startTime + (1.0 - 0.5 * config_.doubleSupportRatio) * config_.footstepDuration,
+                  startTime + config_.footstepDuration, swingTrajConfig);
 }
 
 void ManipManager::objPoseCallback(const geometry_msgs::PoseStamped::ConstPtr & poseStMsg)

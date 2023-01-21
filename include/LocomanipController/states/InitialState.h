@@ -35,6 +35,6 @@ protected:
   Eigen::Vector3d baseOriTaskStiffness_ = Eigen::Vector3d::Zero();
 
   //! Stiffness of foot tasks
-  std::unordered_map<BWC::Foot, Eigen::Vector6d> footTasksStiffness_;
+  std::unordered_map<Foot, Eigen::Vector6d> footTasksStiffness_;
 };
 } // namespace LMC

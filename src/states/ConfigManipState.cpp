@@ -1,8 +1,8 @@
 #include <BaselineWalkingController/FootManager.h>
-#include <BaselineWalkingController/MathUtils.h>
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
 #include <LocomanipController/ManipPhase.h>
+#include <LocomanipController/MathUtils.h>
 #include <LocomanipController/states/ConfigManipState.h>
 
 using namespace LMC;
@@ -46,9 +46,8 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
         return Eigen::Vector3d(pose.translation().x(), pose.translation().y(),
                                mc_rbdyn::rpyFromMat(pose.rotation()).z());
       };
-      const sva::PTransformd & initialFootMidpose =
-          BWC::projGround(sva::interpolate(ctl().footManager_->targetFootPose(BWC::Foot::Left),
-                                           ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
+      const sva::PTransformd & initialFootMidpose = projGround(sva::interpolate(
+          ctl().footManager_->targetFootPose(Foot::Left), ctl().footManager_->targetFootPose(Foot::Right), 0.5));
       sva::PTransformd objToFootMidTrans =
           config_("configs")("objToFootMidTrans", ctl().manipManager_->config().objToFootMidTrans);
       ctl().footManager_->walkToRelativePose(

@@ -13,8 +13,8 @@
 #include <ros/callback_queue.h>
 #include <ros/ros.h>
 
-#include <BaselineWalkingController/FootTypes.h>
 #include <BaselineWalkingController/trajectory/CubicInterpolator.h>
+#include <LocomanipController/FootTypes.h>
 #include <LocomanipController/HandTypes.h>
 
 namespace LMC
@@ -157,7 +157,7 @@ public:
     Eigen::Vector3d targetVel_ = Eigen::Vector3d::Zero();
 
     //! Pointer to the front footstep in the footstep queue
-    const BWC::Footstep * frontFootstep_ = nullptr;
+    const Footstep * frontFootstep_ = nullptr;
 
     //! Pose of the front waypoint in the waypoint queue
     sva::PTransformd frontWaypointPose_ = sva::PTransformd::Identity();
@@ -339,10 +339,10 @@ protected:
       \param startTime time to start the footstep
       \param swingTrajConfig configuration for swing trajectory
   */
-  BWC::Footstep makeFootstep(const BWC::Foot & foot,
-                             const sva::PTransformd & footMidpose,
-                             double startTime,
-                             const mc_rtc::Configuration & swingTrajConfig = {}) const;
+  Footstep makeFootstep(const Foot & foot,
+                        const sva::PTransformd & footMidpose,
+                        double startTime,
+                        const mc_rtc::Configuration & swingTrajConfig = {}) const;
 
   /** \brief ROS callback of object pose topic. */
   void objPoseCallback(const geometry_msgs::PoseStamped::ConstPtr & poseStMsg);

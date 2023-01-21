@@ -3,10 +3,10 @@
 #include <mc_rtc/gui/Form.h>
 
 #include <BaselineWalkingController/FootManager.h>
-#include <BaselineWalkingController/MathUtils.h>
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
 #include <LocomanipController/ManipPhase.h>
+#include <LocomanipController/MathUtils.h>
 #include <LocomanipController/states/GuiManipState.h>
 
 using namespace LMC;
@@ -31,9 +31,8 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             auto convertTo3d = [](const Eigen::Vector3d & trans) -> sva::PTransformd {
               return sva::PTransformd(sva::RotZ(trans.z()), Eigen::Vector3d(trans.x(), trans.y(), 0));
             };
-            const sva::PTransformd & initialFootMidpose =
-                BWC::projGround(sva::interpolate(ctl().footManager_->targetFootPose(BWC::Foot::Left),
-                                                 ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
+            const sva::PTransformd & initialFootMidpose = projGround(sva::interpolate(
+                ctl().footManager_->targetFootPose(Foot::Left), ctl().footManager_->targetFootPose(Foot::Right), 0.5));
             sva::PTransformd objToFootMidTrans =
                 convertTo3d(Eigen::Vector3d(config(walkToObjConfigKeys_.at("x")), config(walkToObjConfigKeys_.at("y")),
                                             mc_rtc::constants::toRad(config(walkToObjConfigKeys_.at("yaw")))));
@@ -115,8 +114,8 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
             else if(config(updateObjConfigKeys_.at("target")) == "nominal")
             {
               const sva::PTransformd & footMidpose =
-                  BWC::projGround(sva::interpolate(ctl().footManager_->targetFootPose(BWC::Foot::Left),
-                                                   ctl().footManager_->targetFootPose(BWC::Foot::Right), 0.5));
+                  projGround(sva::interpolate(ctl().footManager_->targetFootPose(Foot::Left),
+                                              ctl().footManager_->targetFootPose(Foot::Right), 0.5));
               pose = ctl().manipManager_->config().objToFootMidTrans.inv() * footMidpose;
             }
             else
