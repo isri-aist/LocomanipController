@@ -93,12 +93,13 @@ Collaboration diagram for LMC::ManipManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="classLMC_1_1ManipManager__coll__graph.png" border="0" usemap="#LMC_1_1ManipManager_coll__map" alt="Collaboration graph"/></div>
 <map name="LMC_1_1ManipManager_coll__map" id="LMC_1_1ManipManager_coll__map">
-<area shape="rect" title="Manipulation manager." alt="" coords="680,71,835,98"/>
-<area shape="rect" href="structLMC_1_1ManipManager_1_1Configuration.html" title="Configuration." alt="" coords="355,5,518,47"/>
-<area shape="rect" href="structLMC_1_1LocomanipController.html" title="Humanoid loco&#45;manipulation controller." alt="" coords="340,71,533,98"/>
+<area shape="rect" title="Manipulation manager." alt="" coords="727,71,881,98"/>
+<area shape="rect" href="structLMC_1_1ManipManager_1_1Configuration.html" title="Configuration." alt="" coords="402,5,565,47"/>
+<area shape="rect" href="structLMC_1_1LocomanipController.html" title="Humanoid loco&#45;manipulation controller." alt="" coords="387,71,580,98"/>
 <area shape="rect" title=" " alt="" coords="5,71,240,98"/>
-<area shape="rect" href="classLMC_1_1ManipManager_1_1VelModeData.html" title="Velocity mode data." alt="" coords="355,123,518,164"/>
+<area shape="rect" href="classLMC_1_1ManipManager_1_1VelModeData.html" title="Velocity mode data." alt="" coords="402,123,565,164"/>
 <area shape="rect" href="structLMC_1_1ManipManager_1_1VelModeData_1_1Configuration.html" title="Configuration." alt="" coords="19,123,226,164"/>
+<area shape="rect" title=" " alt="" coords="83,189,162,215"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -212,9 +213,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7d749c000431ad5644862cd8ab00fd40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a7d749c000431ad5644862cd8ab00fd40">updateForVelMode</a> ()</td></tr>
 <tr class="memdesc:a7d749c000431ad5644862cd8ab00fd40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update object and footstep for velocity mode.  <a href="classLMC_1_1ManipManager.html#a7d749c000431ad5644862cd8ab00fd40">More...</a><br /></td></tr>
 <tr class="separator:a7d749c000431ad5644862cd8ab00fd40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d6ee26f8567b6acfc9afe29226405a9"><td class="memItemLeft" align="right" valign="top">BWC::Footstep&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a7d6ee26f8567b6acfc9afe29226405a9">makeFootstep</a> (const BWC::Foot &amp;foot, const sva::PTransformd &amp;footMidpose, double startTime, const mc_rtc::Configuration &amp;swingTrajConfig={}) const</td></tr>
-<tr class="memdesc:a7d6ee26f8567b6acfc9afe29226405a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a footstep.  <a href="classLMC_1_1ManipManager.html#a7d6ee26f8567b6acfc9afe29226405a9">More...</a><br /></td></tr>
-<tr class="separator:a7d6ee26f8567b6acfc9afe29226405a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e3b72680e552ec3ef868a629febaf91"><td class="memItemLeft" align="right" valign="top">Footstep&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a8e3b72680e552ec3ef868a629febaf91">makeFootstep</a> (const Foot &amp;foot, const sva::PTransformd &amp;footMidpose, double startTime, const mc_rtc::Configuration &amp;swingTrajConfig={}) const</td></tr>
+<tr class="memdesc:a8e3b72680e552ec3ef868a629febaf91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a footstep.  <a href="classLMC_1_1ManipManager.html#a8e3b72680e552ec3ef868a629febaf91">More...</a><br /></td></tr>
+<tr class="separator:a8e3b72680e552ec3ef868a629febaf91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c561ed6dc8e623e308f307f393a32b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLMC_1_1ManipManager.html#a3c561ed6dc8e623e308f307f393a32b2">objPoseCallback</a> (const geometry_msgs::PoseStamped::ConstPtr &amp;poseStMsg)</td></tr>
 <tr class="memdesc:a3c561ed6dc8e623e308f307f393a32b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">ROS callback of object pose topic.  <a href="classLMC_1_1ManipManager.html#a3c561ed6dc8e623e308f307f393a32b2">More...</a><br /></td></tr>
 <tr class="separator:a3c561ed6dc8e623e308f307f393a32b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -593,8 +594,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a7d6ee26f8567b6acfc9afe29226405a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d6ee26f8567b6acfc9afe29226405a9">&#9670;&nbsp;</a></span>makeFootstep()</h2>
+<a id="a8e3b72680e552ec3ef868a629febaf91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e3b72680e552ec3ef868a629febaf91">&#9670;&nbsp;</a></span>makeFootstep()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -603,9 +604,9 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">BWC::Footstep LMC::ManipManager::makeFootstep </td>
+          <td class="memname">Footstep LMC::ManipManager::makeFootstep </td>
           <td>(</td>
-          <td class="paramtype">const BWC::Foot &amp;&#160;</td>
+          <td class="paramtype">const Foot &amp;&#160;</td>
           <td class="paramname"><em>foot</em>, </td>
         </tr>
         <tr>
