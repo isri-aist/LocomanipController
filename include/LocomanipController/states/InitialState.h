@@ -26,7 +26,7 @@ protected:
   int phase_ = 0;
 
   //! Function to interpolate task stiffness
-  std::shared_ptr<BWC::CubicInterpolator<double>> stiffnessRatioFunc_;
+  std::shared_ptr<TrajColl::CubicInterpolator<double>> stiffnessRatioFunc_;
 
   //! Stiffness of CoM task
   Eigen::Vector3d comTaskStiffness_ = Eigen::Vector3d::Zero();

@@ -63,7 +63,7 @@ void ManipManager::VelModeData::reset(bool enabled, const sva::PTransformd & cur
 }
 
 ManipManager::ManipManager(LocomanipController * ctlPtr, const mc_rtc::Configuration & mcRtcConfig)
-: ctlPtr_(ctlPtr), objPoseFunc_(std::make_shared<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>())
+: ctlPtr_(ctlPtr), objPoseFunc_(std::make_shared<TrajColl::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>())
 {
   config_.load(mcRtcConfig);
 
@@ -341,7 +341,7 @@ bool ManipManager::setObjPoseOffset(const sva::PTransformd & newObjPoseOffset, d
     return false;
   }
 
-  objPoseOffsetFunc_ = std::make_shared<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>();
+  objPoseOffsetFunc_ = std::make_shared<TrajColl::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>();
   objPoseOffsetFunc_->appendPoint(std::make_pair(ctl().t(), objPoseOffset_));
   objPoseOffsetFunc_->appendPoint(std::make_pair(ctl().t() + interpDuration, newObjPoseOffset));
   objPoseOffsetFunc_->calcCoeff();
