@@ -13,7 +13,8 @@
 #include <ros/callback_queue.h>
 #include <ros/ros.h>
 
-#include <BaselineWalkingController/trajectory/CubicInterpolator.h>
+#include <TrajColl/CubicInterpolator.h>
+
 #include <LocomanipController/FootTypes.h>
 #include <LocomanipController/HandTypes.h>
 
@@ -367,13 +368,13 @@ protected:
   sva::PTransformd lastWaypointPose_ = sva::PTransformd::Identity();
 
   //! Object pose function
-  std::shared_ptr<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseFunc_;
+  std::shared_ptr<TrajColl::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseFunc_;
 
   //! Object pose offset
   sva::PTransformd objPoseOffset_ = sva::PTransformd::Identity();
 
   //! Object pose offset function
-  std::shared_ptr<BWC::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseOffsetFunc_;
+  std::shared_ptr<TrajColl::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseOffsetFunc_;
 
   //! Manipulation phases
   std::unordered_map<Hand, std::shared_ptr<ManipPhase::Base>> manipPhases_;

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <BaselineWalkingController/trajectory/CubicInterpolator.h>
+#include <TrajColl/CubicInterpolator.h>
+
 #include <LocomanipController/HandTypes.h>
 
 namespace LMC
@@ -144,7 +145,7 @@ public:
 
 protected:
   //! Function to interpolate reaching ratio
-  std::shared_ptr<BWC::CubicInterpolator<double>> reachingRatioFunc_;
+  std::shared_ptr<TrajColl::CubicInterpolator<double>> reachingRatioFunc_;
 };
 
 /** \brief Manipulation grasp phase. */
@@ -222,7 +223,7 @@ public:
 
 protected:
   //! Function to interpolate reaching ratio
-  std::shared_ptr<BWC::CubicInterpolator<double>> reachingRatioFunc_;
+  std::shared_ptr<TrajColl::CubicInterpolator<double>> reachingRatioFunc_;
 };
 } // namespace ManipPhase
 } // namespace LMC

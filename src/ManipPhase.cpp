@@ -65,7 +65,7 @@ Reach::Reach(const Hand & hand, ManipManager * manipManager) : Base(ManipPhaseLa
   ctl().handTasks_.at(hand_)->stiffness(manipManager_->config().handTaskStiffness);
 
   // Setup reaching interpolation
-  reachingRatioFunc_ = std::make_shared<BWC::CubicInterpolator<double>>(
+  reachingRatioFunc_ = std::make_shared<TrajColl::CubicInterpolator<double>>(
       std::map<double, double>{{ctl().t(), 0.0}, {ctl().t() + manipManager_->config().reachDuration, 1.0}});
 }
 
@@ -179,7 +179,7 @@ std::shared_ptr<Base> Ungrasp::makeNextManipPhase() const
 Release::Release(const Hand & hand, ManipManager * manipManager) : Base(ManipPhaseLabel::Release, hand, manipManager)
 {
   // Setup reaching interpolation
-  reachingRatioFunc_ = std::make_shared<BWC::CubicInterpolator<double>>(
+  reachingRatioFunc_ = std::make_shared<TrajColl::CubicInterpolator<double>>(
       std::map<double, double>{{ctl().t(), 1.0}, {ctl().t() + manipManager_->config().reachDuration, 0.0}});
 }
 
