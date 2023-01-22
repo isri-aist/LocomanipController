@@ -66,15 +66,17 @@ jobs:
           set -x
           curl -1sLf 'https://dl.cloudsmith.io/public/mc-rtc/${{ matrix.mc-rtc-version }}/setup.deb.sh' | sudo -E bash
           sudo apt install -y -qq libmc-rtc-dev mc-rtc-utils mc-state-observation jvrc-choreonoid libcnoid-dev ros-${ROS_DISTRO}-mc-rtc-plugin libeigen-qld-dev
-      - name: Setup catkin workspace
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          path: catkin_ws/src/isri-aist/LocomanipController
+      - name: Download dependent repository codes
         run: |
           set -e
           set -x
-          mkdir -p ${GITHUB_WORKSPACE}/catkin_ws/src/
           cd ${GITHUB_WORKSPACE}/catkin_ws
           wstool init src
-          wstool set -t src isri-aist/LocomanipController https://github.com/isri-aist/LocomanipController --git -y
-          wstool update -t src isri-aist/LocomanipController
           wstool merge -t src src/isri-aist/LocomanipController/depends.rosinstall -y
           wstool update -t src
       - name: Rosdep install
