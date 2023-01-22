@@ -1,7 +1,7 @@
 # [LocomanipController](https://github.com/isri-aist/LocomanipController)
 Humanoid loco-manipulation controller
 
-[![CI](https://github.com/isri-aist/LocomanipController/actions/workflows/ci.yaml/badge.svg)](https://github.com/isri-aist/LocomanipController/actions/workflows/ci.yaml)
+[![CI](https://github.com/isri-aist/LocomanipController/actions/workflows/ci-catkin.yaml/badge.svg)](https://github.com/isri-aist/LocomanipController/actions/workflows/ci-catkin.yaml)
 [![Documentation](https://img.shields.io/badge/doxygen-online-brightgreen?logo=read-the-docs&style=flat)](https://isri-aist.github.io/LocomanipController/)
 [![LICENSE](https://img.shields.io/github/license/isri-aist/LocomanipController)](https://github.com/isri-aist/LocomanipController/blob/master/LICENSE)
 
