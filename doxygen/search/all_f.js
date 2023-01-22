@@ -9,7 +9,7 @@ var searchData=
   ['state_116',['State',['../structLMC_1_1State.html',1,'LMC']]],
   ['state_2eh_117',['State.h',['../State_8h.html',1,'']]],
   ['std_118',['std',['../namespacestd.html',1,'']]],
-  ['stiffnessratiofunc_5f_119',['stiffnessRatioFunc_',['../structLMC_1_1InitialState.html#ada725e77edddc4d91672daaf7f290375',1,'LMC::InitialState']]],
+  ['stiffnessratiofunc_5f_119',['stiffnessRatioFunc_',['../structLMC_1_1InitialState.html#a3ca7aafc79a6c4adce3adf8b29fddca8',1,'LMC::InitialState']]],
   ['stop_120',['stop',['../structLMC_1_1LocomanipController.html#ae3cdafac71cde8187355ff1e7e149752',1,'LMC::LocomanipController::stop()'],['../classLMC_1_1ManipManager.html#aa1c4ece5e6f451a06b08dd3340322ac9',1,'LMC::ManipManager::stop()']]],
   ['strtohand_121',['strToHand',['../namespaceLMC.html#a409b4e0c274850c107088cf087f3d213',1,'LMC']]],
   ['surfacename_122',['surfaceName',['../classLMC_1_1ManipManager.html#aa302188dee95a195704d42a7e050f0d3',1,'LMC::ManipManager']]]
