@@ -28,6 +28,8 @@ For more information on walking control, see [BaselineWalkingController](https:/
 This package depends on
 - [mc_rtc](https://jrl-umi3218.github.io/mc_rtc)
 - [QpSolverCollection](https://github.com/isri-aist/QpSolverCollection)
+- [ForceControlCollection](https://github.com/isri-aist/ForceControlCollection)
+- [TrajectoryCollection](https://github.com/isri-aist/TrajectoryCollection)
 - [NMPC](https://github.com/isri-aist/NMPC)
 - [CentroidalControlCollection](https://github.com/isri-aist/CentroidalControlCollection)
 - [BaselineWalkingController](https://github.com/isri-aist/BaselineWalkingController)
