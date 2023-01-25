@@ -8,7 +8,7 @@ namespace mc_tasks
 {
 namespace force
 {
-class ImpedanceTask;
+struct ImpedanceTask;
 } // namespace force
 } // namespace mc_tasks
 
