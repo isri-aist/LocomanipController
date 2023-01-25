@@ -146,7 +146,7 @@ FootManager:
   touchDownPosError: 0.02 # [m]
   touchDownForceZ: 100 # [N]
   impedanceGains:
-    singleSupport:
+    SingleSupport:
       damper:
         linear: [300, 300, 300]
         angular: [100, 100, 100]
@@ -156,7 +156,7 @@ FootManager:
       wrench:
         linear: [0, 0, 0]
         angular: [1, 1, 0]
-    doubleSupport:
+    DoubleSupport:
       damper:
         linear: [300, 300, 1e4]
         angular: [100, 100, 100]
@@ -166,7 +166,7 @@ FootManager:
       wrench:
         linear: [0, 0, 1]
         angular: [1, 1, 0]
-    swing:
+    Swing:
       damper:
         linear: [300, 300, 300]
         angular: [40, 40, 40]
@@ -285,7 +285,7 @@ OverwriteConfigList:
   NoSensors:
     FootManager:
       impedanceGains:
-        singleSupport:
+        SingleSupport:
           damper:
             linear: [300, 300, 300]
             angular: [40, 40, 40]
@@ -295,7 +295,7 @@ OverwriteConfigList:
           wrench:
             linear: [0, 0, 0]
             angular: [0, 0, 0]
-        doubleSupport:
+        DoubleSupport:
           damper:
             linear: [300, 300, 300]
             angular: [40, 40, 40]
@@ -305,7 +305,7 @@ OverwriteConfigList:
           wrench:
             linear: [0, 0, 0]
             angular: [0, 0, 0]
-        swing:
+        Swing:
           damper:
             linear: [300, 300, 300]
             angular: [40, 40, 40]
@@ -359,7 +359,7 @@ OverwriteConfigList:
       footstepDuration: 0.9 # [sec]
       doubleSupportRatio: 0.15 # []
       impedanceGains:
-        singleSupport:
+        SingleSupport:
           spring:
             linear: [2250, 2250, 450] # Weaken Z-component spring to avoid a too fast recovery for mass errors
 
