@@ -50,6 +50,10 @@ if(ENABLE_CNOID)
   add_subdirectory(cnoid)
 endif()
 
+if(BUILD_TESTING OR CATKIN_ENABLE_TESTING)
+  add_subdirectory(tests)
+endif()
+
 if(INSTALL_DOCUMENTATION)
   add_subdirectory(doc)
 endif()
