@@ -3,7 +3,7 @@ macro(append_aliases PATH VAR NAME)
   file(GLOB URDF_FILES ${PATH}/urdf/*.urdf)
   foreach(URDF ${URDF_FILES})
     get_filename_component(URDF_NAME "${URDF}" NAME_WE)
-    # Robot should be object instead of ${NAME} because arbitrary name robot cannot be added
+    # Robot should be env (fixed base) or object (floating base) instead of ${NAME} because arbitrary name robot cannot be added
     list(APPEND ${VAR} "${NAME}/${URDF_NAME}: [object, \"${PATH}\", ${URDF_NAME}]")
   endforeach()
   string(REPLACE ";" "\n" ${VAR} "${${VAR}}")
