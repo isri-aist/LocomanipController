@@ -5,7 +5,7 @@ states:
   LMC::Initial_:
     base: LMC::Initial
     configs:
-      autoStartTime: 8.0
+      autoStartTime: 2.0
 
   LMC::ConfigManip_:
     base: LMC::ConfigManip
