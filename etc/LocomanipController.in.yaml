@@ -9,13 +9,13 @@ IdleKeepState: true
 # Where to look for state libraries
 StatesLibraries:
   - "@MC_STATES_DEFAULT_INSTALL_PREFIX@"
-  - "@baseline_walking_controller_DEVEL_PREFIX@/lib/baseline_walking_controller/states"
-  - "@CATKIN_DEVEL_PREFIX@/lib/@PROJECT_NAME@/states"
+  - "@BWC_STATES_LIBRARIES@"
+  - "@STATES_INSTALL_PREFIX@/@PROJECT_NAME@/states"
 # Where to look for state files
 StatesFiles:
   - "@MC_STATES_DEFAULT_INSTALL_PREFIX@/data"
-  - "@baseline_walking_controller_DEVEL_PREFIX@/lib/baseline_walking_controller/states/data"
-  - "@CATKIN_DEVEL_PREFIX@/lib/@PROJECT_NAME@/states/data"
+  - "@BWC_STATES_FILES@"
+  - "@STATES_INSTALL_PREFIX@/@PROJECT_NAME@/states/data"
 # If true, state factory will be more verbose
 VerboseStateFactory: false
 # Additional robots to load

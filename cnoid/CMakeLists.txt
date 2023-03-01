@@ -12,4 +12,11 @@ if(NOT DEFINED HRPSYSBASE_PREFIX)
 endif()
 message("-- HRPSYSBASE_PREFIX: ${HRPSYSBASE_PREFIX}")
 
+pkg_check_modules(CNOID REQUIRED choreonoid)
+execute_process(COMMAND ${PKG_CONFIG_EXECUTABLE} --variable=sharedir choreonoid
+  OUTPUT_VARIABLE CNOID_SHARE_SUBDIR
+  OUTPUT_STRIP_TRAILING_WHITESPACE)
+message("-- CNOID_SHARE_SUBDIR: ${CNOID_SHARE_SUBDIR}")
+
+add_subdirectory(model)
 add_subdirectory(project)
