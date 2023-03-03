@@ -48,7 +48,6 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
   set(BWC_STATES_FILES "${BWC_STATES_LIBRARIES}/data")
   set(STATES_INSTALL_PREFIX "${CATKIN_DEVEL_PREFIX}/lib")
   set(CONFIG_OUT "${CATKIN_DEVEL_PREFIX}/lib/mc_controller/etc/LocomanipController.yaml")
-  configure_file(etc/LocomanipController.in.yaml ${CONFIG_OUT})
 
   configure_file(etc/mc_rtc.in.yaml ${PROJECT_SOURCE_DIR}/etc/mc_rtc.yaml @ONLY)
 else()
