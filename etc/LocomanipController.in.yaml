@@ -203,8 +203,8 @@ FootManager:
 ManipManager:
   name: ManipManager
   objHorizon: 3.0 # [sec]
-  objPoseTopic: /cnoid/object/pose
-  objVelTopic: /cnoid/object/vel
+  objPoseTopic: /object/pose
+  objVelTopic: /object/vel
   handTaskStiffness: 1000.0
   handTaskStiffnessInterpDuration: 4.0 # [sec]
   preReachDuration: 2.0 # [ec]

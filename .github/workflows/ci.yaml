@@ -67,14 +67,10 @@ jobs:
         if: matrix.catkin-build == 'standalone'
         uses: jrl-umi3218/github-actions/install-dependencies@master
         with:
-          compiler: ${{ matrix.compiler }}
           build-type: ${{ matrix.build-type }}
-          ros: |
-            apt: sbpl
           ubuntu: |
             apt: libforcecontrolcollection-dev libtrajectorycollection-dev libcentroidalcontrolcollection-dev libmc-rtc-dev
           github: |
-            - path: isri-aist/BaselineFootstepPlanner
             - path: isri-aist/BaselineWalkingController
             - path: isri-aist/CnoidRosUtils
       - name: Checkout repository code
