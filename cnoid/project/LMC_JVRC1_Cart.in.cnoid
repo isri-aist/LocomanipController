@@ -21,7 +21,7 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
-        materialTableFile: "@PROJECT_SOURCE_DIR@/cnoid/model/LMC_materials.yaml"
+        materialTableFile: "@LMC_MODEL_DIR@/LMC_materials.yaml"
       children: 
         - 
           id: 3
@@ -123,7 +123,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "@PROJECT_SOURCE_DIR@/cnoid/model/FloorCheckeredPattern.body"
+            modelFile: "@LMC_MODEL_DIR@/FloorCheckeredPattern.body"
             currentBaseLink: ""
             rootPosition: [ 0, 0, -0.1 ]
             rootAttitude: [ 
@@ -146,7 +146,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "@PROJECT_SOURCE_DIR@/cnoid/model/Cart.body"
+            modelFile: "@LMC_MODEL_DIR@/Cart.body"
             currentBaseLink: "Root"
             rootPosition: [ 1.0, 0, 0 ]
             rootAttitude: [ 
