@@ -45,7 +45,7 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
   include_directories(include ${catkin_INCLUDE_DIRS})
   link_directories(${catkin_LIBRARY_DIRS})
 
-  set(BWC_STATES_LIBRARIES "@baseline_walking_controller_DEVEL_PREFIX@/lib/baseline_walking_controller/states")
+  set(BWC_STATES_LIBRARIES "${baseline_walking_controller_DEVEL_PREFIX}/lib/baseline_walking_controller/states")
   set(BWC_STATES_FILES "${BWC_STATES_LIBRARIES}/data")
   set(STATES_INSTALL_PREFIX "${CATKIN_DEVEL_PREFIX}/lib")
   set(CONFIG_OUT "${CATKIN_DEVEL_PREFIX}/lib/mc_controller/etc/LocomanipController.yaml")
