@@ -18,14 +18,6 @@ StatesFiles:
   - "@STATES_INSTALL_PREFIX@/@PROJECT_NAME@/states/data"
 # If true, state factory will be more verbose
 VerboseStateFactory: false
-# Additional robots to load
-robots:
-  ground:
-    module: env/ground
-  obj:
-    module: LMC/Cart
-    init_pos:
-      translation: [0.0, 0.0, 0.0]
 # General constraints, always on
 constraints:
   - type: contact
@@ -327,6 +319,17 @@ OverwriteConfigList:
       enableZmpFeedback: false
       useActualComForWrenchDist: false
 
+robots:
+  # Environment models
+  ground:
+    module: env/ground
+
+  obj:
+    module: LMC/Cart
+    init_pos:
+      translation: [0.0, 0.0, 0.0]
+
+  # Robot-specific configurations
   jvrc1:
     PostureTask:
       target:
