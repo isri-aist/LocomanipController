@@ -185,6 +185,7 @@ jobs:
           git remote set-url origin "https://mmurooka:${{ secrets.CI_TOKEN }}@github.com/isri-aist/LocomanipController"
           git fetch --depth=1 origin gh-pages:gh-pages
           git clean -dfx
+          rm -rf cmake/
           git checkout --quiet gh-pages
           rm -rf doxygen/
           cp -r ${GITHUB_WORKSPACE}/catkin_ws/build/locomanip_controller/doc/html/ doxygen
