@@ -1,4 +1,4 @@
-name: Build and test (catkin)
+name: Build and test
 
 on:
   push:
