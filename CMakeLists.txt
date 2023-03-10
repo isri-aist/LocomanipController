@@ -49,6 +49,13 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
   set(BWC_STATES_FILES "${BWC_STATES_LIBRARIES}/data")
   set(STATES_INSTALL_PREFIX "${CATKIN_DEVEL_PREFIX}/lib")
   set(CONFIG_OUT "${CATKIN_DEVEL_PREFIX}/lib/mc_controller/etc/LocomanipController.yaml")
+  set(CONFIG_DIR_STANDALONE "${MC_CONTROLLER_RUNTIME_INSTALL_PREFIX}/LocomanipController")
+  set(CONFIG_DIR_CATKIN "${CATKIN_DEVEL_PREFIX}/lib/mc_controller/LocomanipController")
+  if(EXISTS "${CONFIG_DIR_STANDALONE}" AND IS_DIRECTORY "${CONFIG_DIR_STANDALONE}")
+    execute_process(COMMAND cmake -E create_symlink
+      "${CONFIG_DIR_STANDALONE}" "${CONFIG_DIR_CATKIN}"
+    )
+  endif()
 
   configure_file(etc/mc_rtc.in.yaml ${PROJECT_SOURCE_DIR}/etc/mc_rtc.yaml @ONLY)
 else()

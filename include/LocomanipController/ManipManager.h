@@ -25,7 +25,7 @@ class LocomanipController;
 namespace ManipPhase
 {
 class Base;
-};
+}
 
 /** \brief Waypoint of object trajectory. */
 struct Waypoint
