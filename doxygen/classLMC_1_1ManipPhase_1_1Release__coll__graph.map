@@ -1,11 +1,8 @@
 <map id="LMC::ManipPhase::Release" name="LMC::ManipPhase::Release">
-<area shape="rect" id="node1" title="Manipulation release phase." alt="" coords="1265,71,1463,98"/>
-<area shape="rect" id="node2" href="$classLMC_1_1ManipPhase_1_1Base.html" title="Base of manipulation phase." alt="" coords="1039,71,1216,98"/>
-<area shape="rect" id="node3" href="$classLMC_1_1ManipManager.html" title="Manipulation manager." alt="" coords="727,71,881,98"/>
-<area shape="rect" id="node4" href="$structLMC_1_1ManipManager_1_1Configuration.html" title="Configuration." alt="" coords="402,5,565,47"/>
-<area shape="rect" id="node5" href="$structLMC_1_1LocomanipController.html" title="Humanoid loco&#45;manipulation controller." alt="" coords="387,71,580,98"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,71,240,98"/>
-<area shape="rect" id="node7" href="$classLMC_1_1ManipManager_1_1VelModeData.html" title="Velocity mode data." alt="" coords="402,123,565,164"/>
-<area shape="rect" id="node8" href="$structLMC_1_1ManipManager_1_1VelModeData_1_1Configuration.html" title="Configuration." alt="" coords="19,123,226,164"/>
-<area shape="rect" id="node9" title=" " alt="" coords="83,189,162,215"/>
+<area shape="rect" id="node2" href="$classLMC_1_1ManipPhase_1_1Base.html" title="Base of manipulation phase. " alt="" coords="1033,71,1208,98"/>
+<area shape="rect" id="node3" href="$classLMC_1_1ManipManager.html" title="Manipulation manager. " alt="" coords="724,71,876,98"/>
+<area shape="rect" id="node4" href="$structLMC_1_1ManipManager_1_1Configuration.html" title="Configuration. " alt="" coords="403,5,563,47"/>
+<area shape="rect" id="node5" href="$structLMC_1_1LocomanipController.html" title="Humanoid loco&#45;manipulation controller. " alt="" coords="387,71,579,98"/>
+<area shape="rect" id="node7" href="$classLMC_1_1ManipManager_1_1VelModeData.html" title="Velocity mode data. " alt="" coords="403,123,563,164"/>
+<area shape="rect" id="node8" href="$structLMC_1_1ManipManager_1_1VelModeData_1_1Configuration.html" title="Configuration. " alt="" coords="20,123,225,164"/>
 </map>

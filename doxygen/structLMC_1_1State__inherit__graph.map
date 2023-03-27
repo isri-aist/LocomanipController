@@ -1,8 +1,6 @@
 <map id="LMC::State" name="LMC::State">
-<area shape="rect" id="node1" title="FSM State with utility functions." alt="" coords="319,80,411,107"/>
-<area shape="rect" id="node3" href="$structLMC_1_1ConfigManipState.html" title="FSM state to send manipulation commands from configuration." alt="" coords="5,155,180,181"/>
-<area shape="rect" id="node4" href="$structLMC_1_1GuiManipState.html" title="FSM state to send manipulation command from GUI." alt="" coords="205,155,359,181"/>
-<area shape="rect" id="node5" href="$structLMC_1_1InitialState.html" title="FSM state to initialize." alt="" coords="384,155,513,181"/>
-<area shape="rect" id="node6" href="$structLMC_1_1TeleopState.html" title="FSM state to walk with teleoperation." alt="" coords="537,155,672,181"/>
-<area shape="rect" id="node2" title=" " alt="" coords="280,5,449,32"/>
+<area shape="rect" id="node3" href="$structLMC_1_1ConfigManipState.html" title="FSM state to send manipulation commands from configuration. " alt="" coords="5,155,177,181"/>
+<area shape="rect" id="node4" href="$structLMC_1_1GuiManipState.html" title="FSM state to send manipulation command from GUI. " alt="" coords="202,155,354,181"/>
+<area shape="rect" id="node5" href="$structLMC_1_1InitialState.html" title="FSM state to initialize. " alt="" coords="378,155,506,181"/>
+<area shape="rect" id="node6" href="$structLMC_1_1TeleopState.html" title="FSM state to walk with teleoperation. " alt="" coords="531,155,665,181"/>
 </map>

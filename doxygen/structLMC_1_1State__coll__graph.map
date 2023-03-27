@@ -1,6 +1,3 @@
 <map id="LMC::State" name="LMC::State">
-<area shape="rect" id="node1" title="FSM State with utility functions." alt="" coords="105,171,197,197"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,81,175,108"/>
-<area shape="rect" id="node3" href="$structLMC_1_1LocomanipController.html" title="Humanoid loco&#45;manipulation controller." alt="" coords="199,81,392,108"/>
-<area shape="rect" id="node4" title=" " alt="" coords="178,5,413,32"/>
+<area shape="rect" id="node3" href="$structLMC_1_1LocomanipController.html" title="Humanoid loco&#45;manipulation controller. " alt="" coords="199,81,391,108"/>
 </map>
