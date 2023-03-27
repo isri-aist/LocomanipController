@@ -40,6 +40,27 @@ jobs:
             motion-type: PushCartVelMode
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Setup environment variables
+        run: |
+          if [ "${{ matrix.os }}" == "ubuntu-20.04" ] && \
+             [ "${{ matrix.build-type }}" == "RelWithDebInfo" ] && \
+             [ "${{ matrix.mc-rtc-version }}" == "head" ]
+          then
+            echo "RUN_SIMULATION_STEPS=true" >> $GITHUB_ENV
+          else
+            echo "RUN_SIMULATION_STEPS=false" >> $GITHUB_ENV
+          fi
+          if [ "${{ matrix.catkin-build }}" == "catkin" ] && \
+             [ "${{ matrix.build-type }}" == "RelWithDebInfo" ] && \
+             [ "${{ matrix.mc-rtc-version }}" == "head" ] && \
+             [ "${{ matrix.motion-type }}" == "PushCartWaypoint" ] && \
+             [ "${{ github.repository_owner }}" == "isri-aist" ] && \
+             [ "${{ github.ref }}" == "refs/heads/master" ]
+          then
+            echo "UPLOAD_DOCUMENTATION=true" >> $GITHUB_ENV
+          else
+            echo "UPLOAD_DOCUMENTATION=false" >> $GITHUB_ENV
+          fi
       - name: Install dependencies
         uses: jrl-umi3218/github-actions/install-dependencies@master
         with:
@@ -75,10 +96,9 @@ jobs:
         uses: jrl-umi3218/github-actions/build-catkin-project@master
         with:
           build-type: ${{ matrix.build-type }}
-          cmake-args: -DINSTALL_DOCUMENTATION=ON -DENABLE_QLD=ON
+          cmake-args: -DINSTALL_DOCUMENTATION=${{ env.UPLOAD_DOCUMENTATION }} -DENABLE_QLD=ON
       - name: Run simulation
-        # Only run for one configuration
-        if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head'
+        if: env.RUN_SIMULATION_STEPS == 'true'
         # https://github.com/jrl-umi3218/lipm_walking_controller/blob/b564d655388ae6a6725c504e5c74a62192e58c7c/.github/workflows/build.yml#L64-L92
         run: |
           set -e
@@ -135,15 +155,13 @@ jobs:
           mv `readlink -f /tmp/mc-control-LocomanipController-latest.bin` /tmp/${LOG_FILENAME}.bin
           tar czf /tmp/results/${LOG_FILENAME}.tar.gz -C /tmp ${LOG_FILENAME}.bin
       - name: Upload simulation data
-        # Only run for one configuration
-        if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head'
+        if: env.RUN_SIMULATION_STEPS == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: LMC-ci-results-${{ matrix.catkin-build }}
           path: /tmp/results
       - name: Check simulation results
-        # Only run for one configuration
-        if: matrix.os == 'ubuntu-20.04' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head'
+        if: env.RUN_SIMULATION_STEPS == 'true'
         run: |
           set -e
           set -x
@@ -161,8 +179,7 @@ jobs:
           fi
           python3 checkSimulationResults.py /tmp/${LOG_FILENAME}.bin --expected-obj-pos ${EXPECTED_OBJ_POS}
       - name: Upload documentation
-        # Only run for one configuration and on master branch
-        if: matrix.os == 'ubuntu-20.04' && matrix.catkin-build == 'catkin' && matrix.build-type == 'RelWithDebInfo' && matrix.mc-rtc-version == 'head' && matrix.motion-type == 'PushCartWaypoint' && github.repository_owner == 'isri-aist' && github.ref == 'refs/heads/master'
+        if: env.UPLOAD_DOCUMENTATION == 'true'
         run: |
           set -e
           set -x
