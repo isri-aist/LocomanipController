@@ -42,6 +42,8 @@ jobs:
     steps:
       - name: Setup environment variables
         run: |
+          set -e
+          set -x
           if [ "${{ matrix.os }}" == "ubuntu-20.04" ] && \
              [ "${{ matrix.build-type }}" == "RelWithDebInfo" ] && \
              [ "${{ matrix.mc-rtc-version }}" == "head" ]
@@ -50,7 +52,8 @@ jobs:
           else
             echo "RUN_SIMULATION_STEPS=false" >> $GITHUB_ENV
           fi
-          if [ "${{ matrix.catkin-build }}" == "catkin" ] && \
+          if [ "${{ matrix.os }}" == "ubuntu-20.04" ] && \
+             [ "${{ matrix.catkin-build }}" == "catkin" ] && \
              [ "${{ matrix.build-type }}" == "RelWithDebInfo" ] && \
              [ "${{ matrix.mc-rtc-version }}" == "head" ] && \
              [ "${{ matrix.motion-type }}" == "PushCartWaypoint" ] && \
