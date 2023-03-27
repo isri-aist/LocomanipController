@@ -1,7 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structLMC_1_1GuiManipState.html" title="FSM state to send manipulation command from GUI. " alt="" coords="5,56,157,83"/>
-<area shape="rect" id="node2" href="$structLMC_1_1State.html" title="FSM State with utility functions. " alt="" coords="205,56,296,83"/>
-<area shape="rect" id="node3" href="$structLMC_1_1ConfigManipState.html" title="FSM state to send manipulation commands from configuration. " alt="" coords="344,5,516,32"/>
-<area shape="rect" id="node4" href="$structLMC_1_1InitialState.html" title="FSM state to initialize. " alt="" coords="366,56,494,83"/>
-<area shape="rect" id="node5" href="$structLMC_1_1TeleopState.html" title="FSM state to walk with teleoperation. " alt="" coords="363,107,497,133"/>
+<area shape="rect" id="node1" href="$structLMC_1_1InitialState.html" title="FSM state to initialize." alt="" coords="5,56,135,83"/>
+<area shape="rect" id="node2" href="$structLMC_1_1State.html" title="FSM State with utility functions." alt="" coords="183,56,275,83"/>
+<area shape="rect" id="node3" href="$structLMC_1_1ConfigManipState.html" title="FSM state to send manipulation commands from configuration." alt="" coords="323,5,497,32"/>
+<area shape="rect" id="node4" href="$structLMC_1_1GuiManipState.html" title="FSM state to send manipulation command from GUI." alt="" coords="333,56,487,83"/>
+<area shape="rect" id="node5" href="$structLMC_1_1TeleopState.html" title="FSM state to walk with teleoperation." alt="" coords="343,107,477,133"/>
 </map>

@@ -1,6 +1,7 @@
 <map id="/home/runner/work/LocomanipController/LocomanipController/catkin_ws/src/isri&#45;aist/LocomanipController/include/LocomanipController/State.h" name="/home/runner/work/LocomanipController/LocomanipController/catkin_ws/src/isri&#45;aist/LocomanipController/include/LocomanipController/State.h">
-<area shape="rect" id="node2" href="$ConfigManipState_8h.html" title="/home/runner/work/Locomanip\lController/LocomanipController\l/catkin_ws/src/isri&#45;aist/LocomanipController\l/include/LocomanipController/states/ConfigManipState.h" alt="" coords="5,124,392,195"/>
-<area shape="rect" id="node3" href="$GuiManipState_8h.html" title="/home/runner/work/Locomanip\lController/LocomanipController\l/catkin_ws/src/isri&#45;aist/LocomanipController\l/include/LocomanipController/states/GuiManipState.h" alt="" coords="417,124,783,195"/>
-<area shape="rect" id="node4" href="$InitialState_8h.html" title="/home/runner/work/Locomanip\lController/LocomanipController\l/catkin_ws/src/isri&#45;aist/LocomanipController\l/include/LocomanipController/states/InitialState.h" alt="" coords="807,124,1150,195"/>
-<area shape="rect" id="node5" href="$TeleopState_8h.html" title="/home/runner/work/Locomanip\lController/LocomanipController\l/catkin_ws/src/isri&#45;aist/LocomanipController\l/include/LocomanipController/states/TeleopState.h" alt="" coords="1174,124,1525,195"/>
+<area shape="rect" id="node1" title=" " alt="" coords="638,5,945,76"/>
+<area shape="rect" id="node2" href="$ConfigManipState_8h.html" title=" " alt="" coords="5,124,393,195"/>
+<area shape="rect" id="node3" href="$GuiManipState_8h.html" title=" " alt="" coords="418,124,786,195"/>
+<area shape="rect" id="node4" href="$InitialState_8h.html" title=" " alt="" coords="811,124,1153,195"/>
+<area shape="rect" id="node5" href="$TeleopState_8h.html" title=" " alt="" coords="1177,124,1525,195"/>
 </map>
