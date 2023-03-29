@@ -21,4 +21,3 @@ jobs:
       - name: Run clang-format-check
         run: |
           ./.clang-format-check.sh
-
