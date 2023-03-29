@@ -28,16 +28,18 @@ jobs:
             mc-rtc-version: stable
         include:
           - os: ubuntu-20.04
+            catkin-build: catkin
             build-type: RelWithDebInfo
             mc-rtc-version: head
-            catkin-build: catkin
             motion-type: PushCartVelMode
           - os: ubuntu-20.04
+            catkin-build: standalone
             build-type: RelWithDebInfo
             mc-rtc-version: head
-            catkin-build: standalone
             motion-type: PushCartVelMode
     runs-on: ${{ matrix.os }}
+    env:
+      RESULTS_POSTFIX: ${{ matrix.motion-type }}-${{ matrix.catkin-build }}
     steps:
       - name: Setup environment variables
         run: |
@@ -63,6 +65,12 @@ jobs:
           else
             echo "UPLOAD_DOCUMENTATION=false" >> $GITHUB_ENV
           fi
+          if [ "${{ matrix.catkin-build }}" == "catkin" ]
+          then
+            echo "CI_DIR=${GITHUB_WORKSPACE}/catkin_ws/src/${{ github.repository }}/.github/workflows" >> $GITHUB_ENV
+          else
+            echo "CI_DIR=${GITHUB_WORKSPACE}/.github/workflows" >> $GITHUB_ENV
+          fi
       - name: Install dependencies
         uses: jrl-umi3218/github-actions/install-dependencies@master
         with:
@@ -79,7 +87,7 @@ jobs:
         with:
           build-type: ${{ matrix.build-type }}
           ubuntu: |
-            apt: libforcecontrolcollection-dev libtrajectorycollection-dev libcentroidalcontrolcollection-dev libmc-rtc-dev
+            apt: libforcecontrolcollection-dev libtrajectorycollection-dev libcentroidalcontrolcollection-dev
           github: |
             - path: isri-aist/BaselineWalkingController
             - path: isri-aist/CnoidRosUtils
@@ -120,11 +128,10 @@ jobs:
           if [ "${{ matrix.catkin-build }}" == "catkin" ]
           then
             cp ${GITHUB_WORKSPACE}/catkin_ws/src/${{ github.repository }}/etc/mc_rtc.yaml ${HOME}/.config/mc_rtc
-            cp ${GITHUB_WORKSPACE}/catkin_ws/src/${{ github.repository }}/.github/workflows/config/${{ matrix.motion-type }}.yaml ${HOME}/.config/mc_rtc/controllers/LocomanipController.yaml
           else
-            cp ${GITHUB_WORKSPACE}/.github/workflows/config/${{ matrix.motion-type }}.yaml ${HOME}/.config/mc_rtc/controllers/LocomanipController.yaml
             echo "Enabled: LocomanipController" > ${HOME}/.config/mc_rtc/mc_rtc.yaml
           fi
+          cp ${{ env.CI_DIR }}/config/${{ matrix.motion-type }}.yaml ${HOME}/.config/mc_rtc/controllers/LocomanipController.yaml
           ffmpeg -y -f x11grab -s 1920x1080 -r 30 -i ${DISPLAY} -qscale 0 -vcodec huffyuv /tmp/video.avi > /dev/null 2>&1 < /dev/null &
           FFMPEG_PID=$!
           /usr/share/hrpsys/samples/JVRC1/clear-omninames.sh
@@ -152,8 +159,8 @@ jobs:
           kill -9 ${CNOID_PID} || true
           sleep 10s
           mkdir -p /tmp/results
-          ffmpeg -nostats -i /tmp/video.avi /tmp/results/LMC-video-${{ matrix.motion-type }}-${{ matrix.catkin-build }}.mp4
-          LOG_FILENAME=LMC-log-${{ matrix.motion-type }}-${{ matrix.catkin-build }}
+          ffmpeg -nostats -i /tmp/video.avi /tmp/results/LMC-video-${RESULTS_POSTFIX}.mp4
+          LOG_FILENAME=LMC-log-${RESULTS_POSTFIX}
           mv `readlink -f /tmp/mc-control-LocomanipController-latest.bin` /tmp/${LOG_FILENAME}.bin
           tar czf /tmp/results/${LOG_FILENAME}.tar.gz -C /tmp ${LOG_FILENAME}.bin
       - name: Upload simulation data
@@ -172,14 +179,8 @@ jobs:
           else # if [ "${{ matrix.motion-type }}" == "PushCartVelMode" ]; then
             EXPECTED_OBJ_POS="1.33 -0.073 0.0"
           fi
-          LOG_FILENAME=LMC-log-${{ matrix.motion-type }}-${{ matrix.catkin-build }}
-          if [ "${{ matrix.catkin-build }}" == "catkin" ]
-          then
-            cd ${GITHUB_WORKSPACE}/catkin_ws/src/${{ github.repository }}/.github/workflows/scripts/
-          else
-            cd ${GITHUB_WORKSPACE}/.github/workflows/scripts/
-          fi
-          python3 checkSimulationResults.py /tmp/${LOG_FILENAME}.bin --expected-obj-pos ${EXPECTED_OBJ_POS}
+          LOG_FILENAME=LMC-log-${RESULTS_POSTFIX}
+          python3 ${{ env.CI_DIR }}/scripts/checkSimulationResults.py /tmp/${LOG_FILENAME}.bin --expected-obj-pos ${EXPECTED_OBJ_POS}
       - name: Upload documentation
         if: env.UPLOAD_DOCUMENTATION == 'true'
         run: |
