@@ -1,0 +1,19 @@
+<mujoco model="Cart">
+  <compiler angle="radian" autolimits="true"/>
+
+  <worldbody name="Root">
+    <body name="Body">
+      <freejoint/>
+      <inertial pos="0.4 0.0 0.3" mass="10.0" diaginertia="1.0 1.0 1.0" />
+      <geom size="0.425 0.4 0.325" pos="0.425 0 0.325" type="box" rgba="0.3 0.5 0.2 1"
+            friction="0.02" priority="1"
+            condim="3" group="1" density="0"/>
+      <geom size="0.015 0.4" pos="-0.35 0 1" quat="0.707107 0.707107 0 0" type="cylinder" rgba="0.3 0.5 0.2 1"
+            condim="3" group="1" density="0"/>
+      <geom size="0.015 0.26" pos="-0.175 0.38 0.825" quat="0.146447 0.853553 0.353553 0.353553" type="cylinder" rgba="0.3 0.5 0.2 1"
+            condim="3" group="1" density="0"/>
+      <geom size="0.015 0.26" pos="-0.175 -0.38 0.825" quat="0.146447 0.853553 0.353553 0.353553" type="cylinder" rgba="0.3 0.5 0.2 1"
+            condim="3" group="1" density="0"/>
+    </body>
+  </worldbody>
+</mujoco>

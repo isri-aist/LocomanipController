@@ -15,6 +15,7 @@ include(cmake/base.cmake)
 project(locomanip_controller LANGUAGES CXX)
 
 OPTION(ENABLE_CNOID "Install Choreonoid files" ON)
+OPTION(ENABLE_MUJOCO "Install MuJoCo files" OFF)
 
 # mc_rtc
 add_project_dependency(mc_rtc REQUIRED)
@@ -77,6 +78,10 @@ add_subdirectory(description)
 
 if(ENABLE_CNOID)
   add_subdirectory(cnoid)
+endif()
+
+if(ENABLE_MUJOCO)
+  add_subdirectory(mujoco)
 endif()
 
 if(BUILD_TESTING OR CATKIN_ENABLE_TESTING)
