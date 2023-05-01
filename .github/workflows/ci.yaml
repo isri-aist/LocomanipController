@@ -107,6 +107,7 @@ jobs:
         with:
           build-type: ${{ matrix.build-type }}
           cmake-args: -DINSTALL_DOCUMENTATION=${{ env.UPLOAD_DOCUMENTATION }} -DENABLE_QLD=ON
+          catkin-test-args: --no-deps
           build-packages: locomanip_controller
           test-packages: locomanip_controller
       - name: Run simulation
