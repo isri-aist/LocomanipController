@@ -3,11 +3,15 @@
 
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
+#include <LocomanipController/centroidal/CentroidalManagerPreviewControlExtZmp.h>
 
 using namespace LMC;
 
-LocomanipController::LocomanipController(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc::Configuration & _config)
-: BWC::BaselineWalkingController(rm, dt, _config)
+LocomanipController::LocomanipController(mc_rbdyn::RobotModulePtr rm,
+                                         double dt,
+                                         const mc_rtc::Configuration & _config,
+                                         bool allowEmptyManager)
+: BWC::BaselineWalkingController(rm, dt, _config, true)
 {
   // Setup tasks
   if(config().has("HandTaskList"))
@@ -26,6 +30,30 @@ LocomanipController::LocomanipController(mc_rbdyn::RobotModulePtr rm, double dt,
   }
 
   // Setup managers
+  if(!centroidalManager_)
+  {
+    if(config().has("CentroidalManager"))
+    {
+      std::string centroidalManagerMethod = config()("CentroidalManager")("method", std::string(""));
+      if(centroidalManagerMethod == "PreviewControlExtZmp")
+      {
+        centroidalManager_ =
+            std::make_shared<CentroidalManagerPreviewControlExtZmp>(this, config()("CentroidalManager"));
+      }
+      else
+      {
+        if(!allowEmptyManager)
+        {
+          mc_rtc::log::error_and_throw("[LocomanipController] Invalid centroidalManagerMethod: {}.",
+                                       centroidalManagerMethod);
+        }
+      }
+    }
+    else
+    {
+      mc_rtc::log::warning("[LocomanipController] CentroidalManager configuration is missing.");
+    }
+  }
   if(config().has("ManipManager"))
   {
     manipManager_ = std::make_shared<ManipManager>(this, config()("ManipManager"));

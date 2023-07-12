@@ -20,8 +20,16 @@ class ManipManager;
 struct LocomanipController : public BWC::BaselineWalkingController
 {
 public:
-  /** \brief Constructor. */
-  LocomanipController(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc::Configuration & config);
+  /** \brief Constructor.
+      \param rm robot module
+      \param dt control timestep
+      \param _config controller configuration
+      \param allowEmptyManager whether to allow the managers to be empty (assuming initialized in the parent class)
+   */
+  LocomanipController(mc_rbdyn::RobotModulePtr rm,
+                      double dt,
+                      const mc_rtc::Configuration & config,
+                      bool allowEmptyManager = false);
 
   /** \brief Reset a controller.
 
