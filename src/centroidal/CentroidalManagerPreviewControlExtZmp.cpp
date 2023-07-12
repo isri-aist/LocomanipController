@@ -21,6 +21,7 @@ void CentroidalManagerPreviewControlExtZmp::runMpc()
   CentroidalManagerPreviewControlZmp::runMpc();
 
   ExtZmpData extZmpData = calcExtZmpData(ctl().t());
+  // Remove hand forces effects
   plannedZmp_.head<2>() = (plannedZmp_.head<2>() + extZmpData.offset) / extZmpData.scale;
 }
 
@@ -28,6 +29,7 @@ Eigen::Vector2d CentroidalManagerPreviewControlExtZmp::calcRefData(double t) con
 {
   Eigen::Vector2d refZmp = CentroidalManagerPreviewControlZmp::calcRefData(t);
   ExtZmpData extZmpData = calcExtZmpData(t);
+  // Add hand forces effects
   return extZmpData.scale * refZmp - extZmpData.offset;
 }
 
@@ -58,6 +60,8 @@ CentroidalManagerPreviewControlExtZmp::ExtZmpData CentroidalManagerPreviewContro
     const auto & force = handWrench.force();
     const auto & moment = handWrench.moment();
 
+    // Equation (3) in the paper:
+    //   M Murooka, et al. Humanoid loco-Manipulations pattern generation and stabilization control. RA-Letters, 2021
     extZmpData.scale -= force.z();
     extZmpData.offset.x() += (pos.z() - refZmp.z()) * force.x() - pos.x() * force.z() + moment.y();
     extZmpData.offset.y() += (pos.z() - refZmp.z()) * force.y() - pos.y() * force.z() - moment.x();
