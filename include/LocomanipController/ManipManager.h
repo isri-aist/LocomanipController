@@ -285,6 +285,24 @@ public:
     return manipPhases_.at(hand);
   }
 
+  /** \brief Set reference hand wrench.
+      \param hand hand
+      \param wrench reference hand wrench in the hand frame
+      \param startTime time to start interpolation
+      \param interpDuration duration to interpolate
+  */
+  void setRefHandWrench(const Hand & hand, const sva::ForceVecd & wrench, double startTime, double interpDuration);
+
+  /** \brief Calculate reference hand wrench.
+      \param hand hand
+      \param t time
+      \return reference hand wrench in the hand frame
+  */
+  inline sva::ForceVecd calcRefHandWrench(const Hand & hand, double t) const
+  {
+    return (*handWrenchFuncs_.at(hand))(t);
+  }
+
   /** \brief Require sending footstep command following an object. */
   void requireFootstepFollowingObj();
 
@@ -352,6 +370,9 @@ protected:
   void objVelCallback(const geometry_msgs::TwistStamped::ConstPtr & twistStMsg);
 
 protected:
+  //! Maximum time of interpolation endpoint
+  const double interpMaxTime_ = 1e10;
+
   //! Configuration
   Configuration config_;
 
@@ -378,6 +399,9 @@ protected:
 
   //! Manipulation phases
   std::unordered_map<Hand, std::shared_ptr<ManipPhase::Base>> manipPhases_;
+
+  //! Hand wrench functions
+  std::unordered_map<Hand, std::shared_ptr<TrajColl::CubicInterpolator<sva::ForceVecd>>> handWrenchFuncs_;
 
   //! Whether to require updating impedance gains
   bool requireImpGainUpdate_ = true;

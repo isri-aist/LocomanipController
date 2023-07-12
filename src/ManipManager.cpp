@@ -111,6 +111,12 @@ void ManipManager::reset()
   for(const auto & hand : Hands::Both)
   {
     manipPhases_.emplace(hand, std::make_shared<ManipPhase::Free>(hand, this));
+
+    handWrenchFuncs_.emplace(hand, std::make_shared<TrajColl::CubicInterpolator<sva::ForceVecd>>());
+    handWrenchFuncs_.at(hand)->clearPoints();
+    handWrenchFuncs_.at(hand)->appendPoint(std::make_pair(ctl().t(), sva::ForceVecd::Zero()));
+    handWrenchFuncs_.at(hand)->appendPoint(std::make_pair(interpMaxTime_, sva::ForceVecd::Zero()));
+    handWrenchFuncs_.at(hand)->calcCoeff();
   }
 
   requireImpGainUpdate_ = true;
@@ -215,6 +221,37 @@ void ManipManager::addToGUI(mc_rtc::gui::StateBuilder & gui)
                        config_.impGain.wrench().vec(v);
                        requireImpGainUpdate_ = true;
                      }));
+
+  gui.addElement(
+      {ctl().name(), config_.name, "HandWrench"},
+      mc_rtc::gui::ArrayInput(
+          "Both hands wrench (in hand frame)", {"cx", "cy", "cz", "fx", "fy", "fz"},
+          [this]() {
+            sva::ForceVecd wrench = sva::ForceVecd::Zero();
+            for(const auto & hand : Hands::Both)
+            {
+              wrench += calcRefHandWrench(hand, ctl().t());
+            }
+            wrench /= 2.0;
+            return wrench.vector();
+          },
+          [this](const Eigen::Vector6d & v) {
+            sva::ForceVecd wrench = sva::ForceVecd(v);
+            for(const auto & hand : Hands::Both)
+            {
+              setRefHandWrench(hand, wrench, ctl().t() + 1.0, 3.0);
+            }
+          }),
+      mc_rtc::gui::ArrayInput(
+          "Left hand wrench (in hand frame)", {"cx", "cy", "cz", "fx", "fy", "fz"},
+          [this]() { return calcRefHandWrench(Hand::Left, ctl().t()).vector(); },
+          [this](const Eigen::Vector6d & v) { setRefHandWrench(Hand::Left, sva::ForceVecd(v), ctl().t() + 1.0, 3.0); }),
+      mc_rtc::gui::ArrayInput(
+          "Right hand wrench (in hand frame)", {"cx", "cy", "cz", "fx", "fy", "fz"},
+          [this]() { return calcRefHandWrench(Hand::Right, ctl().t()).vector(); },
+          [this](const Eigen::Vector6d & v) {
+            setRefHandWrench(Hand::Right, sva::ForceVecd(v), ctl().t() + 1.0, 3.0);
+          }));
 }
 
 void ManipManager::removeFromGUI(mc_rtc::gui::StateBuilder & gui)
@@ -346,6 +383,28 @@ bool ManipManager::setObjPoseOffset(const sva::PTransformd & newObjPoseOffset, d
   objPoseOffsetFunc_->appendPoint(std::make_pair(ctl().t() + interpDuration, newObjPoseOffset));
   objPoseOffsetFunc_->calcCoeff();
   return true;
+}
+
+void ManipManager::setRefHandWrench(const Hand & hand,
+                                    const sva::ForceVecd & wrench,
+                                    double startTime,
+                                    double interpDuration)
+{
+  if(startTime < ctl().t())
+  {
+    mc_rtc::log::warning("[ManipManager] Ignore reference hand wrench with past time: {} < {}", startTime, ctl().t());
+    return;
+  }
+
+  handWrenchFuncs_.at(hand)->clearPoints();
+  handWrenchFuncs_.at(hand)->appendPoint(std::make_pair(ctl().t(), ctl().handTasks_.at(hand)->targetWrench()));
+  if(ctl().t() + ctl().dt() <= startTime)
+  {
+    handWrenchFuncs_.at(hand)->appendPoint(std::make_pair(startTime, ctl().handTasks_.at(hand)->targetWrench()));
+  }
+  handWrenchFuncs_.at(hand)->appendPoint(std::make_pair(startTime + interpDuration, wrench));
+  handWrenchFuncs_.at(hand)->appendPoint(std::make_pair(interpMaxTime_, wrench));
+  handWrenchFuncs_.at(hand)->calcCoeff();
 }
 
 void ManipManager::requireFootstepFollowingObj()
@@ -528,6 +587,12 @@ void ManipManager::updateHandTraj()
     {
       ctl().handTasks_.at(hand)->gains() = config_.impGain;
     }
+  }
+
+  // Set target wrench of hand tasks
+  for(const auto & hand : Hands::Both)
+  {
+    ctl().handTasks_.at(hand)->targetWrench(calcRefHandWrench(hand, ctl().t()));
   }
 }
 
