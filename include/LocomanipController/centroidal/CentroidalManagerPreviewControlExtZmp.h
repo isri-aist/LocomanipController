@@ -13,6 +13,17 @@ namespace LMC
 class CentroidalManagerPreviewControlExtZmp : public CentroidalManager, BWC::CentroidalManagerPreviewControlZmp
 {
 public:
+  /** \brief Data of ext-ZMP (i.e., ZMP with external forces). */
+  struct ExtZmpData
+  {
+    //! Scale
+    double scale = 1.0;
+
+    //! Offset
+    Eigen::Vector2d offset = Eigen::Vector2d::Zero();
+  };
+
+public:
   /** \brief Constructor.
       \param ctlPtr pointer to controller
       \param mcRtcConfig mc_rtc configuration
@@ -29,11 +40,7 @@ protected:
   /** \brief Calculate reference data of MPC. */
   Eigen::Vector2d calcRefData(double t) const;
 
-protected:
-  //! Offset for ext-ZMP (i.e., ZMP with external forces)
-  Eigen::Vector2d extZmpOffset_ = Eigen::Vector2d::Zero();
-
-  //! Scale for ext-ZMP (i.e., ZMP with external forces)
-  double extZmpScale_ = 1.0;
+  /** \brief Calculate data of ext-ZMP. */
+  ExtZmpData calcExtZmpData(double t) const;
 };
 } // namespace LMC
