@@ -5,6 +5,7 @@ add_library(${CONTROLLER_NAME} SHARED
   HandTypes.cpp
   ManipPhase.cpp
   ManipManager.cpp
+  CentroidalManager.cpp
   State.cpp
 )
 target_link_libraries(${CONTROLLER_NAME} PUBLIC
