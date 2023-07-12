@@ -7,6 +7,7 @@ add_library(${CONTROLLER_NAME} SHARED
   ManipManager.cpp
   CentroidalManager.cpp
   State.cpp
+  centroidal/CentroidalManagerPreviewControlExtZmp.cpp
 )
 target_link_libraries(${CONTROLLER_NAME} PUBLIC
   mc_rtc::mc_rtc_utils

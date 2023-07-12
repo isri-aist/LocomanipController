@@ -11,7 +11,7 @@ class LocomanipController;
     Centroidal manager calculates the centroidal targets from the specified reference ZMP trajectory and sensor
    measurements.
  */
-class CentroidalManager : public BWC::CentroidalManager
+class CentroidalManager : virtual public BWC::CentroidalManager
 {
 public:
   /** \brief Constructor.
