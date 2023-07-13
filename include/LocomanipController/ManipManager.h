@@ -303,6 +303,9 @@ public:
     return (*handWrenchFuncs_.at(hand))(t);
   }
 
+  /** \brief Whether the reference hand wrenches are being interpolated. */
+  bool interpolatingRefHandWrench() const;
+
   /** \brief Require sending footstep command following an object. */
   void requireFootstepFollowingObj();
 

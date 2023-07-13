@@ -407,6 +407,18 @@ void ManipManager::setRefHandWrench(const Hand & hand,
   handWrenchFuncs_.at(hand)->calcCoeff();
 }
 
+bool ManipManager::interpolatingRefHandWrench() const
+{
+  for(const auto & handWrenchFuncKV : handWrenchFuncs_)
+  {
+    if(ctl().t() < std::next(handWrenchFuncKV.second->points().rbegin())->first)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 void ManipManager::requireFootstepFollowingObj()
 {
   if(velModeData_.enabled_)
