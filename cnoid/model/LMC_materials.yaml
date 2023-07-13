@@ -8,6 +8,9 @@ materials:
   -
     name: Cart
     roughness: 1.0
+  -
+    name: CartHighFriction
+    roughness: 1.0
 
 contactMaterials:
   -
@@ -19,3 +22,6 @@ contactMaterials:
   -
     materials: [ Cart, Floor ]
     friction: 0.1
+  -
+    materials: [ CartHighFriction, Floor ]
+    friction: 0.5
