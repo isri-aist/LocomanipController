@@ -1,6 +1,7 @@
 set(MODEL_FILE_LIST
   texture/CheckeredPattern.png
   Cart.body
+  CartHighFriction.body
   FloorCheckeredPattern.body
   LMC_materials.yaml
 )
