@@ -213,9 +213,9 @@ ManipManager:
       rotation: [0.430459, -0.560986, -0.560986, -0.430459]
   preReachTranss:
     Left:
-      translation: [0, 0, -0.1] # [m]
+      translation: [0, 0, -0.15] # [m]
     Right:
-      translation: [0, 0, -0.1] # [m]
+      translation: [0, 0, -0.15] # [m]
   impedanceGain:
     mass:
       angular: [2.0, 2.0, 2.0]
