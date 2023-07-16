@@ -1,5 +1,7 @@
 #include <mc_tasks/ImpedanceTask.h>
 
+#include <CCC/Constants.h>
+
 #include <BaselineWalkingController/FootManager.h>
 
 #include <LocomanipController/LocomanipController.h>
@@ -16,13 +18,39 @@ CentroidalManagerPreviewControlExtZmp::CentroidalManagerPreviewControlExtZmp(Loc
 {
 }
 
+void CentroidalManagerPreviewControlExtZmp::addToLogger(mc_rtc::Logger & logger)
+{
+  CentroidalManagerPreviewControlZmp::addToLogger(logger);
+
+  logger.addLogEntry(config_.name + "_ExtZmp_scale", this, [this]() { return extZmpData_.scale; });
+  logger.addLogEntry(config_.name + "_ExtZmp_offset", this, [this]() { return extZmpData_.offset; });
+}
+
 void CentroidalManagerPreviewControlExtZmp::runMpc()
 {
+  extZmpData_ = calcExtZmpData(ctl().t());
+
+  // Add hand forces effects
+  plannedZmp_.head<2>() = extZmpData_.apply(plannedZmp_.head<2>());
+
   CentroidalManagerPreviewControlZmp::runMpc();
 
-  ExtZmpData extZmpData = calcExtZmpData(ctl().t());
   // Remove hand forces effects
-  plannedZmp_.head<2>() = (plannedZmp_.head<2>() + extZmpData.offset) / extZmpData.scale;
+  plannedZmp_.head<2>() = extZmpData_.applyInv(plannedZmp_.head<2>());
+}
+
+Eigen::Vector3d CentroidalManagerPreviewControlExtZmp::calcPlannedComAccel() const
+{
+  // Replace plannedZmp_ with plannedExtZmp
+  Eigen::Vector3d plannedExtZmp;
+  plannedExtZmp << extZmpData_.apply(plannedZmp_.head<2>()), plannedZmp_.z();
+
+  Eigen::Vector3d plannedComAccel;
+  plannedComAccel << plannedForceZ_ / (robotMass_ * (mpcCom_.z() - refZmp_.z()))
+                         * (mpcCom_.head<2>() - plannedExtZmp.head<2>()),
+      plannedForceZ_ / robotMass_;
+  plannedComAccel.z() -= CCC::constants::g;
+  return plannedComAccel;
 }
 
 Eigen::Vector2d CentroidalManagerPreviewControlExtZmp::calcRefData(double t) const
@@ -30,7 +58,7 @@ Eigen::Vector2d CentroidalManagerPreviewControlExtZmp::calcRefData(double t) con
   Eigen::Vector2d refZmp = CentroidalManagerPreviewControlZmp::calcRefData(t);
   ExtZmpData extZmpData = calcExtZmpData(t);
   // Add hand forces effects
-  return extZmpData.scale * refZmp - extZmpData.offset;
+  return extZmpData.apply(refZmp);
 }
 
 CentroidalManagerPreviewControlExtZmp::ExtZmpData CentroidalManagerPreviewControlExtZmp::calcExtZmpData(double t) const
