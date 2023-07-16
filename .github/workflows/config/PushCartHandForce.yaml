@@ -14,10 +14,12 @@ states:
       preWalk: true
       preHandWrenches:
         Left:
-          force: [0.0, 0.0, -30.0]
+          # -25.0 * np.array([0.0, -1 * np.sin(np.deg2rad(15)), np.cos(np.deg2rad(15))])
+          force: [0.0, 6.4704761275630185, -24.148145657226706]
           couple: [0.0, 0.0, 0.0]
         Right:
-          force: [0.0, 0.0, -30.0]
+          # -25.0 * np.array([0.0, np.sin(np.deg2rad(15)), np.cos(np.deg2rad(15))])
+          force: [0.0, -6.4704761275630185, -24.148145657226706]
           couple: [0.0, 0.0, 0.0]
       postHandWrenches:
         Left:
