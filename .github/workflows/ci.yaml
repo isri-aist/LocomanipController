@@ -37,6 +37,16 @@ jobs:
             build-type: RelWithDebInfo
             mc-rtc-version: head
             motion-type: PushCartVelMode
+          - os: ubuntu-20.04
+            catkin-build: catkin
+            build-type: RelWithDebInfo
+            mc-rtc-version: head
+            motion-type: PushCartHandForce
+          - os: ubuntu-20.04
+            catkin-build: standalone
+            build-type: RelWithDebInfo
+            mc-rtc-version: head
+            motion-type: PushCartHandForce
     runs-on: ${{ matrix.os }}
     env:
       RESULTS_POSTFIX: ${{ matrix.motion-type }}-${{ matrix.catkin-build }}
@@ -141,17 +151,25 @@ jobs:
           roscore > /dev/null 2>&1 < /dev/null &
           ROSCORE_PID=$!
           sleep 1s
-          if [ "${{ matrix.catkin-build }}" == "catkin" ]
-          then
+          if [ "${{ matrix.catkin-build }}" == "catkin" ]; then
             roscd locomanip_controller/cnoid/project
           else
             cd /usr/share/hrpsys/samples/JVRC1
           fi
-          choreonoid LMC_JVRC1_Cart.cnoid --test-mode --start-simulation &
+          if [ "${{ matrix.motion-type }}" == "PushCartWaypoint" ]; then
+            CNOID_FILE=LMC_JVRC1_Cart.cnoid
+          elif [ "${{ matrix.motion-type }}" == "PushCartVelMode" ]; then
+            CNOID_FILE=LMC_JVRC1_Cart.cnoid
+          else # if [ "${{ matrix.motion-type }}" == "PushCartHandForce" ]; then
+            CNOID_FILE=LMC_JVRC1_CartHighFriction.cnoid
+          fi
+          choreonoid ${CNOID_FILE} --test-mode --start-simulation &
           CNOID_PID=$!
           if [ "${{ matrix.motion-type }}" == "PushCartWaypoint" ]; then
             SLEEP_DURATION="150s"
-          else
+          elif [ "${{ matrix.motion-type }}" == "PushCartVelMode" ]; then
+            SLEEP_DURATION="100s"
+          else # if [ "${{ matrix.motion-type }}" == "PushCartHandForce" ]; then
             SLEEP_DURATION="100s"
           fi
           sleep ${SLEEP_DURATION}
@@ -179,8 +197,10 @@ jobs:
           set -x
           if [ "${{ matrix.motion-type }}" == "PushCartWaypoint" ]; then
             EXPECTED_OBJ_POS="1.18 0.494 0.0"
-          else # if [ "${{ matrix.motion-type }}" == "PushCartVelMode" ]; then
+          elif [ "${{ matrix.motion-type }}" == "PushCartVelMode" ]; then
             EXPECTED_OBJ_POS="1.33 -0.073 0.0"
+          else # if [ "${{ matrix.motion-type }}" == "PushCartHandForce" ]; then
+            EXPECTED_OBJ_POS="2.0 0.0 0.0"
           fi
           LOG_FILENAME=LMC-log-${RESULTS_POSTFIX}
           python3 ${{ env.CI_DIR }}/scripts/checkSimulationResults.py /tmp/${LOG_FILENAME}.bin --expected-obj-pos ${EXPECTED_OBJ_POS}

@@ -213,9 +213,9 @@ ManipManager:
       rotation: [0.430459, -0.560986, -0.560986, -0.430459]
   preReachTranss:
     Left:
-      translation: [0, 0, -0.1] # [m]
+      translation: [0, 0, -0.15] # [m]
     Right:
-      translation: [0, 0, -0.1] # [m]
+      translation: [0, 0, -0.15] # [m]
   impedanceGain:
     mass:
       angular: [2.0, 2.0, 2.0]
@@ -243,6 +243,7 @@ ManipManager:
     translation: [-0.65, 0, 0] # [m]
   footstepDuration: 1.0 # [sec]
   doubleSupportRatio: 0.2 # [sec]
+  handForceArrowScale: 0.02
   VelMode:
     nonholonomicObjectMotion: true
 
@@ -265,8 +266,8 @@ CentroidalManager:
     regularWeight: 1e-8
     ridgeForceMinMax: [3, 1000] # [N]
 
-  # PreviewControlZmp
-  method: PreviewControlZmp
+  # PreviewControlExtZmp
+  method: PreviewControlExtZmp
   horizonDuration: 2.0 # [sec]
   horizonDt: 0.005 # [sec]
 

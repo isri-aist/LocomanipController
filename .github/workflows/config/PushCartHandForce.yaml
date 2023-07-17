@@ -1,0 +1,39 @@
+transitions:
+  - [LMC::Initial_, OK, LMC::ConfigManip_, Auto]
+
+states:
+  LMC::Initial_:
+    base: LMC::Initial
+    configs:
+      autoStartTime: 2.0
+
+  LMC::ConfigManip_:
+    base: LMC::ConfigManip
+    configs:
+      preUpdateObj: true
+      preWalk: true
+      preHandWrenches:
+        Left:
+          # -25.0 * np.array([0.0, -1 * np.sin(np.deg2rad(15)), np.cos(np.deg2rad(15))])
+          force: [0.0, 6.4704761275630185, -24.148145657226706]
+          couple: [0.0, 0.0, 0.0]
+        Right:
+          # -25.0 * np.array([0.0, np.sin(np.deg2rad(15)), np.cos(np.deg2rad(15))])
+          force: [0.0, -6.4704761275630185, -24.148145657226706]
+          couple: [0.0, 0.0, 0.0]
+      postHandWrenches:
+        Left:
+          force: [0.0, 0.0, 0.0]
+          couple: [0.0, 0.0, 0.0]
+        Right:
+          force: [0.0, 0.0, 0.0]
+          couple: [0.0, 0.0, 0.0]
+      waypointList:
+        - startTime: 2.0
+          duration: 10.0
+          relPose:
+            translation: [1.0, 0.0, 0.0]
+
+ManipManager:
+  objPoseTopic: /cnoid/object/pose
+  objVelTopic: /cnoid/object/vel

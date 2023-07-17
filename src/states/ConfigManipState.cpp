@@ -90,9 +90,14 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   }
   else if(phase_ == 6)
   {
-    if(config_.has("configs") && config_("configs").has("preObjPoseOffset"))
+    if(config_.has("configs") && config_("configs").has("preHandWrenches"))
     {
-      ctl().manipManager_->setObjPoseOffset(config_("configs")("preObjPoseOffset"), 1.0);
+      for(const auto & handWrenchConfigKV :
+          static_cast<std::map<std::string, sva::ForceVecd>>(config_("configs")("preHandWrenches")))
+      {
+        ctl().manipManager_->setRefHandWrench(strToHand(handWrenchConfigKV.first), handWrenchConfigKV.second,
+                                              ctl().t() + 1.0, 1.0);
+      }
       phase_ = 7;
     }
     else
@@ -102,12 +107,31 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   }
   else if(phase_ == 7)
   {
-    if(!ctl().manipManager_->interpolatingObjPoseOffset())
+    if(!ctl().manipManager_->interpolatingRefHandWrench())
     {
       phase_ = 8;
     }
   }
   else if(phase_ == 8)
+  {
+    if(config_.has("configs") && config_("configs").has("preObjPoseOffset"))
+    {
+      ctl().manipManager_->setObjPoseOffset(config_("configs")("preObjPoseOffset"), 1.0);
+      phase_ = 9;
+    }
+    else
+    {
+      phase_ = 10;
+    }
+  }
+  else if(phase_ == 9)
+  {
+    if(!ctl().manipManager_->interpolatingObjPoseOffset())
+    {
+      phase_ = 10;
+    }
+  }
+  else if(phase_ == 10)
   {
     if(config_.has("configs") && config_("configs").has("waypointList"))
     {
@@ -147,7 +171,7 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
         ctl().manipManager_->requireFootstepFollowingObj();
       }
 
-      phase_ = 9;
+      phase_ = 11;
     }
     else if(config_.has("configs") && config_("configs").has("velocityMode"))
     {
@@ -155,14 +179,14 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
       ctl().manipManager_->setRelativeVel(config_("configs")("velocityMode")("velocity"));
       velModeEndTime_ = ctl().t() + static_cast<double>(config_("configs")("velocityMode")("duration"));
 
-      phase_ = 9;
+      phase_ = 11;
     }
     else
     {
-      phase_ = 10;
+      phase_ = 12;
     }
   }
-  else if(phase_ == 9)
+  else if(phase_ == 11)
   {
     if(config_.has("configs") && config_("configs").has("velocityMode"))
     {
@@ -179,33 +203,14 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
     if(ctl().manipManager_->waypointQueue().empty() && ctl().footManager_->footstepQueue().empty()
        && !ctl().manipManager_->velModeEnabled())
     {
-      phase_ = 10;
-    }
-  }
-  else if(phase_ == 10)
-  {
-    if(config_.has("configs") && config_("configs").has("postObjPoseOffset"))
-    {
-      ctl().manipManager_->setObjPoseOffset(config_("configs")("postObjPoseOffset"), 1.0);
-      phase_ = 11;
-    }
-    else
-    {
-      phase_ = 12;
-    }
-  }
-  else if(phase_ == 11)
-  {
-    if(!ctl().manipManager_->interpolatingObjPoseOffset())
-    {
       phase_ = 12;
     }
   }
   else if(phase_ == 12)
   {
-    if(config_.has("configs") && config_("configs")("release", true))
+    if(config_.has("configs") && config_("configs").has("postObjPoseOffset"))
     {
-      ctl().manipManager_->releaseHandFromObj();
+      ctl().manipManager_->setObjPoseOffset(config_("configs")("postObjPoseOffset"), 1.0);
       phase_ = 13;
     }
     else
@@ -215,14 +220,57 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
   }
   else if(phase_ == 13)
   {
-    if(ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Free
-       && ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Free)
+    if(!ctl().manipManager_->interpolatingObjPoseOffset())
     {
       phase_ = 14;
     }
   }
+  else if(phase_ == 14)
+  {
+    if(config_.has("configs") && config_("configs").has("postHandWrenches"))
+    {
+      for(const auto & handWrenchConfigKV :
+          static_cast<std::map<std::string, sva::ForceVecd>>(config_("configs")("postHandWrenches")))
+      {
+        ctl().manipManager_->setRefHandWrench(strToHand(handWrenchConfigKV.first), handWrenchConfigKV.second,
+                                              ctl().t() + 1.0, 1.0);
+      }
+      phase_ = 15;
+    }
+    else
+    {
+      phase_ = 16;
+    }
+  }
+  else if(phase_ == 15)
+  {
+    if(!ctl().manipManager_->interpolatingRefHandWrench())
+    {
+      phase_ = 16;
+    }
+  }
+  else if(phase_ == 16)
+  {
+    if(config_.has("configs") && config_("configs")("release", true))
+    {
+      ctl().manipManager_->releaseHandFromObj();
+      phase_ = 17;
+    }
+    else
+    {
+      phase_ = 18;
+    }
+  }
+  else if(phase_ == 17)
+  {
+    if(ctl().manipManager_->manipPhase(Hand::Left)->label() == ManipPhaseLabel::Free
+       && ctl().manipManager_->manipPhase(Hand::Right)->label() == ManipPhaseLabel::Free)
+    {
+      phase_ = 18;
+    }
+  }
 
-  return phase_ == 14;
+  return phase_ == 18;
 }
 
 void ConfigManipState::teardown(mc_control::fsm::Controller &) {}
