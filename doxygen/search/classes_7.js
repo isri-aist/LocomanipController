@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['manipmanager_156',['ManipManager',['../classLMC_1_1ManipManager.html',1,'LMC']]]
+  ['locomanipcontroller_178',['LocomanipController',['../structLMC_1_1LocomanipController.html',1,'LMC']]]
 ];

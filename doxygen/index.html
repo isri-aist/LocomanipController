@@ -80,10 +80,15 @@ $(function() {
 <ul>
 <li>Completely open source! (controller framework: mc_rtc, simulator: Choreonoid, sample robot model: JVRC1)</li>
 <li>Accepts commands for trajectory and velocity of a loco-manipulation object.</li>
+<li>Considers object manipulation forces on the hands in the balance control during loco-manipulation.</li>
 <li>Automated management with CI: Dynamics simulation is run on CI to verify loco-manipulation.</li>
 </ul>
 <h1>Technical details</h1>
-<p>This controller is a simple extension of <a href="https://github.com/isri-aist/BaselineWalkingController">BaselineWalkingController</a> for loco-manipulation. For more information on walking control, see <a href="https://github.com/isri-aist/BaselineWalkingController">BaselineWalkingController</a>.</p>
+<p>This controller is a simple extension of <a href="https://github.com/isri-aist/BaselineWalkingController">BaselineWalkingController</a> for loco-manipulation. <br  />
+ For more information on walking control, see <a href="https://github.com/isri-aist/BaselineWalkingController">BaselineWalkingController</a>. <br  />
+ For more information on the balance control in loco-manipulation considering object manipulation forces, please see the following paper:</p><ul>
+<li>M Murooka, et al. Humanoid loco-Manipulations pattern generation and stabilization control. RA-Letters, 2021. <a href="https://hal.science/hal-03425667">(available here)</a></li>
+</ul>
 <h1>Install</h1>
 <h2>Requirements</h2>
 <ul>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hold_153',['Hold',['../classLMC_1_1ManipPhase_1_1Hold.html',1,'LMC::ManipPhase']]]
+  ['grasp_174',['Grasp',['../classLMC_1_1ManipPhase_1_1Grasp.html',1,'LMC::ManipPhase']]],
+  ['guimanipstate_175',['GuiManipState',['../structLMC_1_1GuiManipState.html',1,'LMC']]]
 ];
