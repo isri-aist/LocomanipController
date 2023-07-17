@@ -112,6 +112,9 @@ public:
     //! Duration ratio of double support phase
     double doubleSupportRatio = 0.35;
 
+    //! Scale of hand force arrow (zero for no visualization)
+    double handForceArrowScale = 0.02;
+
     /** \brief Load mc_rtc configuration.
         \param mcRtcConfig mc_rtc configuration
     */

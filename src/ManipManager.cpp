@@ -46,6 +46,8 @@ void ManipManager::Configuration::load(const mc_rtc::Configuration & mcRtcConfig
   mcRtcConfig("objToFootMidTrans", objToFootMidTrans);
   mcRtcConfig("footstepDuration", footstepDuration);
   mcRtcConfig("doubleSupportRatio", doubleSupportRatio);
+
+  mcRtcConfig("handForceArrowScale", handForceArrowScale);
 }
 
 void ManipManager::VelModeData::Configuration::load(const mc_rtc::Configuration & mcRtcConfig)
@@ -183,7 +185,10 @@ void ManipManager::addToGUI(mc_rtc::gui::StateBuilder & gui)
           [this](double v) { config_.footstepDuration = v; }),
       mc_rtc::gui::NumberInput(
           "doubleSupportRatio", [this]() { return config_.doubleSupportRatio; },
-          [this](double v) { config_.doubleSupportRatio = v; }));
+          [this](double v) { config_.doubleSupportRatio = v; }),
+      mc_rtc::gui::NumberInput(
+          "handForceArrowScale", [this]() { return config_.handForceArrowScale; },
+          [this](double v) { config_.handForceArrowScale = v; }));
 
   gui.addElement({ctl().name(), config_.name, "Config", "VelMode"},
                  mc_rtc::gui::Checkbox(
@@ -605,6 +610,36 @@ void ManipManager::updateHandTraj()
   for(const auto & hand : Hands::Both)
   {
     ctl().handTasks_.at(hand)->targetWrench(calcRefHandWrench(hand, ctl().t()));
+  }
+
+  // Visualize hand forces
+  for(const auto & hand : Hands::Both)
+  {
+    ctl().gui()->removeElement({ctl().name(), config_.name, "HandWrench"}, std::to_string(hand) + "HandForceArrow");
+  }
+  if(config_.handForceArrowScale > 0.0)
+  {
+    mc_rtc::gui::ArrowConfig arrowConfig;
+    arrowConfig.color = mc_rtc::gui::Color::Magenta;
+    arrowConfig.head_diam = 0.045;
+    arrowConfig.head_len = 0.05;
+    arrowConfig.shaft_diam = 0.03;
+    for(const auto & hand : Hands::Both)
+    {
+      Eigen::Vector3d force = calcRefHandWrench(hand, ctl().t()).force();
+      if(force.norm() > 0.0)
+      {
+        sva::PTransformd pose = ctl().handTasks_.at(hand)->targetPose();
+        ctl().gui()->addElement({ctl().name(), config_.name, "HandWrench"},
+                                mc_rtc::gui::Arrow(
+                                    std::to_string(hand) + "HandForceArrow", arrowConfig,
+                                    [this, pose]() -> Eigen::Vector3d { return pose.translation(); },
+                                    [this, pose, force]() -> Eigen::Vector3d {
+                                      return pose.translation()
+                                             + config_.handForceArrowScale * (pose.rotation().transpose() * force);
+                                    }));
+      }
+    }
   }
 }
 
