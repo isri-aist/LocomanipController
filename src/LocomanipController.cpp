@@ -94,7 +94,6 @@ void LocomanipController::stop()
 
   // Clean up managers
   manipManager_->stop();
-  manipManager_.reset();
 
   BaselineWalkingController::stop();
 }
