@@ -523,7 +523,10 @@ void ManipManager::updateObjTraj()
 
     for(const auto & waypoint : waypointQueue_)
     {
-      objPoseFunc_->appendPoint(std::make_pair(waypoint.startTime, currentObjPose));
+      if(objPoseFunc_->points().empty() || waypoint.startTime < objPoseFunc_->points().rbegin()->first)
+      {
+        objPoseFunc_->appendPoint(std::make_pair(waypoint.startTime, currentObjPose));
+      }
 
       currentObjPose = waypoint.pose;
       objPoseFunc_->appendPoint(std::make_pair(waypoint.endTime, currentObjPose));
