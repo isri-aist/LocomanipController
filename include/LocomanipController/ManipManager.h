@@ -35,9 +35,13 @@ struct Waypoint
       \param _startTime start time [sec]
       \param _endTime end time [sec]
       \param _pose object pose
+      \param _config additional configuration
   */
-  Waypoint(double _startTime, double _endTime, const sva::PTransformd & _pose)
-  : startTime(_startTime), endTime(_endTime), pose(_pose){};
+  Waypoint(double _startTime,
+           double _endTime,
+           const sva::PTransformd & _pose,
+           const mc_rtc::Configuration & _config = {})
+  : startTime(_startTime), endTime(_endTime), pose(_pose), config(_config){};
 
   //! Start time [sec]
   double startTime;
@@ -47,6 +51,9 @@ struct Waypoint
 
   //! Object pose
   sva::PTransformd pose;
+
+  //! Additional configuration
+  mc_rtc::Configuration config;
 };
 
 /** \brief Manipulation manager.

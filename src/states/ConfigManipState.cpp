@@ -161,7 +161,8 @@ bool ConfigManipState::run(mc_control::fsm::Controller &)
         {
           pose = static_cast<sva::PTransformd>(waypointConfig("relPose")) * pose;
         }
-        ctl().manipManager_->appendWaypoint(Waypoint(startTime, endTime, pose));
+        ctl().manipManager_->appendWaypoint(
+            Waypoint(startTime, endTime, pose, waypointConfig("config", mc_rtc::Configuration())));
 
         startTime = endTime;
       }

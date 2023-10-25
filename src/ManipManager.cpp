@@ -527,6 +527,9 @@ void ManipManager::updateObjTraj()
 
   // Update objPoseFunc_
   {
+    auto objPoseFuncBangBang =
+        std::dynamic_pointer_cast<TrajColl::BangBangInterpolator<sva::PTransformd, sva::MotionVecd>>(objPoseFunc_);
+
     sva::PTransformd currentObjPose = lastWaypointPose_;
 
     objPoseFunc_->clearPoints();
@@ -544,7 +547,15 @@ void ManipManager::updateObjTraj()
       }
 
       currentObjPose = waypoint.pose;
-      objPoseFunc_->appendPoint(std::make_pair(waypoint.endTime, currentObjPose));
+      if(objPoseFuncBangBang)
+      {
+        double accelDuration = waypoint.config("accelDuration", 0.0);
+        objPoseFuncBangBang->appendPoint(std::make_pair(waypoint.endTime, currentObjPose), accelDuration);
+      }
+      else
+      {
+        objPoseFunc_->appendPoint(std::make_pair(waypoint.endTime, currentObjPose));
+      }
 
       if(ctl().t() + config_.objHorizon <= waypoint.endTime && !requireFootstepFollowingObj_)
       {
