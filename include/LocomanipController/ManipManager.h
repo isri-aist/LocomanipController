@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 #include <mc_rtc/constants.h>
+#include <mc_rtc/gui/Label.h>
 #include <mc_rtc/gui/StateBuilder.h>
 #include <mc_rtc/log/Logger.h>
 #include <mc_tasks/ImpedanceGains.h>
@@ -62,6 +63,9 @@ public:
   {
     //! Name
     std::string name = "ManipManager";
+
+    //! Type of object pose interpolator ("BangBang" or "Cubic")
+    std::string objPoseInterpolator = "BangBang";
 
     //! Horizon of object trajectory [sec]
     double objHorizon = 2.0;
@@ -395,7 +399,7 @@ protected:
   sva::PTransformd lastWaypointPose_ = sva::PTransformd::Identity();
 
   //! Object pose function
-  std::shared_ptr<TrajColl::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseFunc_;
+  std::shared_ptr<TrajColl::Interpolator<sva::PTransformd, sva::MotionVecd>> objPoseFunc_;
 
   //! Object pose offset
   sva::PTransformd objPoseOffset_ = sva::PTransformd::Identity();
