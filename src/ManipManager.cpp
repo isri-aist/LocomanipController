@@ -4,6 +4,8 @@
 #include <mc_rtc/gui/NumberInput.h>
 #include <mc_tasks/ImpedanceTask.h>
 
+#include <TrajColl/BangBangInterpolator.h>
+
 #include <BaselineWalkingController/FootManager.h>
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
@@ -15,6 +17,7 @@ using namespace LMC;
 void ManipManager::Configuration::load(const mc_rtc::Configuration & mcRtcConfig)
 {
   mcRtcConfig("name", name);
+  mcRtcConfig("objPoseInterpolator", objPoseInterpolator);
   mcRtcConfig("objHorizon", objHorizon);
   mcRtcConfig("objPoseTopic", objPoseTopic);
   mcRtcConfig("objVelTopic", objVelTopic);
@@ -64,8 +67,7 @@ void ManipManager::VelModeData::reset(bool enabled, const sva::PTransformd & cur
   objDeltaTrans_.setZero();
 }
 
-ManipManager::ManipManager(LocomanipController * ctlPtr, const mc_rtc::Configuration & mcRtcConfig)
-: ctlPtr_(ctlPtr), objPoseFunc_(std::make_shared<TrajColl::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>())
+ManipManager::ManipManager(LocomanipController * ctlPtr, const mc_rtc::Configuration & mcRtcConfig) : ctlPtr_(ctlPtr)
 {
   config_.load(mcRtcConfig);
 
@@ -104,6 +106,18 @@ void ManipManager::reset()
   objPoseOffset_ = sva::PTransformd::Identity();
 
   sva::PTransformd objPoseWithoutOffset = objPoseOffset_.inv() * ctl().obj().posW();
+  if(config_.objPoseInterpolator == "Cubic")
+  {
+    objPoseFunc_ = std::make_shared<TrajColl::CubicInterpolator<sva::PTransformd, sva::MotionVecd>>();
+  }
+  else if(config_.objPoseInterpolator == "BangBang")
+  {
+    objPoseFunc_ = std::make_shared<TrajColl::BangBangInterpolator<sva::PTransformd, sva::MotionVecd>>();
+  }
+  else
+  {
+    mc_rtc::log::error_and_throw("[ManipManager] Unsupported objPoseInterpolator: {}", config_.objPoseInterpolator);
+  }
   objPoseFunc_->clearPoints();
   objPoseFunc_->appendPoint(std::make_pair(ctl().t(), objPoseWithoutOffset));
   objPoseFunc_->appendPoint(std::make_pair(ctl().t() + config_.objHorizon, objPoseWithoutOffset));
@@ -167,6 +181,7 @@ void ManipManager::addToGUI(mc_rtc::gui::StateBuilder & gui)
 
   gui.addElement(
       {ctl().name(), config_.name, "Config"},
+      mc_rtc::gui::Label("objPoseInterpolator", [this]() { return config_.objPoseInterpolator; }),
       mc_rtc::gui::NumberInput(
           "objHorizon", [this]() { return config_.objHorizon; }, [this](double v) { config_.objHorizon = v; }),
       mc_rtc::gui::NumberInput(
@@ -512,6 +527,9 @@ void ManipManager::updateObjTraj()
 
   // Update objPoseFunc_
   {
+    auto objPoseFuncBangBang =
+        std::dynamic_pointer_cast<TrajColl::BangBangInterpolator<sva::PTransformd, sva::MotionVecd>>(objPoseFunc_);
+
     sva::PTransformd currentObjPose = lastWaypointPose_;
 
     objPoseFunc_->clearPoints();
@@ -529,7 +547,15 @@ void ManipManager::updateObjTraj()
       }
 
       currentObjPose = waypoint.pose;
-      objPoseFunc_->appendPoint(std::make_pair(waypoint.endTime, currentObjPose));
+      if(objPoseFuncBangBang)
+      {
+        double accelDuration = waypoint.config("accelDuration", 0.0);
+        objPoseFuncBangBang->appendPoint(std::make_pair(waypoint.endTime, currentObjPose), accelDuration);
+      }
+      else
+      {
+        objPoseFunc_->appendPoint(std::make_pair(waypoint.endTime, currentObjPose));
+      }
 
       if(ctl().t() + config_.objHorizon <= waypoint.endTime && !requireFootstepFollowingObj_)
       {

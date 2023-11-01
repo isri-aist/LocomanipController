@@ -194,6 +194,7 @@ FootManager:
 
 ManipManager:
   name: ManipManager
+  objPoseInterpolator: BangBang
   objHorizon: 3.0 # [sec]
   objPoseTopic: /object/pose
   objVelTopic: /object/vel

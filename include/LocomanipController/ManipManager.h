@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 #include <mc_rtc/constants.h>
+#include <mc_rtc/gui/Label.h>
 #include <mc_rtc/gui/StateBuilder.h>
 #include <mc_rtc/log/Logger.h>
 #include <mc_tasks/ImpedanceGains.h>
@@ -34,9 +35,13 @@ struct Waypoint
       \param _startTime start time [sec]
       \param _endTime end time [sec]
       \param _pose object pose
+      \param _config additional configuration
   */
-  Waypoint(double _startTime, double _endTime, const sva::PTransformd & _pose)
-  : startTime(_startTime), endTime(_endTime), pose(_pose){};
+  Waypoint(double _startTime,
+           double _endTime,
+           const sva::PTransformd & _pose,
+           const mc_rtc::Configuration & _config = {})
+  : startTime(_startTime), endTime(_endTime), pose(_pose), config(_config){};
 
   //! Start time [sec]
   double startTime;
@@ -46,6 +51,9 @@ struct Waypoint
 
   //! Object pose
   sva::PTransformd pose;
+
+  //! Additional configuration
+  mc_rtc::Configuration config;
 };
 
 /** \brief Manipulation manager.
@@ -62,6 +70,9 @@ public:
   {
     //! Name
     std::string name = "ManipManager";
+
+    //! Type of object pose interpolator ("BangBang" or "Cubic")
+    std::string objPoseInterpolator = "BangBang";
 
     //! Horizon of object trajectory [sec]
     double objHorizon = 2.0;
@@ -395,7 +406,7 @@ protected:
   sva::PTransformd lastWaypointPose_ = sva::PTransformd::Identity();
 
   //! Object pose function
-  std::shared_ptr<TrajColl::CubicInterpolator<sva::PTransformd, sva::MotionVecd>> objPoseFunc_;
+  std::shared_ptr<TrajColl::Interpolator<sva::PTransformd, sva::MotionVecd>> objPoseFunc_;
 
   //! Object pose offset
   sva::PTransformd objPoseOffset_ = sva::PTransformd::Identity();
