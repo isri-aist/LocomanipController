@@ -1,6 +1,8 @@
 #include <mc_tasks/ImpedanceTask.h>
 #include <mc_tasks/MetaTaskLoader.h>
 
+#include <BaselineWalkingController/FootManager.h>
+
 #include <LocomanipController/LocomanipController.h>
 #include <LocomanipController/ManipManager.h>
 #include <LocomanipController/centroidal/CentroidalManagerPreviewControlExtZmp.h>
@@ -75,13 +77,17 @@ void LocomanipController::reset(const mc_control::ControllerResetData & resetDat
 
 bool LocomanipController::run()
 {
+  t_ += dt();
+
   if(enableManagerUpdate_)
   {
     // Update managers
+    footManager_->update();
     manipManager_->update();
+    centroidalManager_->update();
   }
 
-  return BaselineWalkingController::run();
+  return mc_control::fsm::Controller::run();
 }
 
 void LocomanipController::stop()
