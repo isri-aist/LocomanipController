@@ -1,5 +1,5 @@
 transitions:
-  - [LMC::Initial_, OK, LMC::ConfigManip_, Auto]
+  - [LMC::Initial_, OK, LMC::Main_, Auto]
 
 states:
   LMC::Initial_:
@@ -23,6 +23,10 @@ states:
         - duration: 10.0
           relPose:
             translation: [-1.0, 0.0, 0.0]
+
+  LMC::Main_:
+    base: Parallel
+    states: [LMC::GuiManip_, LMC::ConfigManip_]
 
 ManipManager:
   objPoseTopic: /cnoid/object/pose

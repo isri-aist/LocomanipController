@@ -241,6 +241,12 @@ public:
   */
   bool appendWaypoint(const Waypoint & newWaypoint);
 
+  /** \brief Clear waypoint queue.
+
+      The object is stopped at the timing when the ongoing foot swing ends.
+  */
+  void clearWaypointQueue();
+
   /** \brief Reach hand to object. */
   void reachHandToObj();
 

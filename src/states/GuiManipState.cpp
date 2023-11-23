@@ -18,7 +18,8 @@ void GuiManipState::start(mc_control::fsm::Controller & _ctl)
   // Setup GUI
   ctl().gui()->addElement({ctl().name(), "GuiManip"},
                           mc_rtc::gui::Button("Reach", [this]() { ctl().manipManager_->reachHandToObj(); }),
-                          mc_rtc::gui::Button("Release", [this]() { ctl().manipManager_->releaseHandFromObj(); }));
+                          mc_rtc::gui::Button("Release", [this]() { ctl().manipManager_->releaseHandFromObj(); }),
+                          mc_rtc::gui::Button("StopManip", [this]() { ctl().manipManager_->clearWaypointQueue(); }));
   ctl().gui()->addElement(
       {ctl().name(), "GuiManip", "WalkToObj"},
       mc_rtc::gui::Form(

@@ -338,6 +338,26 @@ bool ManipManager::appendWaypoint(const Waypoint & newWaypoint)
   return true;
 }
 
+void ManipManager::clearWaypointQueue()
+{
+  ctl().footManager_->clearFootstepQueue();
+  const auto & footstepQueue = ctl().footManager_->footstepQueue();
+  double stopTime;
+  if(footstepQueue.empty())
+  {
+    constexpr double stopDuration = 0.2; // [sec]
+    stopTime = ctl().t() + stopDuration;
+  }
+  else
+  {
+    stopTime = footstepQueue.back().transitEndTime;
+  }
+  waypointQueue_.clear();
+  // \todo Avoid discontinuous changes in object velocity
+  waypointQueue_.push_back(Waypoint(ctl().t(), stopTime, calcRefObjPose(stopTime)));
+  lastWaypointPose_ = calcRefObjPose(ctl().t());
+}
+
 void ManipManager::reachHandToObj()
 {
   for(const auto & hand : Hands::Both)
