@@ -138,6 +138,9 @@ $(function() {
 <li>Setup controller <div class="fragment"><div class="line">$ mkdir -p ~/.config/mc_rtc/controllers</div>
 <div class="line">$ cp ~/ros/ws_lmc/src/isri-aist/LocomanipController/etc/mc_rtc.yaml ~/.config/mc_rtc/mc_rtc.yaml</div>
 </div><!-- fragment --></li>
+<li>Setup motion configuration file (optional) <div class="fragment"><div class="line">$ roscd locomanip_controller</div>
+<div class="line">$ cp .github/workflows/config/PushCartWaypoint.yaml ~/.config/mc_rtc/controllers/LocomanipController.yaml</div>
+</div><!-- fragment --></li>
 </ol>
 <h2>Simulation execution</h2>
 <div class="fragment"><div class="line"># Terminal 1</div>
