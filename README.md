@@ -85,6 +85,12 @@ $ mkdir -p ~/.config/mc_rtc/controllers
 $ cp ~/ros/ws_lmc/src/isri-aist/LocomanipController/etc/mc_rtc.yaml ~/.config/mc_rtc/mc_rtc.yaml
 ```
 
+5. Setup motion configuration file (optional)
+```bash
+$ roscd locomanip_controller
+$ cp .github/workflows/config/PushCartWaypoint.yaml ~/.config/mc_rtc/controllers/LocomanipController.yaml
+```
+
 ### Simulation execution
 ```bash
 # Terminal 1
